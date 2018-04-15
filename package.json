@@ -1,8 +1,12 @@
 {
   "name": "Project",
   "version": "1.0.0",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
   "description": "Back",
-  "main": "index.js",
   "repository": "https://github.com/mdyu1000/Project.git",
   "author": "mdyu1000 <mdyu1000@gmail.com>",
   "license": "MIT",
