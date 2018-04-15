@@ -13,7 +13,10 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "scrollreveal": "^3.4.0",
-    "semantic-ui-css": "^2.3.1"
+    "semantic-ui-css": "^2.3.1",
+    "bootstrap": "^4.0.0",
+    "reactstrap": "^5.0.0-alpha.4",
+    "mdbreact": "^4.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
