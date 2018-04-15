@@ -1,0 +1,21 @@
+{
+  "name": "Project",
+  "version": "1.0.0",
+  "description": "Back",
+  "main": "index.js",
+  "repository": "https://github.com/mdyu1000/Project.git",
+  "author": "mdyu1000 <mdyu1000@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.6",
+    "morgan": "^1.9.0",
+    "serve-favicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.17.3"
+  }
+}
