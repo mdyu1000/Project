@@ -18,12 +18,11 @@ npm manifest:
     "name": "Project",
     "version": "1.0.0",
     "scripts": {
-      "client": "cd ../client && yarn start",
+      "client": "cd client && yarn start",
       "server": "nodemon server.js",
       "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },
     "description": "Back",
-    "main": "index.js",
     "repository": "https://github.com/mdyu1000/Project.git",
     "author": "mdyu1000 <mdyu1000@gmail.com>",
     "license": "MIT",
@@ -2241,7 +2240,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 1
+  Exit code: 3221225786
   Command: C:\WINDOWS\system32\cmd.exe
   Arguments: /d /s /c concurrently --kill-others-on-fail "yarn server" "yarn client"
   Directory: C:\Users\user.DESKTOP-22A0EPS\Documents\Project

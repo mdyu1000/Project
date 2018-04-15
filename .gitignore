@@ -1,3 +1,5 @@
 node_modules
 client/node_modules
 server/DB
+yarn-error.log
+yarn.lock

@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1",
-    "react-scripts": "1.1.4",
     "animate.css": "^3.6.1",
     "jquery": "^3.3.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "scrollreveal": "^3.4.0"
+    "scrollreveal": "^3.4.0",
+    "semantic-ui-css": "^2.3.1"
   },
   "scripts": {
     "start": "react-scripts start",

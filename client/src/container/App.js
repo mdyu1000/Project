@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import Navbar from '../component/Navbar';
+import SideNav from '../component/SideNav';
 
 class App extends Component {
   render() {
     return (
       <div>
-      	123
+      	<Navbar />
+      	<SideNav />
       </div>
     );
   }
