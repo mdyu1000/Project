@@ -23,10 +23,10 @@ export default class SideNav extends React.Component {
       <div id="Sidebar">
         <Nav vertical style={sideNavStyle}>
           <NavItem>
-            <NavLink href="#" style={itemStyle}><i class="fa fa-file-text-o" aria-hidden="true"></i> New</NavLink>
+            <NavLink href="#" style={itemStyle}><i className="fa fa-file-text-o" aria-hidden="true"></i> New</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#" style={itemStyle}><i class="fa fa-pencil" aria-hidden="true"></i> Layout</NavLink>
+            <NavLink href="#" style={itemStyle}><i className="fa fa-pencil" aria-hidden="true"></i> Layout</NavLink>
           </NavItem>
         </Nav>
       </div>

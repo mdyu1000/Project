@@ -1,17 +1,5 @@
 import React from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Container } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, DropdownToggle, Container } from 'reactstrap';
 
 export default class NavgationBar extends React.Component {
   render() {
@@ -22,7 +10,7 @@ export default class NavgationBar extends React.Component {
             <NavbarBrand href="/">Back</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink> <i class="fa fa-sign-out" aria-hidden="true"></i>SignOut</NavLink>
+                <NavLink> <i className="fa fa-sign-out" aria-hidden="true"></i>SignOut</NavLink>
               </NavItem>
             </Nav>
           </Container>
