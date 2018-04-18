@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 
 const sideNavStyle = {
-	position: "fixed",
+	position: "absolute",
   left: 0,
   height: "100%",
   width: "17rem",
