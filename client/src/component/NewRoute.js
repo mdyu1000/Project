@@ -6,6 +6,7 @@ import {
   Form, FormGroup, Input, FormText,  } from 'reactstrap';
 import Station from './Station';
 import { TwitterPicker  } from 'react-color';
+import ColorPicker from './ColorPicker';
 
 const Title = () => {
   return (
@@ -86,12 +87,7 @@ export default class NewRoute extends React.Component {
                 <Form>
                   <Row>
                     <InputText title="Name" name="route" />
-                    <Col sm={{ size: "5", offset: "1"}}>
-                      <FormGroup>
-                        <span>Color</span><br/>
-                        <TwitterPicker triangle="hide" className="mx-auto mt-2" onChange={this.handleColorChange}/>
-                      </FormGroup>
-                    </Col>
+                    <ColorPicker />
                     <InputText title="Departure" name="departure" MT="1"/>
                     <InputText title="Destination" name="destination" offset="1" MT="1"/>
                     <Station color={this.state.color}/>
