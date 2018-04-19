@@ -1,0 +1,18 @@
+/*用於 React Select中 被MDB覆蓋掉的 display*/
+/*#station {
+	display: block !important;
+}*/
+
+#station li::after {
+  content: '';
+  position: absolute;
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
+  left: 50%;
+  bottom: 2px;
+  border:solid;
+  border-color:inherit;
+  border-width: 5px;
+  background-color: white;
+}

@@ -4,19 +4,20 @@
   "private": true,
   "dependencies": {
     "animate.css": "^3.6.1",
+    "bootstrap": "^4.0.0",
     "jquery": "^3.3.1",
+    "mdbreact": "^4.2.0",
     "react": "^16.3.1",
+    "react-color": "^2.14.1",
     "react-dom": "^16.3.1",
     "react-redux": "^5.0.7",
     "react-scripts": "1.1.4",
+    "reactstrap": "^5.0.0-alpha.4",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "scrollreveal": "^3.4.0",
-    "semantic-ui-css": "^2.3.1",
-    "bootstrap": "^4.0.0",
-    "reactstrap": "^5.0.0-alpha.4",
-    "mdbreact": "^4.2.0"
+    "semantic-ui-css": "^2.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
