@@ -7,6 +7,7 @@ import {
 import Station from './Station';
 import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
+import Condition from './Condition';
 
 const Title = () => {
   return (
@@ -69,9 +70,9 @@ export default class NewRoute extends React.Component {
     this.handleColorChange = this.handleColorChange.bind(this);
   }
 
-  handleColorChange(color, event){
+  handleColorChange(NewColor){
     this.setState({
-      color: color.hex,
+      color: NewColor,
     })
   }
 
@@ -87,11 +88,13 @@ export default class NewRoute extends React.Component {
                 <Form>
                   <Row>
                     <InputText title="Name" name="route" />
-                    <ColorPicker />
+                    <ColorPicker onColorChange={this.handleColorChange}/>
                     <InputText title="Departure" name="departure" MT="1"/>
                     <InputText title="Destination" name="destination" offset="1" MT="1"/>
                     <Station color={this.state.color}/>
+                    <InputText title="Google Map" name="destination" offset="1" MT="1"/>
                   </Row>
+                  <Condition color={this.state.color}/>
                 </Form>
               </CardBody>
             </Card>

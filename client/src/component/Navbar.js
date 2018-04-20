@@ -7,7 +7,7 @@ export default class NavgationBar extends React.Component {
       <div id="Navbar">
         <Navbar color="faded" light className="navbar-dark bg-dark">
           <Container fluid >
-            <NavbarBrand href="/">Back</NavbarBrand>
+            <NavbarBrand href="/">Back End</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink> <i className="fa fa-sign-out" aria-hidden="true"></i>SignOut</NavLink>

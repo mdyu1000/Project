@@ -5,7 +5,7 @@ import '../CSS/station.css';
 const stationStyle = {
   listStyleType: "none",
   width: "100%",
-  height: "200px",
+  height: "250px",
   paddingLeft: "40%",
   marginTop: "0.65rem",
   border: "none",
