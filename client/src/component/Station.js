@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, FormGroup, } from 'reactstrap';
 import '../CSS/station.css';
+import '../CSS/scrollbar.css'
 
 const stationStyle = {
   listStyleType: "none",
@@ -39,7 +40,7 @@ export default class Station extends React.Component {
       <Col sm={{ size: "5"}} style={{marginTop: "1rem"}}>
         <FormGroup>
           <span>Station</span>
-          <ul id="station" style={stationStyle}>
+          <ul id="station" style={stationStyle} className="bordered-black scrollbar scrollbar-black thin">
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>忠孝復興</div></li>
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>南京復興</div></li>
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>中山國中</div></li>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Button, ButtonGroup, Card, CardHeader, CardBody, CardText, FormGroup } from 'reactstrap';
 import $ from 'jquery';
-import '../CSS/conditionGroup.css';
 
 const CardHeaderStyle = {
 	paddingTop: "6px",
@@ -129,7 +128,6 @@ export default class Condition extends React.Component {
 						<ConditionGroup onClick={this.handleConditionClick} color={this.props.color}/>
 	        </FormGroup>
 				</Col>
-
 				<Col sm={{size: "5", offset: "1"}} >
 			    <div className="animated fadeInX" style={{ marginTop: "40px"}}>
 			    	<Condition1 />
