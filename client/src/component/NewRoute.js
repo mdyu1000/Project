@@ -46,6 +46,7 @@ const rowMargin = 30;
 const containerStyle = {
   paddingLeft: paddingLeft + rowMargin + "px",
   paddingRight: "30px",
+  paddingTop: "56px",
 }
 
 const titleStyle = {

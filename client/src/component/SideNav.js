@@ -2,12 +2,13 @@ import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 
 const sideNavStyle = {
-	position: "absolute",
+	position: "fixed",
   left: 0,
   height: "100%",
   width: "17rem",
   backgroundColor: "#343a40",
   fontColor: "white",
+  paddingTop: "60px"
 }
 
 const itemStyle = {
