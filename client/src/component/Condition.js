@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Button, ButtonGroup, Card, CardHeader, CardBody, CardText, FormGroup } from 'reactstrap';
 import $ from 'jquery';
+import '../CSS/conditionGroup.css';
 
 const CardHeaderStyle = {
 	paddingTop: "6px",
@@ -8,8 +9,8 @@ const CardHeaderStyle = {
 }
 
 const inputNumberStyle = {
-	width: "50px",
-	paddingLeft: "10px",
+	textAlign: "center",
+	width: "65px",
 }
 
 const buttonStyle = (color) => {
@@ -48,7 +49,9 @@ const Condition1 = () => {
 	      		<option value="南京復興">南京復興</option>
 	      		<option value="南京復興">騎你按讚</option>
 	      	</select>
-	       站前 <input type="number" style={inputNumberStyle} max="6000" min="0"/> 公尺，進行廣播</span>
+       		站前 
+       		<input type="number" style={inputNumberStyle} max="6000" min="0" size="35"/> 公尺，進行廣播
+       	</span>
 	    </CardBody>
 	  </Card>
 	)
@@ -66,8 +69,10 @@ const Condition2 = () => {
 	      		<option value="南京復興">南京復興</option>
 	      		<option value="南京復興">騎你按讚</option>
 	      	</select>
-      	站後 <input type="number" style={inputNumberStyle} max="6000" min="0"/> 公尺 / 
-	      	<input type="number" style={inputNumberStyle} max="6000" min="0"/> 秒，進行廣播</span>
+      		站後 
+    			<input id="condition2_distance" type="number" style={inputNumberStyle} max="6000" min="0"/> 公尺 / 
+      		<input id="condition2_time" type="number" style={inputNumberStyle} max="6000" min="0"/> 秒，進行廣播
+      	</span>
 	    </CardBody>
 	  </Card>
 	)
@@ -78,7 +83,10 @@ const Condition3 = () => {
     <Card id="condition3" className="d-none">
 	    <CardHeader style={CardHeaderStyle}>Rule 3 Setting</CardHeader>
 	    <CardBody>
-	      <span className="card-text">和下一站距離 <input type="number" style={inputNumberStyle} max="6000" min="0"/> 公尺，進行廣播</span>
+	      <span className="card-text">和下一站距離 
+	      	<input id="condition3_distance" type="number" style={inputNumberStyle} max="6000" min="0"/> 
+	      	公尺，進行廣播
+	      </span>
 	    </CardBody>
 	  </Card>
 	)
@@ -89,7 +97,10 @@ const Condition4 = () => {
     <Card id="condition4" className="d-none">
 	    <CardHeader style={CardHeaderStyle}>Rule 4 Setting</CardHeader>
 	    <CardBody>
-	      <span className="card-text">每隔 <input type="number" style={inputNumberStyle} max="600" min="0"/> 秒時，進行廣播</span>
+	      <span className="card-text">每隔 
+	      	<input id="condition4_time" type="number" style={inputNumberStyle} max="600" min="0"/> 
+	      	秒時，進行廣播
+      	</span>
 	    </CardBody>
 	  </Card>	
 	)
