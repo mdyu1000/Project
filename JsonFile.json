@@ -1,0 +1,94 @@
+Route:[
+	{
+		"RID": 1,
+		"name": {
+			"ch": "公車",
+			"en": "bus"
+		},
+		"color": "#aaa",
+		"departure": {
+			"ch": "新莊",
+			"en": "XinZhuang"
+		},
+		"destination": {
+			"ch": "北科",
+			"en": "NTUT"
+		},
+		"stations": [1, 3, 5],
+		"rules": [1, 2]
+	}
+]
+
+
+Station: [
+	{
+		"SID": 1,
+		"name": {
+			"ch": "111",
+			"en": "111"
+		},
+		"location": {
+			"x": 11.1234,
+			"y": 22.4321
+		}
+	},
+	{
+		"SID": 3,
+		"name": {
+			"ch": "333",
+			"en": "333",
+			"jp": "333",
+			"kr": "333"
+		},
+		"location": {
+			"x": 33.1234,
+			"y": 44.4321
+		}
+	},
+	{
+		"SID": 5,
+		"name": {
+			"ch": "555",
+			"en": "555",
+			"jp": "555",
+			"kr": "555"
+		},
+		"location": {
+			"x": 55.1234,
+			"y": 66.4321
+		}
+	}
+]
+
+Rule: [
+	{
+		"RID": 1,
+		"condition": 1,
+		"SID": 3,
+		"distance": 20
+	},
+	{
+		"RID": 2,
+		"condition": 2,
+		"SID": 1,
+		"type": 0,
+		"distance": 100
+	},
+	{
+		"RID": 3,
+		"condition": 3,
+		"distance": 500
+	},
+	{
+		"RID": 4,
+		"condition": 4,
+		"interval": 20
+	},
+	{
+		"RID": 2,
+		"condition": 2,
+		"SID": 5,
+		"type": 1,
+		"interval": 100
+	}
+]

@@ -8,6 +8,7 @@ import Station from './Station';
 import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
 import Condition from './Condition';
+import InputText from './InputText';
 
 const Title = () => {
   return (
@@ -16,25 +17,6 @@ const Title = () => {
         <h2 style={titleStyle}>New Route</h2>
       </Col>
     </Row>
-  )
-}
-
-const InputText = (props) => {
-  var offset = 0, MT = 0;
-  if(props.offset){
-    offset = props.offset;
-  }
-  if(props.MT){
-    MT = props.MT + "rem";
-  }
-
-  return (
-    <Col sm={{ size: "5", offset: offset}} style={{ marginTop: MT }}>
-      <FormGroup>
-        <span>{props.title}</span>
-        <Input type="text" name={props.route} style={{ height: "1rem" }} />
-      </FormGroup>
-    </Col>
   )
 }
 

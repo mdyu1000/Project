@@ -1,17 +1,19 @@
 import React from 'react';
-import { Col, FormGroup, } from 'reactstrap';
+import { Col, FormGroup, Button} from 'reactstrap';
 import '../CSS/station.css';
 import '../CSS/scrollbar.css'
+import StationModal from './StationModal';
 
 const stationStyle = {
   listStyleType: "none",
   width: "100%",
-  height: "250px",
+  height: "300px",
   paddingLeft: "40%",
   marginTop: "0.65rem",
   border: "none",
   overflowY: "scroll",
   overflowX: "hidden",
+  position: "relative",
 }
 
 const timeLineStyle = (color) => {
@@ -39,7 +41,9 @@ export default class Station extends React.Component {
     return (
       <Col sm={{ size: "5"}} style={{marginTop: "1rem"}}>
         <FormGroup>
-          <span>Station</span>
+          <span>Station 
+            <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ fontSize: "1.1rem" }}></i>
+          </span> 
           <ul id="station" style={stationStyle} className="bordered-black scrollbar scrollbar-black thin">
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>忠孝復興</div></li>
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>南京復興</div></li>
@@ -49,7 +53,8 @@ export default class Station extends React.Component {
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>劍南路</div></li>
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>西湖</div></li>
           </ul>
-        </FormGroup>
+        </FormGroup> 
+        <StationModal />
       </Col>
     );
   }
