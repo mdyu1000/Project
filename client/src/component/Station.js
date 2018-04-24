@@ -1,60 +1,35 @@
 import React from 'react';
 import { Col, FormGroup, Button} from 'reactstrap';
 import '../CSS/station.css';
-import '../CSS/scrollbar.css'
+import '../CSS/scrollbar.css';
 import StationModal from './StationModal';
-
-const stationStyle = {
-  listStyleType: "none",
-  width: "100%",
-  height: "300px",
-  paddingLeft: "40%",
-  marginTop: "0.65rem",
-  border: "none",
-  overflowY: "scroll",
-  overflowX: "hidden",
-  position: "relative",
-}
-
-const timeLineStyle = (color) => {
-	return ({
-	  position: "relative",
-		width: "6px",
-		backgroundColor: color,
-    borderColor: color,
-		paddingTop: "3rem",	
-	})
-}
-
-const stationTextStyle = {
-  width: "400px",
-  marginLeft: "2rem",
-}
+import StationTimeLine from './StationTimeLine';
 
 export default class Station extends React.Component {
 	constructor(props){
 		super(props);
-		// console.log(props);
+		this.state = {
+      stations: ["忠孝復興", "南京復興", "中山國中", "松山機場", "大直", "劍南路", "西湖"],
+    }
+    this.handleSortStation = this.handleSortStation.bind(this);
 	}
+
+  handleSortStation(NewSort){
+    this.setState({
+      stations: NewSort
+    })
+  }
 
   render() {
     return (
       <Col sm={{ size: "5"}} style={{marginTop: "1rem"}}>
         <FormGroup>
           <span>Station 
-            <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ fontSize: "1.1rem" }}></i>
+            <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ fontSize: "1.1rem", cursor: "pointer" }}></i>
           </span> 
-          <ul id="station" style={stationStyle} className="bordered-black scrollbar scrollbar-black thin">
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>忠孝復興</div></li>
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>南京復興</div></li>
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>中山國中</div></li>
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>松山機場</div></li>
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>大直</div></li>
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>劍南路</div></li>
-            <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>西湖</div></li>
-          </ul>
+          <StationTimeLine color={this.props.color} stations={this.state.stations} />
         </FormGroup> 
-        <StationModal />
+        <StationModal stations={this.state.stations} onSortStation={this.handleSortStation} />
       </Col>
     );
   }

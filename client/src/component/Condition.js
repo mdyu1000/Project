@@ -3,6 +3,20 @@ import { Row, Col, Button, ButtonGroup, Card, CardHeader, CardBody, CardText, Ca
 import $ from 'jquery';
 import '../CSS/conditionGroup.css';
 
+const ruleGroupStyle = {
+	height: "220px",
+  overflowY: "scroll",
+  overflowX: "hidden",
+}
+
+const ruleStyle = {
+	borderRadius: "5px",
+  border: "1px solid rgba(0, 0, 0, 0.125)",
+  display: "flex",
+  justifyContent: "space-between",
+  padding: "0.75rem 1.25rem",
+}
+
 const CardBodyStyle = {
 	padding: "1.5rem 1.25rem"
 }
@@ -54,7 +68,7 @@ const CardFooters = () => {
 
 const Condition1 = () => {
 	return(
-    <Card id="condition1" className="collapse" data-parent="#ConditionGroup">
+    <Card id="condition1" className="collapse mx-1" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">抵達 
 	      	<select id="condition1_station" className="mx-1 browser-default d-inline">
@@ -74,7 +88,7 @@ const Condition1 = () => {
 
 const Condition2 = () => {
 	return (
-    <Card id="condition2" className="collapse" data-parent="#ConditionGroup">
+    <Card id="condition2" className="collapse mx-1" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">離開 
 	      	<select id="condition2_station" className="mx-1 browser-default d-inline">
@@ -100,7 +114,7 @@ const Condition2 = () => {
 
 const Condition3 = () => {
 	return (
-    <Card id="condition3" className="collapse" data-parent="#ConditionGroup">
+    <Card id="condition3" className="collapse mx-1" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">和下一站距離 
 	      	<input id="condition3_distance" type="number" style={inputNumberStyle} max="6000" min="0"/> 
@@ -114,7 +128,7 @@ const Condition3 = () => {
 
 const Condition4 = () => {
 	return (
-    <Card id="condition4" className="collapse" data-parent="#ConditionGroup">
+    <Card id="condition4" className="collapse mx-1" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">每隔 
 	      	<input id="condition4_interval" type="number" style={inputNumberStyle} max="600" min="0"/> 
@@ -144,6 +158,33 @@ export default class Condition extends React.Component {
 	        </FormGroup>
 				</Col>
 				<Col sm={{size: "5", offset: "1"}} >
+					<span>Rules</span><br/>
+					<ul class="mt-1 px-1" style={ruleGroupStyle} >
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>抵達 <b>大安</b> 站前 <b>100</b> 公尺，進行廣播 </span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>離開 <b>六張犁</b> 站後 <b>20</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				 	 	</li>
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>抵達 <b>動物園</b> 站前 <b>80</b> 公尺，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>和下一站距離 <b>120</b> 公尺，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>每隔 <b>17</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>			
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>每隔 <b>69</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>	
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>每隔 <b>17</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>	
+					  <li class="mt-2" style={ruleStyle}>
+					  	<span>每隔 <b>69</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+				  	</li>					  					  					  		  	
+					</ul>
 				</Col>
      	</Row>
 		)
