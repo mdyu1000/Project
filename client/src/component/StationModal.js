@@ -14,22 +14,41 @@ const ModalHeader = () => {
 	)
 }
 
-const ModalFooter = () => {
+const ModalFooter = (props) => {
 	return (
   	<div class="modal-footer">
       <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary btn-sm">Save</button>
+      <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onClick={props.onSave}>Save</button>
     </div>
 	)
 }
 
+const stationStyle = {
+  listStyleType: "none",
+  height: "300px",
+  border: "none",
+  overflowY: "scroll",
+  overflowX: "hidden",
+}
+
+const timeLineStyle = {
+	borderRadius: "5px",
+	border: "1px solid rgb(161, 102, 44)",
+  display: "flex",
+  justifyContent: "space-between",
+  padding: "0.75rem 1.25rem",
+}
+
 const SortableItem = SortableElement(({value}) =>
-  <li>{value}</li>
+  <li style={ timeLineStyle } className="mt-1">
+  	{value}
+  	<i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+	</li>
 );
 
 const SortableList = SortableContainer(({items}) => {
   return (
-    <ul>
+    <ul style={stationStyle} className="pl-0 pr-2">
       {items.map((value, index) => (
         <SortableItem key={`item-${index}`} index={index} value={value} />
       ))}
@@ -43,19 +62,20 @@ export default class StationModal extends React.Component {
 		this.state = {
 			items: this.props.stations,
 		}
-		// this.handleSortEnd = this.handleSortEnd.bind(this);
-    console.log(this.state.tempLists);
+		this.handleSave = this.handleSave.bind(this);
 	}
 
+	handleSave(){
+  	this.props.onSortStation(this.state.items);
+	};
+
   onSortEnd = ({oldIndex, newIndex}) => {
-  	this.props.onSortStation(arrayMove(this.state.items, oldIndex, newIndex));
     this.setState({
       items: arrayMove(this.state.items, oldIndex, newIndex),
     });
   };
 
 	render() {
-    console.log(this.state.items);
 		return (
       <div class="modal fade" id="exampleModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
@@ -64,14 +84,13 @@ export default class StationModal extends React.Component {
             <div class="modal-body">
             	<Row>
             		<Col sm="5">
-									<SortableList items={this.props.stations} onSortEnd={this.onSortEnd} />
+									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
             		</Col>
             		<Col sm="7">
-
             		</Col>
             	</Row>
             </div>
-            <ModalFooter />
+            <ModalFooter onSave={this.handleSave}/>
           </div>
         </div>
       </div>
