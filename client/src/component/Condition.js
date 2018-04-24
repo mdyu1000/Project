@@ -24,10 +24,16 @@ const buttonStyle = (color) => {
 const ConditionGroup = (props) => {
 	const arr = ["Condition 1", "Condition 2", "Condition 3", "Condition 4"];
 	const btnLists = arr.map((btnList, i) => 
-	  <Button key={i} outline id={"btn" + (i + 1)} className="ml-0" 
-	 		onClick={props.onClick} style={ buttonStyle(props.color) }> 
-	  	<span style={{ color: props.color}}>{"Rule " + (i + 1)}</span>
-	  </Button>
+		<div style={{ width: "100%"}}>
+		  <Button type="button" key={i} outline className="ml-0" style={buttonStyle(props.color)}
+		 		data-toggle="collapse" data-target={"#condition" + (i + 1)}>
+		  	<span style={{ color: props.color}}>
+		  		{"Rule " + (i + 1)}
+	  		</span>
+		  </Button>
+		  { ( i==0 && <Condition1 /> ) || ( i==1 && <Condition2 /> ) || 
+	  		( i==2 && <Condition3 /> ) || ( i==3 && <Condition4 /> ) }
+	 	</div>
 	)
 	return(
 		<ButtonGroup id="ConditionGroup" vertical className="mt-2 px-3" style={{width: "100%"}}>
@@ -48,11 +54,10 @@ const CardFooters = () => {
 
 const Condition1 = () => {
 	return(
-    <Card id="condition1" className="d-none">
-	    <CardHeader className="py-2">Rule 1 Setting</CardHeader>
+    <Card id="condition1" className="collapse" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">抵達 
-	      	<select id="condition1_station" className="mx-1">
+	      	<select id="condition1_station" className="mx-1 browser-default d-inline">
 	      		<option disabled selected value className="d-none"></option>
 	      		<option value="忠孝復興">忠孝復興</option>
 	      		<option value="南京復興">南京復興</option>
@@ -69,11 +74,10 @@ const Condition1 = () => {
 
 const Condition2 = () => {
 	return (
-    <Card id="condition2" className="d-none">
-	    <CardHeader className="py-2">Rule 2 Setting</CardHeader>
+    <Card id="condition2" className="collapse" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">離開 
-	      	<select id="condition2_station" className="mx-1">
+	      	<select id="condition2_station" className="mx-1 browser-default d-inline">
 	      		<option disabled selected value className="d-none"></option>
 	      		<option value="忠孝復興">忠孝復興</option>
 	      		<option value="南京復興">南京復興</option>
@@ -81,7 +85,7 @@ const Condition2 = () => {
 	      	</select>
       		站後 
     			<input id="condition2_value"  className="mx-1" type="number" style={inputNumberStyle} max="600" min="0"/> 
-	      	<select id="condition2_type" className="mx-1">
+	      	<select id="condition2_type" className="mx-1 browser-default d-inline">
 	      		<option disabled selected value className="d-none"></option>
 	      		<option value="公尺">公尺</option>
 	      		<option value="秒">秒</option>
@@ -96,8 +100,7 @@ const Condition2 = () => {
 
 const Condition3 = () => {
 	return (
-    <Card id="condition3" className="d-none">
-	    <CardHeader className="py-2">Rule 3 Setting</CardHeader>
+    <Card id="condition3" className="collapse" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">和下一站距離 
 	      	<input id="condition3_distance" type="number" style={inputNumberStyle} max="6000" min="0"/> 
@@ -111,8 +114,7 @@ const Condition3 = () => {
 
 const Condition4 = () => {
 	return (
-    <Card id="condition4" className="d-none">
-	    <CardHeader className="py-2">Rule 4 Setting</CardHeader>
+    <Card id="condition4" className="collapse" data-parent="#ConditionGroup">
 	    <CardBody style={CardBodyStyle}>
 	      <span className="card-text">每隔 
 	      	<input id="condition4_interval" type="number" style={inputNumberStyle} max="600" min="0"/> 
@@ -130,22 +132,6 @@ export default class Condition extends React.Component {
 		this.state = {
 			index: 0,
 		}
-		this.handleConditionClick = this.handleConditionClick.bind(this);
-	}
-
-	handleConditionClick(e){
-		this.setState({
-			index: e.target.id.split("btn")[1],
-		})
-	}
-
-	componentDidUpdate(prevProps, prevState){
-		if(prevState.index == this.state.index){
-			$("#condition" + this.state.index).toggleClass("d-block");
-		}else{
-			$("#condition" + prevState.index).removeClass("d-block");
-			$("#condition" + this.state.index).addClass("d-block");
-		}
 	}
 
 	render(){
@@ -153,17 +139,11 @@ export default class Condition extends React.Component {
 			<Row style={{marginTop: "1rem"}}>
 				<Col sm="5">
 	        <FormGroup>
-						<span>Condition <i class="fa fa-sticky-note-o ml-1" style={{ fontSize: "1.1rem" }}></i></span><br/>
-						<ConditionGroup onClick={this.handleConditionClick} color={this.props.color}/>
+						<span>Condition</span><br/>
+						<ConditionGroup color={this.props.color}/>
 	        </FormGroup>
 				</Col>
 				<Col sm={{size: "5", offset: "1"}} >
-			    <div className="mt-4">
-			    	<Condition1 />
-			    	<Condition2 />
-			    	<Condition3 />
-			    	<Condition4 />
-			    </div>
 				</Col>
      	</Row>
 		)

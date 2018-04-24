@@ -49,6 +49,10 @@ export default class NewRoute extends React.Component {
     super(props)
     this.state = {
       color: "#a1662c",
+      nameLists: [ { type: "en", value: "NTUT"}, { type: "ch", value: "北科大" } ],
+      departureLists: [ { type: "en", value: "Zhongxiao Fuxing " }],
+      destinationLists: [ { type: "ch", value: "動物園"}],
+      emptyLists: [],
     }
     this.handleColorChange = this.handleColorChange.bind(this);
   }
@@ -70,12 +74,12 @@ export default class NewRoute extends React.Component {
               <CardBody>
                 <Form>
                   <Row>
-                    <InputText title="Name" name="route" />
+                    <InputText title="Name" name="route" lists={this.state.nameLists} />
                     <ColorPicker onColorChange={this.handleColorChange}/>
-                    <InputText title="Departure" name="departure" MT="1"/>
-                    <InputText title="Destination" name="destination" offset="1" MT="1"/>
+                    <InputText title="Departure" name="departure" MT="1" lists={this.state.departureLists} />
+                    <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.state.destinationLists} />
                     <Station color={this.state.color}/>
-                    <InputText title="Google Map" name="destination" offset="1" MT="1"/>
+                    <InputText title="Google Map" name="destination" offset="1" MT="1" lists={this.state.emptyLists}/>
                   </Row>
                   <Condition color={this.state.color}/>
                 </Form>
