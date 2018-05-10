@@ -31,16 +31,18 @@ const stationStyle = {
   overflowX: "hidden",
 }
 
-const timeLineStyle = {
+const stationItemStyle = {
 	borderRadius: "5px",
 	border: "1px solid rgb(161, 102, 44)",
   display: "flex",
   justifyContent: "space-between",
   padding: "0.75rem 1.25rem",
+  backgroundColor: "rgba(255,255,255,0.2)",
+  zIndex: "10000",
 }
 
 const SortableItem = SortableElement(({value}) =>
-  <li style={ timeLineStyle } className="mt-1">
+  <li style={ stationItemStyle } className="mt-1">
   	{value}
   	<i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
 	</li>

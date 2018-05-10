@@ -25,7 +25,7 @@ export default class Station extends React.Component {
       <Col sm={{ size: "5"}} style={{marginTop: "1rem"}}>
         <FormGroup>
           <span>Station 
-            <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ fontSize: "1.1rem", cursor: "pointer" }}></i>
+            <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
           </span> 
           <StationTimeLine color={this.props.color} stations={this.state.stations} />
         </FormGroup> 

@@ -4,9 +4,7 @@ import { Col, FormGroup, Input } from 'reactstrap';
 const Bages = (props) => {
 	return(
 		<div>
-			{
-				props.lists
-			}
+			{ props.lists }
 		</div>
 	)
 }
@@ -40,7 +38,7 @@ export default class InputText extends React.Component {
 		      	</div>
 		      	<Input type="text" name={this.props.name} style={{ height: "1rem" }} />
 	      		<div class="input-group-append">
-							<i class="fa fa-edit my-auto" style={{ cursor: "pointer"}}></i>
+							<i class="fa fa-plus my-auto" style={{ cursor: "pointer"}}></i>
 		      	</div>
 		      </div>
 		      {
