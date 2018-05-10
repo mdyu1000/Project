@@ -22,7 +22,7 @@ export default class Station extends React.Component {
 
   render() {
     return (
-      <Col sm={{ size: "5"}} style={{marginTop: "1rem"}}>
+      <div>
         <FormGroup>
           <span>Station 
             <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
@@ -30,7 +30,7 @@ export default class Station extends React.Component {
           <StationTimeLine color={this.props.color} stations={this.state.stations} />
         </FormGroup> 
         <StationModal stations={this.state.stations} onSortStation={this.handleSortStation} />
-      </Col>
+      </div>
     );
   }
 }

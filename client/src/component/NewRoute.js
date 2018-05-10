@@ -10,6 +10,7 @@ import ColorPicker from './ColorPicker';
 import Condition from './Condition';
 import InputText from './InputText';
 
+
 const Title = () => {
   return (
     <Row>
@@ -74,12 +75,22 @@ export default class NewRoute extends React.Component {
               <CardBody>
                 <Form>
                   <Row>
-                    <InputText title="Name" name="route" lists={this.state.nameLists} />
+                    <div className="col-5">
+                      <InputText title="Name" name="route" lists={this.state.nameLists} />
+                    </div>
                     <ColorPicker onColorChange={this.handleColorChange}/>
-                    <InputText title="Departure" name="departure" MT="1" lists={this.state.departureLists} />
-                    <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.state.destinationLists} />
-                    <Station color={this.state.color}/>
-                    <InputText title="Google Map" name="destination" offset="1" MT="1" lists={this.state.emptyLists}/>
+                    <div className="col-5">
+                      <InputText title="Departure" name="departure" MT="1" lists={this.state.departureLists} />
+                    </div>
+                    <div className="col-5 offset-1">
+                      <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.state.destinationLists} />
+                    </div>
+                    <div className="col-5">
+                      <Station color={this.state.color}/>
+                    </div>
+                    <div className="col-5 offset-1">                    
+                      <InputText title="Google Map" name="destination" offset="1" MT="1" lists={this.state.emptyLists}/>
+                    </div>
                   </Row>
                   <Condition color={this.state.color}/>
                 </Form>

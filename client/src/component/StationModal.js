@@ -1,7 +1,8 @@
 import React from 'react';
-import { Col, Row, } from 'reactstrap';
+import { Col, Row, Input } from 'reactstrap';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import StationTimeLine from './StationTimeLine';
+import InputText from './InputText';
 
 const ModalHeader = () => {
 	return (
@@ -17,7 +18,7 @@ const ModalHeader = () => {
 const ModalFooter = (props) => {
 	return (
   	<div class="modal-footer">
-      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-success btn-sm mr-3" data-dismiss="modal">Add</button>
       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onClick={props.onSave}>Save</button>
     </div>
 	)
@@ -63,6 +64,7 @@ export default class StationModal extends React.Component {
 		super(props);
 		this.state = {
 			items: this.props.stations,
+      stationNameList: [],
 		}
 		this.handleSave = this.handleSave.bind(this);
 	}
@@ -89,6 +91,9 @@ export default class StationModal extends React.Component {
 									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
             		</Col>
             		<Col sm="7">
+                  <form>
+                    <InputText title="Station Name" name="stationName" lists={this.state.stationNameList}/>
+                  </form>
             		</Col>
             	</Row>
             </div>
