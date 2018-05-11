@@ -9,7 +9,7 @@ import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
 import Condition from './Condition';
 import InputText from './InputText';
-
+import GoogleMap from './GoogleMap';
 
 const Title = () => {
   return (
@@ -53,7 +53,7 @@ export default class NewRoute extends React.Component {
       nameLists: [ { type: "en", value: "NTUT"}, { type: "ch", value: "北科大" } ],
       departureLists: [ { type: "en", value: "Zhongxiao Fuxing " }],
       destinationLists: [ { type: "ch", value: "動物園"}],
-      emptyLists: [],
+      
     }
     this.handleColorChange = this.handleColorChange.bind(this);
   }
@@ -79,17 +79,17 @@ export default class NewRoute extends React.Component {
                       <InputText title="Name" name="route" lists={this.state.nameLists} />
                     </div>
                     <ColorPicker onColorChange={this.handleColorChange}/>
-                    <div className="col-5">
+                    <div className="col-5 mt-3">
                       <InputText title="Departure" name="departure" MT="1" lists={this.state.departureLists} />
                     </div>
-                    <div className="col-5 offset-1">
+                    <div className="col-5 offset-1 mt-3">
                       <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.state.destinationLists} />
                     </div>
-                    <div className="col-5">
+                    <div className="col-5 mt-4">
                       <Station color={this.state.color}/>
                     </div>
-                    <div className="col-5 offset-1">                    
-                      <InputText title="Google Map" name="destination" offset="1" MT="1" lists={this.state.emptyLists}/>
+                    <div className="col-5 offset-1 mt-4">                    
+                      <GoogleMap />
                     </div>
                   </Row>
                   <Condition color={this.state.color}/>

@@ -64,7 +64,7 @@ export default class StationModal extends React.Component {
 		super(props);
 		this.state = {
 			items: this.props.stations,
-      stationNameList: [],
+      stationNameList: [ { type: "ch", value: "忠孝復興" } ],
 		}
 		this.handleSave = this.handleSave.bind(this);
 	}
@@ -92,7 +92,13 @@ export default class StationModal extends React.Component {
             		</Col>
             		<Col sm="7">
                   <form>
-                    <InputText title="Station Name" name="stationName" lists={this.state.stationNameList}/>
+                    <div className="form-group">
+                      <InputText title="Station Name" name="stationName" lists={this.state.stationNameList}/>
+                    </div>
+                    <div className="form-group">
+                      <span>Google Map</span>
+                      
+                    </div>
                   </form>
             		</Col>
             	</Row>
