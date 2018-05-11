@@ -9,7 +9,7 @@ import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
 import Condition from './Condition';
 import InputText from './InputText';
-import GoogleMap from './GoogleMap';
+import GMap from './GoogleMap';
 import { stations } from './Constants';
 
 const Title = () => {
@@ -66,7 +66,6 @@ export default class NewRoute extends React.Component {
   }
 
   render() {
-    console.log(stations);
     return (
       <Container fluid style={ containerStyle }>
         <Title />
@@ -91,7 +90,7 @@ export default class NewRoute extends React.Component {
                       <Station color={this.state.color}/>
                     </div>
                     <div className="col-5 offset-1 mt-4">                    
-                      <GoogleMap stations={stations} />
+                      <GMap stations={stations} />
                     </div>
                   </Row>
                   <Condition color={this.state.color}/>

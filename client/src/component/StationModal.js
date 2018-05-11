@@ -4,6 +4,15 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 import StationTimeLine from './StationTimeLine';
 import InputText from './InputText';
 
+const AnyReactComponent = ({ text }) => (
+  <div style={{
+    position: 'relative', color: 'white', background: 'red',
+    height: 40, width: 60, top: -20, left: -30,    
+  }}>
+    {text}
+  </div>
+);
+
 const ModalHeader = () => {
 	return (
     <div class="modal-header">
@@ -26,7 +35,6 @@ const ModalFooter = (props) => {
 
 const stationStyle = {
   listStyleType: "none",
-  height: "300px",
   border: "none",
   overflowY: "scroll",
   overflowX: "hidden",
@@ -97,7 +105,7 @@ export default class StationModal extends React.Component {
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>
-                      
+
                     </div>
                   </form>
             		</Col>
@@ -109,4 +117,9 @@ export default class StationModal extends React.Component {
       </div>
 		)
 	}
+}
+
+StationModal.defaultProps = {
+  center: {lat: 59.95, lng: 30.33},
+  zoom: 11
 }

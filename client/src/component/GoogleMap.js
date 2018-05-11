@@ -1,13 +1,17 @@
 import React from 'react';
-import GoogleMapReact from 'google-map-react';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 
-const GoogleMapKey="AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY"
-
-const AnyReactComponent = ({ text }) => (
-  <i class="fa fa-map-marker fa-2x red-text"></i>
+const MapWithAMarker = withGoogleMap(props =>
+  <GoogleMap defaultZoom={13} defaultCenter={{ lat: props.lat, lng: props.lng }} >
+    {
+      props.stations.map(station => 
+        <Marker position={{ lat: station.lat, lng: station.lng }} />   
+      )
+    }
+  </GoogleMap>
 );
 
-export default class GoogleMap extends React.Component {
+export default class GMap extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -23,16 +27,13 @@ export default class GoogleMap extends React.Component {
     return (
       <div className="form-group">
         <span>Google Map</span>
-        <div style={{ height: "300px", width: "100%"}} className="mt-2">
-          <GoogleMapReact bootstrapURLKeys={{ key: GoogleMapKey}}
-            defaultCenter={this.state.center} defaultZoom={this.state.zoom}>
-            {
-              this.props.stations.map(station =>
-                <AnyReactComponent lat={station.lat} lng={station.lng} />
-              )
-            }       
-          </GoogleMapReact>
-        </div>
+        <MapWithAMarker
+          stations={this.props.stations}
+          lat={this.state.center.lat}
+          lng={this.state.center.lng}
+          containerElement={<div className="mt-2" style={{ height: "300px" }} />}
+          mapElement={<div style={{ height: `100%` }} />} 
+        />
       </div>
     );
   }
