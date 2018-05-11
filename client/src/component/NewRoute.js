@@ -10,6 +10,7 @@ import ColorPicker from './ColorPicker';
 import Condition from './Condition';
 import InputText from './InputText';
 import GoogleMap from './GoogleMap';
+import { stations } from './Constants';
 
 const Title = () => {
   return (
@@ -53,7 +54,7 @@ export default class NewRoute extends React.Component {
       nameLists: [ { type: "en", value: "NTUT"}, { type: "ch", value: "北科大" } ],
       departureLists: [ { type: "en", value: "Zhongxiao Fuxing " }],
       destinationLists: [ { type: "ch", value: "動物園"}],
-      
+
     }
     this.handleColorChange = this.handleColorChange.bind(this);
   }
@@ -65,6 +66,7 @@ export default class NewRoute extends React.Component {
   }
 
   render() {
+    console.log(stations);
     return (
       <Container fluid style={ containerStyle }>
         <Title />
@@ -89,7 +91,7 @@ export default class NewRoute extends React.Component {
                       <Station color={this.state.color}/>
                     </div>
                     <div className="col-5 offset-1 mt-4">                    
-                      <GoogleMap />
+                      <GoogleMap stations={stations} />
                     </div>
                   </Row>
                   <Condition color={this.state.color}/>
