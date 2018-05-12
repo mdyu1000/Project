@@ -3,6 +3,7 @@ import { Col, Row, Input } from 'reactstrap';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import StationTimeLine from './StationTimeLine';
 import InputText from './InputText';
+import GMapSearch from "./GoogleMapSearch";
 
 const AnyReactComponent = ({ text }) => (
   <div style={{
@@ -73,13 +74,27 @@ export default class StationModal extends React.Component {
 		this.state = {
 			items: this.props.stations,
       stationNameList: [ { type: "ch", value: "忠孝復興" } ],
+      newLocation: {
+        lat: 0,
+        lng: 0
+      }
 		}
 		this.handleSave = this.handleSave.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
 	}
 
 	handleSave(){
   	this.props.onSortStation(this.state.items);
 	};
+
+  handleSearch(newLat, newLng){
+    this.setState({
+      newLocation: {
+        lat: newLat,
+        lng: newLng
+      }
+    })
+  }
 
   onSortEnd = ({oldIndex, newIndex}) => {
     this.setState({
@@ -105,7 +120,7 @@ export default class StationModal extends React.Component {
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>
-
+                      <GMapSearch onSearch={this.handleSearch}/>
                     </div>
                   </form>
             		</Col>
@@ -117,9 +132,4 @@ export default class StationModal extends React.Component {
       </div>
 		)
 	}
-}
-
-StationModal.defaultProps = {
-  center: {lat: 59.95, lng: 30.33},
-  zoom: 11
 }
