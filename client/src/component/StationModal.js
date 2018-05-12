@@ -28,8 +28,12 @@ const ModalHeader = () => {
 const ModalFooter = (props) => {
 	return (
   	<div class="modal-footer">
-      <button type="button" class="btn btn-success btn-sm mr-3" data-dismiss="modal">Add</button>
-      <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onClick={props.onSave}>Save</button>
+      <button type="button" class="btn btn-success btn-sm mr-3" onClick={props.onAdd}>
+        Add
+      </button>
+      <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onClick={props.onSave}>
+        Save
+      </button>
     </div>
 	)
 }
@@ -62,7 +66,7 @@ const SortableList = SortableContainer(({items}) => {
   return (
     <ul style={stationStyle} className="pl-0 pr-2">
       {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value} />
+        <SortableItem key={`item-${index}`} index={index} value={value.name} />
       ))}
     </ul>
   );
@@ -74,6 +78,7 @@ export default class StationModal extends React.Component {
 		this.state = {
 			items: this.props.stations,
       stationNameList: [ { type: "ch", value: "忠孝復興" } ],
+      newName: "",
       newLocation: {
         lat: 0,
         lng: 0
@@ -81,19 +86,29 @@ export default class StationModal extends React.Component {
 		}
 		this.handleSave = this.handleSave.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
 	}
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.stations != this.state.items){
+      this.setState({
+        items: [...this.state.items, nextProps.stations[nextProps.stations.length - 1]]
+      })
+    }
+  }
 
 	handleSave(){
   	this.props.onSortStation(this.state.items);
 	};
 
-  handleSearch(newLat, newLng){
+  handleSearch(location){
     this.setState({
-      newLocation: {
-        lat: newLat,
-        lng: newLng
-      }
+      newLocation: location,
     })
+  }
+
+  handleAdd(){
+    this.props.onAdd({ name: "test", center: this.state.newLocation });
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -122,11 +137,18 @@ export default class StationModal extends React.Component {
                       <span>Google Map</span>
                       <GMapSearch onSearch={this.handleSearch}/>
                     </div>
+                    { 
+                      this.state.newLocation.lat != 0 && this.state.newLocation.lng != 0 &&
+                      <div className="form-group">
+                        <span class="badge badge-success">lat : {this.state.newLocation.lat}</span>
+                        <span class="badge badge-success ml-3">lng : {this.state.newLocation.lng}</span>
+                      </div>
+                    }
                   </form>
             		</Col>
             	</Row>
             </div>
-            <ModalFooter onSave={this.handleSave}/>
+            <ModalFooter onSave={this.handleSave} onAdd={this.handleAdd}/>
           </div>
         </div>
       </div>

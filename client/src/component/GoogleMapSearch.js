@@ -22,6 +22,10 @@ const MapWithASearchBox = compose(
           lng: 121.551962
         },
         markers: [],
+
+        onClickMarker: (e) => {
+          this.props.onSearch({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+        },
         onMapMounted: ref => {
           refs.map = ref;
         },
@@ -37,6 +41,7 @@ const MapWithASearchBox = compose(
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
           const bounds = new google.maps.LatLngBounds();
+
           places.forEach(place => {
             if (place.geometry.viewport) {
               bounds.union(place.geometry.viewport)
@@ -48,7 +53,7 @@ const MapWithASearchBox = compose(
             position: place.geometry.location,
           }));
           const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
-                    
+          
           this.setState({
             center: nextCenter,
             markers: nextMarkers,
@@ -75,12 +80,12 @@ const MapWithASearchBox = compose(
     >
       <input
         type="text"
-        placeholder="Enter a place"
+        placeholder="Search..."
         style={inputStyle}
       />
     </SearchBox>
     {props.markers.map((marker, index) =>
-      <Marker key={index} position={marker.position} />
+      <Marker key={index} position={marker.position} onClick={props.onClickMarker}/>
     )}
   </GoogleMap>
 );
@@ -108,7 +113,7 @@ export default class GMapSearch extends React.Component {
   render() {
     return(
       <div>
-        <MapWithASearchBox />
+        <MapWithASearchBox onSearch={this.props.onSearch}/>
       </div>
     )
   }

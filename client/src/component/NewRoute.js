@@ -54,9 +54,25 @@ export default class NewRoute extends React.Component {
       nameLists: [ { type: "en", value: "NTUT"}, { type: "ch", value: "北科大" } ],
       departureLists: [ { type: "en", value: "Zhongxiao Fuxing " }],
       destinationLists: [ { type: "ch", value: "動物園"}],
-
+      stations: stations
     }
     this.handleColorChange = this.handleColorChange.bind(this);
+    this.handleAddStation = this.handleAddStation.bind(this);
+    this.handleSortStation = this.handleSortStation.bind(this);
+
+  }
+
+  handleSortStation(NewSort){
+    this.setState({
+      stations: NewSort
+    })
+  }
+
+  handleAddStation(NewStation){
+    console.log(NewStation)
+    this.setState({
+      stations: [...this.state.stations, NewStation],
+    })
   }
 
   handleColorChange(NewColor){
@@ -87,10 +103,11 @@ export default class NewRoute extends React.Component {
                       <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.state.destinationLists} />
                     </div>
                     <div className="col-5 mt-4">
-                      <Station color={this.state.color}/>
+                      <Station color={this.state.color} onAdd={this.handleAddStation} stations={this.state.stations}
+                        onSortStation={this.handleSortStation}/>
                     </div>
                     <div className="col-5 offset-1 mt-4">                    
-                      <GMap stations={stations} />
+                      <GMap stations={this.state.stations}/>
                     </div>
                   </Row>
                   <Condition color={this.state.color}/>

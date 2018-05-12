@@ -8,17 +8,7 @@ import StationTimeLine from './StationTimeLine';
 export default class Station extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {
-      stations: ["忠孝復興", "南京復興", "中山國中", "松山機場", "大直", "劍南路", "西湖"],
-    }
-    this.handleSortStation = this.handleSortStation.bind(this);
 	}
-
-  handleSortStation(NewSort){
-    this.setState({
-      stations: NewSort
-    })
-  }
 
   render() {
     return (
@@ -27,9 +17,10 @@ export default class Station extends React.Component {
           <span>Station 
             <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
           </span> 
-          <StationTimeLine color={this.props.color} stations={this.state.stations} />
+          <StationTimeLine color={this.props.color} stations={this.props.stations} />
         </FormGroup> 
-        <StationModal stations={this.state.stations} onSortStation={this.handleSortStation} />
+        <StationModal stations={this.props.stations} onSortStation={this.props.onSortStation} 
+          onAdd={this.props.onAdd}/>
       </div>
     );
   }

@@ -5,7 +5,7 @@ const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap defaultZoom={13} defaultCenter={{ lat: props.lat, lng: props.lng }} >
     {
       props.stations.map(station => 
-        <Marker position={{ lat: station.lat, lng: station.lng }} />   
+        <Marker position={{ lat: station.center.lat, lng: station.center.lng }} />   
       )
     }
   </GoogleMap>
@@ -16,8 +16,8 @@ export default class GMap extends React.Component {
     super(props);
     this.state = {
       center: {
-        lat: this.props.stations[this.props.stations.length / 2].lat,
-        lng: this.props.stations[this.props.stations.length / 2].lng
+        lat: this.props.stations[Math.floor(this.props.stations.length / 2)].center.lat,
+        lng: this.props.stations[Math.floor(this.props.stations.length / 2)].center.lng
       },
       zoom: 13
     }
