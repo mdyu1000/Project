@@ -50,8 +50,9 @@ export default class ColorModal extends React.Component {
                 <div className="col-12">
                   <CirclePicker colors={this.props.colors} width="100%"/>
                 </div>
+                <div className="col-12 mt-3" style={{borderBottom: "1px solid rgb(238, 238, 238)"}}></div>
               </div>
-              <div className="row mt-5">
+              <div className="row mt-4">
                 <div className="col-12">
                   <SliderPicker onChangeComplete = { this.testClick }/>
                 </div>
