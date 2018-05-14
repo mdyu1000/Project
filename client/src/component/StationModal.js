@@ -79,10 +79,10 @@ export default class StationModal extends React.Component {
 			items: this.props.stations,
       stationNameList: [ { type: "ch", value: "忠孝復興" } ],
       newName: "",
-      newLocation: {
+      newLatLng: {
         lat: 0,
         lng: 0
-      }
+      },
 		}
 		this.handleSave = this.handleSave.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -101,14 +101,14 @@ export default class StationModal extends React.Component {
   	this.props.onSortStation(this.state.items);
 	};
 
-  handleSearch(location){
+  handleSearch(latLng){
     this.setState({
-      newLocation: location,
+      newLatLng: latLng,
     })
   }
 
   handleAdd(){
-    this.props.onAdd({ name: "test", center: this.state.newLocation });
+    this.props.onAdd({ name: "test", center: { lat: this.state.newLatLng.lat, lng: this.state.newLatLng.lng }});
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -135,13 +135,13 @@ export default class StationModal extends React.Component {
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>
-                      <GMapSearch onSearch={this.handleSearch}/>
+                      <GMapSearch onSearch={this.handleSearch} />
                     </div>
                     { 
-                      this.state.newLocation.lat != 0 && this.state.newLocation.lng != 0 &&
+                      this.state.newLatLng.lat != 0 && this.state.newLatLng.lng != 0 &&
                       <div className="form-group">
-                        <span class="badge badge-success">lat : {this.state.newLocation.lat}</span>
-                        <span class="badge badge-success ml-3">lng : {this.state.newLocation.lng}</span>
+                        <span class="badge badge-success">lat : {this.state.newLatLng.lat}</span>
+                        <span class="badge badge-success ml-3">lng : {this.state.newLatLng.lng}</span>
                       </div>
                     }
                   </form>

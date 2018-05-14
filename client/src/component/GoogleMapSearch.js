@@ -7,7 +7,6 @@ import { compose, withState, withProps, lifecycle, withHandlers } from 'recompos
 
 const MapWithASearchBox = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div className="mt-2" style={{ height: `250px` }} />,
     mapElement: <div style={{ height: `100%` }} />,
@@ -23,8 +22,8 @@ const MapWithASearchBox = compose(
         },
         markers: [],
 
-        onClickMarker: (e) => {
-          this.props.onSearch({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+        onClickMarker: (markerPosition) => {
+          this.props.onSearch({ lat: markerPosition.lat(), lng: markerPosition.lng() });
         },
         onMapMounted: ref => {
           refs.map = ref;
@@ -63,7 +62,6 @@ const MapWithASearchBox = compose(
       })
     },
   }),
-  withScriptjs,
   withGoogleMap
 )(props =>
   <GoogleMap
@@ -85,7 +83,7 @@ const MapWithASearchBox = compose(
       />
     </SearchBox>
     {props.markers.map((marker, index) =>
-      <Marker key={index} position={marker.position} onClick={props.onClickMarker}/>
+      <Marker key={index} position={marker.position} onClick={()=>props.onClickMarker(marker.position)}/>
     )}
   </GoogleMap>
 );
@@ -109,6 +107,7 @@ export default class GMapSearch extends React.Component {
   constructor(props){
     super(props);
   }
+
 
   render() {
     return(

@@ -69,7 +69,6 @@ export default class NewRoute extends React.Component {
   }
 
   handleAddStation(NewStation){
-    console.log(NewStation)
     this.setState({
       stations: [...this.state.stations, NewStation],
     })
