@@ -14,6 +14,7 @@ export const ModalItemStyle = {
   padding: "0.75rem 1.25rem",
   backgroundColor: "rgba(255,255,255,0.2)",
   zIndex: "10000",
+  cursor: "move",
 }
 
 export const colors = {
