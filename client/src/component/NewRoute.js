@@ -10,7 +10,7 @@ import ColorPicker from './ColorPicker';
 import Condition from './Condition';
 import InputText from './InputText';
 import GMap from './GoogleMap';
-import { stations } from './Constants';
+import { stations, colors } from './Global';
 
 const Title = () => {
   return (
@@ -80,6 +80,7 @@ export default class NewRoute extends React.Component {
     })
   }
 
+
   render() {
     return (
       <Container fluid style={ containerStyle }>
@@ -94,7 +95,9 @@ export default class NewRoute extends React.Component {
                     <div className="col-5">
                       <InputText title="Name" name="route" lists={this.state.nameLists} />
                     </div>
-                    <ColorPicker onColorChange={this.handleColorChange}/>
+                    <div className="col-5 offset-1">
+                      <ColorPicker onColorChange={this.handleColorChange} />
+                    </div>
                     <div className="col-5 mt-3">
                       <InputText title="Departure" name="departure" MT="1" lists={this.state.departureLists} />
                     </div>

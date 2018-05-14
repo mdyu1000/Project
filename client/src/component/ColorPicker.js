@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, FormGroup } from 'reactstrap';
 import { TwitterPicker  } from 'react-color';
+import ColorModal from './ColorModal';
 
 export default class ColorPicker extends React.Component {
 	constructor(props){
@@ -17,16 +18,17 @@ export default class ColorPicker extends React.Component {
 
 	render() {
 		return(
-      <Col sm={{ size: "5", offset: "1"}}>
+      <div>
         <FormGroup>
           <span>
             Color
-            <i type="button" data-toggle="modal" data-target="#exampleModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
+            <i type="button" data-toggle="modal" data-target="#colorModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
           </span><br/>
           <TwitterPicker triangle="hide" className="mx-auto mt-2" 
           	onChange={this.handleColorChange} colors={this.state.colors}/>
         </FormGroup>
-      </Col>
+        <ColorModal colors={this.state.colors}/>
+      </div>
 		)
 	}
 }

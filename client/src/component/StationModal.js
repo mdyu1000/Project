@@ -1,9 +1,10 @@
 import React from 'react';
-import { Col, Row, Input } from 'reactstrap';
+import { Col, Input } from 'reactstrap';
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc';
 import StationTimeLine from './StationTimeLine';
 import InputText from './InputText';
 import GMapSearch from "./GoogleMapSearch";
+import { ModalItemStyle, ModalListStyle } from './Global';
 
 const AnyReactComponent = ({ text }) => (
   <div style={{
@@ -38,25 +39,8 @@ const ModalFooter = (props) => {
 	)
 }
 
-const stationStyle = {
-  listStyleType: "none",
-  border: "none",
-  overflowY: "scroll",
-  overflowX: "hidden",
-}
-
-const stationItemStyle = {
-	borderRadius: "5px",
-	border: "1px solid rgb(161, 102, 44)",
-  display: "flex",
-  justifyContent: "space-between",
-  padding: "0.75rem 1.25rem",
-  backgroundColor: "rgba(255,255,255,0.2)",
-  zIndex: "10000",
-}
-
 const SortableItem = SortableElement(({value}) =>
-  <li style={ stationItemStyle } className="mt-1">
+  <li style={ModalItemStyle}  className="mt-1">
   	{value}
   	<i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
 	</li>
@@ -64,7 +48,7 @@ const SortableItem = SortableElement(({value}) =>
 
 const SortableList = SortableContainer(({items}) => {
   return (
-    <ul style={stationStyle} className="pl-0 pr-2">
+    <ul style={ ModalListStyle } className="pl-0 pr-2">
       {items.map((value, index) => (
         <SortableItem key={`item-${index}`} index={index} value={value.name} />
       ))}
@@ -119,12 +103,12 @@ export default class StationModal extends React.Component {
 
 	render() {
 		return (
-      <div class="modal fade" id="exampleModal" tabindex="-1">
+      <div class="modal fade" id="stationModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
           	<ModalHeader />
             <div class="modal-body">
-            	<Row>
+            	<div class="row">
             		<Col sm="5">
 									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
             		</Col>
@@ -146,7 +130,7 @@ export default class StationModal extends React.Component {
                     }
                   </form>
             		</Col>
-            	</Row>
+            	</div>
             </div>
             <ModalFooter onSave={this.handleSave} onAdd={this.handleAdd}/>
           </div>
