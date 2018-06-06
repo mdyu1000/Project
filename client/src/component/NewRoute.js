@@ -59,7 +59,6 @@ export default class NewRoute extends React.Component {
     this.handleColorChange = this.handleColorChange.bind(this);
     this.handleAddStation = this.handleAddStation.bind(this);
     this.handleSortStation = this.handleSortStation.bind(this);
-
   }
 
   handleSortStation(NewSort){

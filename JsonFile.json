@@ -5,7 +5,7 @@ Route:[
 			"ch": "公車",
 			"en": "bus"
 		},
-		"color": "#aaa",
+		"color": [ "#aaa", "#bbb", "#ccc"],
 		"departure": {
 			"ch": "新莊",
 			"en": "XinZhuang"
@@ -28,34 +28,30 @@ Station: [
 			"en": "111"
 		},
 		"location": {
-			"x": 11.1234,
-			"y": 22.4321
+			"lat": 11.1234,
+			"lns": 22.4321
 		}
 	},
 	{
 		"SID": 3,
 		"name": {
 			"ch": "333",
-			"en": "333",
-			"jp": "333",
-			"kr": "333"
+			"en": "333"
 		},
 		"location": {
-			"x": 33.1234,
-			"y": 44.4321
+			"lat": 33.1234,
+			"lns": 44.4321
 		}
 	},
 	{
 		"SID": 5,
 		"name": {
 			"ch": "555",
-			"en": "555",
-			"jp": "555",
-			"kr": "555"
+			"en": "555"
 		},
 		"location": {
-			"x": 55.1234,
-			"y": 66.4321
+			"lat": 55.1234,
+			"lns": 66.4321
 		}
 	}
 ]
@@ -67,12 +63,12 @@ Rule: [
 		"SID": 3,
 		"distance": 20
 	},
-	{
+	{          //Rule 2 距離
 		"RID": 2,
 		"condition": 2,
 		"SID": 1,
 		"type": 0,
-		"distance": 100
+		"value": 100
 	},
 	{
 		"RID": 3,
@@ -84,11 +80,11 @@ Rule: [
 		"condition": 4,
 		"interval": 20
 	},
-	{
+	{          //Rule 2 時間
 		"RID": 2,
 		"condition": 2,
 		"SID": 5,
 		"type": 1,
-		"interval": 100
+		"value": 100
 	}
 ]
