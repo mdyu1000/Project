@@ -50,7 +50,7 @@ export function AddStation(name, location){
 
 export function AddConditionOne(SID, distance){
   return {
-    type: ADD_CONDITION_ONE
+    type: ADD_CONDITION_ONE,
     SID,
     distance
   }
@@ -58,7 +58,7 @@ export function AddConditionOne(SID, distance){
 
 export function AddConditionTwo(SID, value, type){
   return {
-    type: ADD_CONDITION_TWO
+    type: ADD_CONDITION_TWO,
     SID,
     type,
     value
@@ -74,7 +74,7 @@ export function AddConditionThree(distance){
 
 export function AddConditionFour(interval){
   return {
-    type: ADD_CONDITION_FOUR
+    type: ADD_CONDITION_FOUR,
     interval
   }
 }

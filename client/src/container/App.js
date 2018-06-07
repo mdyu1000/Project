@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import NavgationBar from '../component/Navbar';
 import SideNav from '../component/SideNav';
-import NewRoute from '../component/NewRoute';
+import NewRouteContainer from '../container/NewRouteContainer';
+
+
 
 class App extends Component {
   render() {
@@ -9,7 +11,7 @@ class App extends Component {
       <div>
       	<NavgationBar />
       	<SideNav />
-        <NewRoute />
+        <NewRouteContainer />
       </div>
     );
   }

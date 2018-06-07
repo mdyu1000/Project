@@ -51,9 +51,6 @@ export default class NewRoute extends React.Component {
     super(props)
     this.state = {
       color: "#a1662c",
-      nameLists: [ { type: "en", value: "NTUT"}, { type: "ch", value: "北科大" } ],
-      departureLists: [ { type: "en", value: "Zhongxiao Fuxing " }],
-      destinationLists: [ { type: "ch", value: "動物園"}],
       stations: stations
     }
     this.handleColorChange = this.handleColorChange.bind(this);
@@ -92,16 +89,18 @@ export default class NewRoute extends React.Component {
                 <Form>
                   <Row>
                     <div className="col-5">
-                      <InputText title="Name" name="route" lists={this.state.nameLists} />
+                      <InputText title="Name" name="route" lists={this.props.nameLists} onAdd={this.props.onAddName} />
                     </div>
                     <div className="col-5 offset-1">
                       <ColorPicker onColorChange={this.handleColorChange} />
                     </div>
                     <div className="col-5 mt-3">
-                      <InputText title="Departure" name="departure" MT="1" lists={this.state.departureLists} />
+                      <InputText title="Departure" name="departure" MT="1" 
+                        lists={this.props.departureLists} onAdd={this.props.onAddDeparture} />
                     </div>
                     <div className="col-5 offset-1 mt-3">
-                      <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.state.destinationLists} />
+                      <InputText title="Destination" name="destination" offset="1" MT="1" 
+                        lists={this.props.destinationLists} onAdd={this.props.onAddDestination}/>
                     </div>
                     <div className="col-5 mt-4">
                       <Station color={this.state.color} onAdd={this.handleAddStation} stations={this.state.stations}

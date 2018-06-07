@@ -40,12 +40,13 @@ export default class InputText extends React.Component {
 						<i class="fa fa-plus my-auto" style={{ cursor: "pointer"}}></i>
 	      	</div>
 	      </div>
-	      {
-	      	this.props.lists.map(list=>(
-	      		<span class="badge badge-primary mt-2 ml-2">{list.value}</span>
-      		))
-	      }
+
 	    </FormGroup>
 		)
 	}
 }
+  // {
+  //   this.props.lists.map(list=>(
+  //     <span class="badge badge-primary mt-2 ml-2">{list.name}</span>
+  //   ))
+  // }
