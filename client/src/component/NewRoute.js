@@ -92,7 +92,7 @@ export default class NewRoute extends React.Component {
                       <InputText title="Name" name="route" lists={this.props.nameLists} onAdd={this.props.onAddName} />
                     </div>
                     <div className="col-5 offset-1">
-                      <ColorPicker onColorChange={this.handleColorChange} />
+                      <ColorPicker colors={this.props.colors} onColorChange={this.handleColorChange} onAddColor={this.props.onAddColor}/>
                     </div>
                     <div className="col-5 mt-3">
                       <InputText title="Departure" name="departure" MT="1" 

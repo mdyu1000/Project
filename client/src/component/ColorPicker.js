@@ -6,9 +6,6 @@ import ColorModal from './ColorModal';
 export default class ColorPicker extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {
-			colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
-		}
     this.handleColorChange = this.handleColorChange.bind(this);
 	}
 
@@ -25,9 +22,9 @@ export default class ColorPicker extends React.Component {
             <i type="button" data-toggle="modal" data-target="#colorModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
           </span><br/>
           <TwitterPicker triangle="hide" className="mx-auto mt-2" 
-          	onChange={this.handleColorChange} colors={this.state.colors}/>
+          	onChange={this.handleColorChange} colors={this.props.colors}/>
         </FormGroup>
-        <ColorModal colors={this.state.colors}/>
+        <ColorModal colors={this.props.colors} onAddColor={this.props.onAddColor} />
       </div>
 		)
 	}

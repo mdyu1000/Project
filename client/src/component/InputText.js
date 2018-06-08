@@ -7,7 +7,6 @@ const NameBadge = (props) => {
       <span className="badge badge-primary mt-2 ml-2">{value.toString()}</span>
     )
   })
-
   return(
     <div>{badge}</div>
   )
@@ -16,8 +15,15 @@ const NameBadge = (props) => {
 export default class InputText extends React.Component {
 	constructor(props){
 		super(props);
-    console.log(this.props.lists)
+    this.handleClickAdd = this.handleClickAdd.bind(this)
 	}
+
+  handleClickAdd(){
+    var e = document.getElementById(this.props.name + "Language")
+    var language = e.options[e.selectedIndex].value
+    var name = document.getElementById(this.props.name + "Name").value
+    this.props.onAdd(language, name)
+  }
 
 	render(){
 	  let offset = 0, MT = 0;
@@ -33,15 +39,15 @@ export default class InputText extends React.Component {
 	      <span>{this.props.title}</span>
 	      <div className="input-group mt-2">
 	      	<div className="input-group-prepend">
-	      		<select className="browser-default">
+	      		<select id={this.props.name + "Language"} className="browser-default">
       				<option disabled selected value className="d-none"></option>
 	      			<option value="ch">ch</option>
 	      			<option value="en">en</option>
 	      		</select>
 	      	</div>
-	      	<Input type="text" name={this.props.name} style={{ height: "1rem" }} />
+	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} style={{ height: "1rem" }} />
       		<div className="input-group-append">
-						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}}></i>
+						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}} onClick={this.handleClickAdd}></i>
 	      	</div>
 	      </div>
         <NameBadge lists={this.props.lists} />
@@ -49,8 +55,3 @@ export default class InputText extends React.Component {
 		)
 	}
 }
-        // {
-        //   this.props.lists.map(list=>(
-        //     <span class="badge badge-primary mt-2 ml-2">{list.name}</span>
-        //   ))
-        // }

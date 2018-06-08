@@ -1,5 +1,5 @@
 import React from 'react';
-import { CirclePicker, SliderPicker  } from 'react-color';
+import { CirclePicker, ChromePicker, SliderPicker } from 'react-color';
 
 const ModalHeader = () => {
   return (
@@ -15,29 +15,42 @@ const ModalHeader = () => {
 const ModalFooter = (props) => {
   return (
     <div class="modal-footer">
-      <button type="button" class="btn btn-danger btn-sm mr-3">
-        Delete
-      </button>
-      <button type="button" class="btn btn-success btn-sm mr-3">
-        Add
-      </button>
-      <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">
-        Save
-      </button>
+      <button type="button" class="btn btn-danger btn-sm mr-3" onClick={props.onDel}> Delete </button>
+      <button type="button" class="btn btn-success btn-sm mr-3" onClick={props.onAdd}> Add </button>
     </div>
   )
 }
 
+// var color_hex = ""
 
 export default class ColorModal extends React.Component {
   constructor(props){
     super(props);
-    this.testClick = this.testClick.bind(this);
+    this.handleDelColor = this.handleDelColor.bind(this);
+    this.handleAddColor = this.handleAddColor.bind(this);
+    this.handlePickColor = this.handlePickColor.bind(this);
+    this.state = {
+      color_hex: "#000"
+    }
   }
 
-  testClick(color, event){
-    console.log(color.rgb);
+  handleDelColor(){
+
   }
+
+  handleAddColor(){
+    this.props.onAddColor(this.state.color_hex)
+  }
+
+  handlePickColor(e){
+    alert("123")
+  }
+
+  handleChangeComplete = (color, event) => {
+    this.setState({
+      color_hex: color.hex
+    })
+  };
 
   render(){
     return (
@@ -48,17 +61,18 @@ export default class ColorModal extends React.Component {
             <div className="modal-body">
               <div className="row">
                 <div className="col-12">
-                  <CirclePicker colors={this.props.colors} width="100%"/>
+                  <CirclePicker colors={this.props.colors} width="100%" onClick={this.handlePickColor} />
                 </div>
                 <div className="col-12 mt-3" style={{borderBottom: "1px solid rgb(238, 238, 238)"}}></div>
               </div>
               <div className="row mt-4">
                 <div className="col-12">
-                  <SliderPicker onChangeComplete = { this.testClick }/>
+                  <SliderPicker onChangeComplete={ this.handleChangeComplete } color={this.state.color_hex} />
                 </div>
               </div>
             </div>
-            <ModalFooter />
+            <ModalFooter onAdd={ this.handleAddColor } 
+              onDel={this.handleDelColor} />
           </div>
         </div>
       </div>

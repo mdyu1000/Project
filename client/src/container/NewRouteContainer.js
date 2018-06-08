@@ -27,9 +27,11 @@ class NewRouteContainer extends React.Component {
           onAddName = {this.props.onAddName}
           onAddDeparture = {this.props.onAddDeparture}
           onAddDestination = {this.props.onAddDestination}
+          onAddColor = {this.props.onAddColor}
           nameLists = {this.props.nameLists}
           departureLists = {this.props.departureLists}
           destinationLists = {this.props.destinationLists}
+          colors = {this.props.colors}
         />
       </div>
     )
@@ -73,6 +75,7 @@ const mapStateToProps = (state) => {
     nameLists: state.nameLists,
     departureLists: state.departureLists,
     destinationLists: state.destinationLists,
+    colors: state.colors
   }
 }
 

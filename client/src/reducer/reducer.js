@@ -14,32 +14,53 @@ const initialState = {
   nameLists: { en: "NTUT", ch: "北科大" },
   departureLists: { en: "Zhongxiao Fuxing" },
   destinationLists: { ch: "動物園" },
+  colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
+
 }
 
-function NewRoute(state = [], action){
+function NewDepartureName(state, action){
   switch(action.type){
-    case ADD_NAME:
-      state["name"][action.language] = action.routeName 
+    case ADD_DEPARTURE:
+      state[action.language] = action.departure
       return {
-        ...state,
-        // action.language: action.routeName
+        ...state
       }
+    default:
+      return state
+  }
+}
+
+function NewDestinationName(state, action){
+  switch(action.type){
+    case ADD_DESTINATION:
+      state[action.language] = action.destination
+      return {
+        ...state
+      }
+    default:
+      return state
+  }
+}
+
+function NewColor(state, action){
+  switch(action.type){
     case ADD_COLOR:
       return [
         ...state,
         action.color
-      ] 
-    case ADD_DEPARTURE:
-      state["departure"][action.language] = action.departure
+      ]     
+    default:
+      return state
+  }
+}
+
+function NewRoute(state, action){
+  switch(action.type){
+    case ADD_NAME:
+      state[action.language] = action.routeName 
       return {
         ...state,
-        // action.language: action.departure
-      }
-    case ADD_DESTINATION:
-      state["destination"][action.language] = action.destination
-      return {
-        ...state,
-        // action.language: action.destination
+        // action.language: action.routeName
       }
     case ADD_STATION:
       return {
@@ -83,8 +104,9 @@ function NewRoute(state = [], action){
 export default function BusPlayApp(state = initialState, action){
   return {
     nameLists: NewRoute(state.nameLists, action),
-    departureLists: NewRoute(state.departureLists, action),
-    destinationLists: NewRoute(state.destinationLists, action)
+    departureLists: NewDepartureName(state.departureLists, action),
+    destinationLists: NewDestinationName(state.destinationLists, action),
+    colors: NewColor(state.colors, action)
   }
 }
 
