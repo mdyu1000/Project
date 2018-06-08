@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import NavgationBar from '../component/Navbar';
 import SideNav from '../component/SideNav';
-import NewRouteContainer from '../container/NewRouteContainer';
-
-
+import NewRouteContainer from './NewRouteContainer';
 
 class App extends Component {
   render() {

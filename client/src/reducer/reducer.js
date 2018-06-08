@@ -75,6 +75,8 @@ function NewRoute(state = [], action){
         interval: action.interval
         
       }
+    default:
+      return state
   }
 }
 

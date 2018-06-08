@@ -1,18 +1,15 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
 
-const Bages = (props) => {
-	return(
-		<div>
-			{ props.lists }
-		</div>
-	)
+const nameBadge = (props) =>{
+
 }
 
 export default class InputText extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {}
+    console.log("123123123")
+    console.log(props)
 	}
 
 	render(){
@@ -40,13 +37,12 @@ export default class InputText extends React.Component {
 						<i class="fa fa-plus my-auto" style={{ cursor: "pointer"}}></i>
 	      	</div>
 	      </div>
-
 	    </FormGroup>
 		)
 	}
 }
-  // {
-  //   this.props.lists.map(list=>(
-  //     <span class="badge badge-primary mt-2 ml-2">{list.name}</span>
-  //   ))
-  // }
+        // {
+        //   this.props.lists.map(list=>(
+        //     <span class="badge badge-primary mt-2 ml-2">{list.name}</span>
+        //   ))
+        // }

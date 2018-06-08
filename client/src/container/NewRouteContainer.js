@@ -16,6 +16,8 @@ import {
 class NewRouteContainer extends React.Component {
   constructor(props){
     super(props);
+    // console.log("123123123")
+    // console.log(props)
   }
 
   render(){

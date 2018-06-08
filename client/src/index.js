@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './container/App';
-import registerServiceWorker from './registerServiceWorker';
 import 'font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'mdbreact/docs/css/mdb.min.css'
@@ -12,6 +10,8 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger' 
 import BusPlayApp from './reducer/reducer'
+import App from './container/App';
+import registerServiceWorker from './registerServiceWorker';
 
 const middleware = [ thunk ]
 if(process.env.NODE_ENV !== 'production') {
