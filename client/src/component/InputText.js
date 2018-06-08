@@ -1,15 +1,22 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
 
-const nameBadge = (props) =>{
+const NameBadge = (props) => {
+  const badge = Object.entries(props.lists).map(([key, value]) => {
+    return(
+      <span className="badge badge-primary mt-2 ml-2">{value.toString()}</span>
+    )
+  })
 
+  return(
+    <div>{badge}</div>
+  )
 }
 
 export default class InputText extends React.Component {
 	constructor(props){
 		super(props);
-    console.log("123123123")
-    console.log(props)
+    console.log(this.props.lists)
 	}
 
 	render(){
@@ -25,7 +32,7 @@ export default class InputText extends React.Component {
 	    <FormGroup>
 	      <span>{this.props.title}</span>
 	      <div className="input-group mt-2">
-	      	<div class="input-group-prepend">
+	      	<div className="input-group-prepend">
 	      		<select className="browser-default">
       				<option disabled selected value className="d-none"></option>
 	      			<option value="ch">ch</option>
@@ -33,10 +40,11 @@ export default class InputText extends React.Component {
 	      		</select>
 	      	</div>
 	      	<Input type="text" name={this.props.name} style={{ height: "1rem" }} />
-      		<div class="input-group-append">
-						<i class="fa fa-plus my-auto" style={{ cursor: "pointer"}}></i>
+      		<div className="input-group-append">
+						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}}></i>
 	      	</div>
 	      </div>
+        <NameBadge lists={this.props.lists} />
 	    </FormGroup>
 		)
 	}
