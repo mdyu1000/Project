@@ -15,10 +15,10 @@ const NameBadge = (props) => {
 export default class InputText extends React.Component {
 	constructor(props){
 		super(props);
-    this.handleClickAdd = this.handleClickAdd.bind(this)
+    
 	}
 
-  handleClickAdd(){
+  handleClickAdd = () => {
     var e = document.getElementById(this.props.name + "Language")
     var language = e.options[e.selectedIndex].value
     var name = document.getElementById(this.props.name + "Name").value

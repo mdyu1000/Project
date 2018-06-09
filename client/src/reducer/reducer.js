@@ -10,7 +10,8 @@ import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
   ADD_CONDITION_THREE,
-  ADD_CONDITION_FOUR } from '../action/NewRoute'
+  ADD_CONDITION_FOUR, 
+  DEL_STATION } from '../action/NewRoute'
 import { stations } from '../component/Global'
 
 const initialState = {
@@ -69,6 +70,9 @@ function NewStation(state, action){
           location: action.location    
         } 
       ]
+    case DEL_STATION:
+      delete state[action.index]
+      return 
     default:
       return state
   }

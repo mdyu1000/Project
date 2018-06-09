@@ -27,18 +27,22 @@ const ModalFooter = (props) => {
   )
 }
 
-const SortableItem = SortableElement(({value}) =>
-  <li style={ModalItemStyle}  className="mt-1">
-  	{value}
-  	<i style={{ cursor: "pointer"}} className="fa fa-remove my-auto"></i>
-	</li>
-);
+const SortableItem = SortableElement((props) => {
+  return (
+    <li style={ModalItemStyle} className="mt-1">
+    	{props.value}
+    	<i style={{ cursor: "pointer"}} id={"Del"+props.order} className="fa fa-remove my-auto"
+        onClick={props.onDelStation}></i>
+      
+  	</li>
+  )
+});
 
-const SortableList = SortableContainer(({items}) => {
+const SortableList = SortableContainer((props) => {
   return (
     <ul style={ ModalListStyle } className="pl-0 pr-2">
-      {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value.name.ch} />
+      {props.items.map((value, index) => (
+        <SortableItem key={`item-${index}`} order={index} value={value.name.ch} onDelStation={props.onDelStation}/>
       ))}
     </ul>
   );
@@ -50,7 +54,6 @@ export default class StationModal extends React.Component {
 		this.state = {
 			items: this.props.stations,
 		}
-    this.handleAddStation = this.handleAddStation.bind(this)
 	}
 
   componentWillReceiveProps(nextProps){
@@ -61,12 +64,13 @@ export default class StationModal extends React.Component {
     }
   }
 
-	// handleSave(){
- //  	this.props.onSortStation(this.state.items);
-	// };
-
-  handleAddStation(){
+  handleAddStation = () => {
     this.props.onAddStation(this.props.stationName, this.props.stationLocation)
+  }
+
+  handleDelStation = (e) => {
+    var index = e.target.id.split("Del")[1]
+    alert(index)
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -84,7 +88,7 @@ export default class StationModal extends React.Component {
             <div className="modal-body">
             	<div className="row">
             		<Col sm="5">
-									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
+									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} onDelStation={this.handleDelStation} distance="10"/>
             		</Col>
             		<Col sm="7">
                   <form>

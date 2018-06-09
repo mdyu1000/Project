@@ -9,6 +9,7 @@ export const ADD_CONDITION_ONE = "ADD_CONDITION_ONE"
 export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
 export const ADD_CONDITION_THREE = "ADD_CONDITION_THREE"
 export const ADD_CONDITION_FOUR = "ADD_CONDITION_FOUR"
+export const DEL_STATION = "DEL_STATION"
 
 export function AddName(language, routeName){
   return {
@@ -46,6 +47,13 @@ export function AddStation(name, location){
     type: ADD_STATION,
     name,
     location
+  }
+}
+
+export function DelStation(index){
+  return {
+    type: DEL_STATION,
+    index
   }
 }
 

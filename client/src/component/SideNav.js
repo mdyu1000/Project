@@ -19,6 +19,10 @@ const itemStyle = {
 }
 
 export default class SideNav extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
   render() {
     return (
       <div id="Sidebar">
@@ -27,7 +31,7 @@ export default class SideNav extends React.Component {
             <NavLink href="#" style={itemStyle}><i className="fa fa-file-text-o" aria-hidden="true"></i> New</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="#" style={itemStyle}><i className="fa fa-pencil" aria-hidden="true"></i> Layout</NavLink>
+            <NavLink href="#" style={itemStyle} ><i className="fa fa-pencil" aria-hidden="true"></i> Layout</NavLink>
           </NavItem>
         </Nav>
       </div>

@@ -26,23 +26,20 @@ const ModalFooter = (props) => {
 export default class ColorModal extends React.Component {
   constructor(props){
     super(props);
-    this.handleDelColor = this.handleDelColor.bind(this);
-    this.handleAddColor = this.handleAddColor.bind(this);
-    this.handlePickColor = this.handlePickColor.bind(this);
     this.state = {
       color_hex: "#000"
     }
   }
 
-  handleDelColor(){
+  handleDelColor = () => {
 
   }
 
-  handleAddColor(){
+  handleAddColor = () => {
     this.props.onAddColor(this.state.color_hex)
   }
 
-  handlePickColor(e){
+  handlePickColor = (e) => {
     alert("123")
   }
 

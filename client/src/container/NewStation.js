@@ -4,7 +4,8 @@ import Station from '../component/Station'
 import {
   AddStation,
   AddStationName,
-  AddStationLocation
+  AddStationLocation,
+  DelStation
 } from '../action/NewRoute'
 
 class NewStation extends React.Component {
@@ -18,6 +19,7 @@ class NewStation extends React.Component {
         onAddStation = {this.props.onAddStation}
         onAddStationName = {this.props.onAddStationName}
         onAddStationLocation = {this.props.onAddStationLocation}
+        onDelStation = {this.props.onDelStation}
         stations = {this.props.stations}
         stationName = {this.props.stationName}
         stationLocation = {this.props.stationLocation}
@@ -38,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
     onAddStationLocation: (lat, lns) => {
       dispatch(AddStationLocation(lat, lns))
     },
+    onDelStation: (index) => {
+      dispatch(DelStation(index))
+    }
   }
 }
 

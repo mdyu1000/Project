@@ -6,10 +6,9 @@ import ColorModal from './ColorModal';
 export default class ColorPicker extends React.Component {
 	constructor(props){
 		super(props);
-    this.handleColorChange = this.handleColorChange.bind(this);
 	}
 
-  handleColorChange(color, event){
+  handleColorChange = (color, event) =>{
     this.props.onColorChange(color.hex);
   }
 
