@@ -8,8 +8,7 @@ import StationTimeLine from './StationTimeLine';
 export default class Station extends React.Component {
 	constructor(props){
 		super(props);
-    console.log("Station.js");
-    console.log(props)
+
 	}
 
   render() {
@@ -17,12 +16,16 @@ export default class Station extends React.Component {
       <div>
         <FormGroup>
           <span>Station 
-            <i type="button" data-toggle="modal" data-target="#stationModal" class="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
+            <i type="button" data-toggle="modal" data-target="#stationModal" className="fa fa-edit ml-2" style={{ cursor: "pointer" }}></i>
           </span> 
           <StationTimeLine color={this.props.color} stations={this.props.stations} />
         </FormGroup> 
-        <StationModal stations={this.props.stations} onSortStation={this.props.onSortStation} 
-          onAdd={this.props.onAdd}/>
+        <StationModal stations={this.props.stations} 
+          stationName={this.props.stationName}
+          stationLocation={this.props.stationLocation}
+          onAddStation={this.props.onAddStation}
+          onAddStationName={this.props.onAddStationName} 
+          onAddStationLocation={this.props.onAddStationLocation} />
       </div>
     );
   }

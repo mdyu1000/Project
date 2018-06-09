@@ -27,7 +27,7 @@ export const stations = [
       ch: "忠孝復興",
       en: "Zhongxiao Fuxing"
     },
-    "center": {
+    "location": {
       "lat": 25.041951, 
       "lng": 121.543073  
     }
@@ -37,7 +37,7 @@ export const stations = [
       ch: "南京復興",
       en: "Nanjing Fuxing"
     },
-    "center": {
+    "location": {
       "lat": 25.052241,
       "lng": 121.54404049999994    
     }    
@@ -47,7 +47,7 @@ export const stations = [
       ch: "中山國中",
       en: "Zhongshan Junior High School"
     },
-    "center": {
+    "location": {
       "lat": 25.061032, 
       "lng": 121.544497      
     }    
@@ -57,7 +57,7 @@ export const stations = [
       ch: "松山機場",
       en: "Songshan Airport"
     },
-    "center": {
+    "location": {
       "lat": 25.063130,
       "lng": 121.551962
     }

@@ -6,20 +6,11 @@ import InputText from './InputText';
 import GMapSearch from "./GoogleMapSearch";
 import { ModalItemStyle, ModalListStyle } from './Global';
 
-const AnyReactComponent = ({ text }) => (
-  <div style={{
-    position: 'relative', color: 'white', background: 'red',
-    height: 40, width: 60, top: -20, left: -30,    
-  }}>
-    {text}
-  </div>
-);
-
 const ModalHeader = () => {
 	return (
-    <div class="modal-header">
-      <h5 class="modal-title my-auto">Edit Stations</h5>
-      <button type="button" class="close" data-dismiss="modal">
+    <div className="modal-header">
+      <h5 className="modal-title my-auto">Edit Stations</h5>
+      <button type="button" className="close" data-dismiss="modal">
         <span>&times;</span>
       </button>
     </div>
@@ -27,22 +18,19 @@ const ModalHeader = () => {
 }
 
 const ModalFooter = (props) => {
-	return (
-  	<div class="modal-footer">
-      <button type="button" class="btn btn-success btn-sm mr-3" onClick={props.onAdd}>
+  return (
+    <div className="modal-footer">
+      <button type="button" className="btn btn-success btn-sm mr-3" onClick={props.onAddStation}>
         Add
       </button>
-      <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onClick={props.onSave}>
-        Save
-      </button>
-    </div>
-	)
+    </div>   
+  )
 }
 
 const SortableItem = SortableElement(({value}) =>
   <li style={ModalItemStyle}  className="mt-1">
   	{value}
-  	<i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
+  	<i style={{ cursor: "pointer"}} className="fa fa-remove my-auto"></i>
 	</li>
 );
 
@@ -61,16 +49,8 @@ export default class StationModal extends React.Component {
 		super(props);
 		this.state = {
 			items: this.props.stations,
-      stationNameList: [ { type: "ch", value: "忠孝復興" } ],
-      newName: "",
-      newLatLng: {
-        lat: 0,
-        lng: 0
-      },
 		}
-		this.handleSave = this.handleSave.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
+    this.handleAddStation = this.handleAddStation.bind(this)
 	}
 
   componentWillReceiveProps(nextProps){
@@ -81,18 +61,12 @@ export default class StationModal extends React.Component {
     }
   }
 
-	handleSave(){
-  	this.props.onSortStation(this.state.items);
-	};
+	// handleSave(){
+ //  	this.props.onSortStation(this.state.items);
+	// };
 
-  handleSearch(latLng){
-    this.setState({
-      newLatLng: latLng,
-    })
-  }
-
-  handleAdd(){
-    this.props.onAdd({ name: "test", center: { lat: this.state.newLatLng.lat, lng: this.state.newLatLng.lng }});
+  handleAddStation(){
+    this.props.onAddStation(this.props.stationName, this.props.stationLocation)
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -103,36 +77,37 @@ export default class StationModal extends React.Component {
 
 	render() {
 		return (
-      <div class="modal fade" id="stationModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
+      <div className="modal fade" id="stationModal" tabindex="-1">
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
           	<ModalHeader />
-            <div class="modal-body">
-            	<div class="row">
+            <div className="modal-body">
+            	<div className="row">
             		<Col sm="5">
 									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} />
             		</Col>
             		<Col sm="7">
                   <form>
                     <div className="form-group">
-                      <InputText title="Station Name" name="stationName" lists={this.state.stationNameList}/>
+                      <InputText title="Station Name" name="stationName" 
+                        lists={this.props.stationName} onAdd={this.props.onAddStationName}/>
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>
-                      <GMapSearch onSearch={this.handleSearch} />
+                      <GMapSearch onAddLocation={this.props.onAddStationLocation} />
                     </div>
                     { 
-                      this.state.newLatLng.lat != 0 && this.state.newLatLng.lng != 0 &&
+                      this.props.stationLocation.lat != 0 && this.props.stationLocation.lns != 0 &&
                       <div className="form-group">
-                        <span class="badge badge-success">lat : {this.state.newLatLng.lat}</span>
-                        <span class="badge badge-success ml-3">lng : {this.state.newLatLng.lng}</span>
+                        <span className="badge badge-success">lat : {this.props.stationLocation.lat}</span>
+                        <span className="badge badge-success ml-3">lns : {this.props.stationLocation.lns}</span>
                       </div>
                     }
                   </form>
             		</Col>
             	</div>
             </div>
-            <ModalFooter onSave={this.handleSave} onAdd={this.handleAdd}/>
+            <ModalFooter onAddStation={this.handleAddStation}/>
           </div>
         </div>
       </div>

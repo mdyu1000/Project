@@ -3,9 +3,9 @@ import { CirclePicker, ChromePicker, SliderPicker } from 'react-color';
 
 const ModalHeader = () => {
   return (
-    <div class="modal-header">
-      <h5 class="modal-title my-auto">Edit Colors</h5>
-      <button type="button" class="close" data-dismiss="modal">
+    <div className="modal-header">
+      <h5 className="modal-title my-auto">Edit Colors</h5>
+      <button type="button" className="close" data-dismiss="modal">
         <span>&times;</span>
       </button>
     </div>
@@ -14,9 +14,9 @@ const ModalHeader = () => {
 
 const ModalFooter = (props) => {
   return (
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger btn-sm mr-3" onClick={props.onDel}> Delete </button>
-      <button type="button" class="btn btn-success btn-sm mr-3" onClick={props.onAdd}> Add </button>
+    <div className="modal-footer">
+      <button type="button" className="btn btn-danger btn-sm mr-3" onClick={props.onDel}> Delete </button>
+      <button type="button" className="btn btn-success btn-sm mr-3" onClick={props.onAdd}> Add </button>
     </div>
   )
 }

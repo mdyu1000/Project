@@ -19,8 +19,8 @@ const initialState = {
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   stations: stations,
-  stationName: {en: "Taipei Arena", ch: "台北小巨蛋"},
-  stationLocation: {lat: "25.051895", lns: "121.551869" }
+  stationName: { en: "Taipei Arena", ch: "台北小巨蛋" },
+  stationLocation: { lat: "0", lns: "0" }
 }
 
 function NewDepartureName(state, action){
@@ -62,24 +62,40 @@ function NewColor(state, action){
 function NewStation(state, action){
   switch(action.type){
     case ADD_STATION:
-      return {
+      return [
         ...state,    
-        name: action.name,
-        location: action.location         
-      }
+        {
+          name: action.name,  
+          location: action.location    
+        } 
+      ]
+    default:
+      return state
+  }
+}
+
+function NewStationName(state, action){
+  switch(action.type){
     case ADD_STATION_NAME:
-      state["name"][action.language] = action.destination
-      return {
-        ...state
-      }
-    case ADD_STATION_LOCATION:
-      state["location"]["lat"] = action.lat
-      state["location"]["lns"] = action.lns
+      state[action.language] = action.name
       return {
         ...state
       }
     default:
       return state
+  }  
+}
+
+function NewStationLocation(state, action){
+  switch(action.type){
+    case ADD_STATION_LOCATION:
+      state["lat"] = action.lat
+      state["lns"] = action.lns
+      return {
+        ...state
+      }
+    default:
+      return state   
   }
 }
 
@@ -132,6 +148,8 @@ export default function BusPlayApp(state = initialState, action){
     destinationLists: NewDestinationName(state.destinationLists, action),
     colors: NewColor(state.colors, action),
     stations: NewStation(state.stations, action),
+    stationName: NewStationName(state.stationName, action),
+    stationLocation: NewStationLocation(state.stationLocation, action),
   }
 }
 

@@ -49,10 +49,11 @@ export function AddStation(name, location){
   }
 }
 
-export function AddStationName(name){
+export function AddStationName(language, name){
   return {
     type: ADD_STATION_NAME,
-    name,
+    language,
+    name
   }
 }
 

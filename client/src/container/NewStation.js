@@ -10,10 +10,7 @@ import {
 class NewStation extends React.Component {
   constructor(props){
     super(props)
-    console.log("123123123")
-    console.log(props)
   }
-
 
   render() {
     return (
@@ -21,10 +18,9 @@ class NewStation extends React.Component {
         onAddStation = {this.props.onAddStation}
         onAddStationName = {this.props.onAddStationName}
         onAddStationLocation = {this.props.onAddStationLocation}
-        onSortStation={this.props.handleSortStation}
         stations = {this.props.stations}
-        name = {this.props.name}
-        location = {this.props.location}
+        stationName = {this.props.stationName}
+        stationLocation = {this.props.stationLocation}
         color = {this.props.color}
       />
     );
@@ -36,8 +32,8 @@ const mapDispatchToProps = (dispatch) => {
     onAddStation: (name, location) => {
       dispatch(AddStation(name, location))
     },
-    onAddStationName: (name) => {
-      dispatch(AddStationName(name))
+    onAddStationName: (language, name) => {
+      dispatch(AddStationName(language, name))
     },
     onAddStationLocation: (lat, lns) => {
       dispatch(AddStationLocation(lat, lns))
@@ -46,11 +42,10 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-
   return {
     stations: state.stations,
-    name: state.stationName,
-    location: state.stationLocation,
+    stationName: state.stationName,
+    stationLocation: state.stationLocation,
     color: "#111",
   }
 }

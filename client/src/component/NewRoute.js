@@ -53,20 +53,6 @@ export default class NewRoute extends React.Component {
       color: "#a1662c",
     }
     this.handleColorChange = this.handleColorChange.bind(this);
-    this.handleAddStation = this.handleAddStation.bind(this);
-    this.handleSortStation = this.handleSortStation.bind(this);
-  }
-
-  handleSortStation(NewSort){
-    this.setState({
-      stations: NewSort
-    })
-  }
-
-  handleAddStation(NewStation){
-    this.setState({
-      stations: [...this.props.stations, NewStation],
-    })
   }
 
   handleColorChange(NewColor){
@@ -74,7 +60,6 @@ export default class NewRoute extends React.Component {
       color: NewColor,
     })
   }
-
 
   render() {
     return (
@@ -102,7 +87,7 @@ export default class NewRoute extends React.Component {
                         lists={this.props.destinationLists} onAdd={this.props.onAddDestination}/>
                     </div>
                     <div className="col-5 mt-4">
-                      <NewStation color={this.state.color} onSortStation={this.handleSortStation} />
+                      <NewStation />
                     </div>
                     <div className="col-5 offset-1 mt-4">                    
                       <GMap stations={this.props.stations}/>

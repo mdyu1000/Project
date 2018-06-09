@@ -23,7 +23,7 @@ const MapWithASearchBox = compose(
         markers: [],
 
         onClickMarker: (markerPosition) => {
-          this.props.onSearch({ lat: markerPosition.lat(), lng: markerPosition.lng() });
+          this.props.onAddLocation(markerPosition.lat(), markerPosition.lng());
         },
         onMapMounted: ref => {
           refs.map = ref;
@@ -108,11 +108,10 @@ export default class GMapSearch extends React.Component {
     super(props);
   }
 
-
   render() {
     return(
       <div>
-        <MapWithASearchBox onSearch={this.props.onSearch}/>
+        <MapWithASearchBox onAddLocation={this.props.onAddLocation}/>
       </div>
     )
   }
