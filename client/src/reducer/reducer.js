@@ -18,7 +18,9 @@ const initialState = {
   departureLists: { en: "Zhongxiao Fuxing" },
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
-  stations: stations
+  stations: stations,
+  stationName: {en: "Taipei Arena", ch: "台北小巨蛋"},
+  stationLocation: {lat: "25.051895", lns: "121.551869" }
 }
 
 function NewDepartureName(state, action){

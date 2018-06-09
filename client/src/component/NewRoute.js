@@ -4,7 +4,7 @@ import {
   Container, Row, Col,
   Card, Button, CardHeader, CardBody, CardTitle, CardText,
   Form, FormGroup, Input, FormText,  } from 'reactstrap';
-import Station from './Station';
+import NewStation from '../container/NewStation';
 import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
 import Condition from './Condition';
@@ -102,8 +102,7 @@ export default class NewRoute extends React.Component {
                         lists={this.props.destinationLists} onAdd={this.props.onAddDestination}/>
                     </div>
                     <div className="col-5 mt-4">
-                      <Station color={this.state.color} onAdd={this.handleAddStation} stations={this.props.stations}
-                        onSortStation={this.handleSortStation}/>
+                      <NewStation color={this.state.color} onSortStation={this.handleSortStation} />
                     </div>
                     <div className="col-5 offset-1 mt-4">                    
                       <GMap stations={this.props.stations}/>

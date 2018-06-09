@@ -8,6 +8,8 @@ import StationTimeLine from './StationTimeLine';
 export default class Station extends React.Component {
 	constructor(props){
 		super(props);
+    console.log("Station.js");
+    console.log(props)
 	}
 
   render() {
