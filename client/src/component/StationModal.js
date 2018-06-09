@@ -50,7 +50,7 @@ const SortableList = SortableContainer(({items}) => {
   return (
     <ul style={ ModalListStyle } className="pl-0 pr-2">
       {items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} value={value.name} />
+        <SortableItem key={`item-${index}`} index={index} value={value.name.ch} />
       ))}
     </ul>
   );

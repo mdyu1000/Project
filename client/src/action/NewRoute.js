@@ -3,6 +3,8 @@ export const ADD_COLOR = "ADD_COLOR"
 export const ADD_DEPARTURE = "ADD_DEPARTURE"
 export const ADD_DESTINATION = "ADD_DESTINATION"
 export const ADD_STATION = "ADD_STATION"
+export const ADD_STATION_NAME = "ADD_STATION_NAME"
+export const ADD_STATION_LOCATION = "ADD_STATION_LOCATION"
 export const ADD_CONDITION_ONE = "ADD_CONDITION_ONE"
 export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
 export const ADD_CONDITION_THREE = "ADD_CONDITION_THREE"
@@ -39,12 +41,26 @@ export function AddDestination(language, destination){
   }
 }
 
-
 export function AddStation(name, location){
   return {
     type: ADD_STATION,
     name,
     location
+  }
+}
+
+export function AddStationName(name){
+  return {
+    type: ADD_STATION_NAME,
+    name,
+  }
+}
+
+export function AddStationLocation(lat, lns){
+  return {
+    type: ADD_STATION_LOCATION,
+    lat,
+    lns
   }
 }
 

@@ -16,8 +16,7 @@ import {
 class NewRouteContainer extends React.Component {
   constructor(props){
     super(props);
-    // console.log("123123123")
-    // console.log(props)
+
   }
 
   render(){
@@ -28,10 +27,12 @@ class NewRouteContainer extends React.Component {
           onAddDeparture = {this.props.onAddDeparture}
           onAddDestination = {this.props.onAddDestination}
           onAddColor = {this.props.onAddColor}
+          onAddStation = {this.props.onAddStation}
           nameLists = {this.props.nameLists}
           departureLists = {this.props.departureLists}
           destinationLists = {this.props.destinationLists}
           colors = {this.props.colors}
+          stations = {this.props.stations}
         />
       </div>
     )
@@ -75,7 +76,8 @@ const mapStateToProps = (state) => {
     nameLists: state.nameLists,
     departureLists: state.departureLists,
     destinationLists: state.destinationLists,
-    colors: state.colors
+    colors: state.colors,
+    stations: state.stations
   }
 }
 
