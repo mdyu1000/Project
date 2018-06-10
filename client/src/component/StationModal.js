@@ -43,7 +43,7 @@ const SortableList = SortableContainer((props) => {
     <ul style={ ModalListStyle } className="pl-0 pr-2">
       {props.items.map((value, index) => (
         value != undefined &&
-        <SortableItem key={`item-${index}`} index={index} value={value.name.ch} onDelStation={props.onDelStation}/>
+        <SortableItem key={`item-${index}`} index={index} order={index} value={value.name.ch} onDelStation={props.onDelStation}/>
       ))}
     </ul>
   );
@@ -60,7 +60,8 @@ export default class StationModal extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.stations != this.state.items){
       this.setState({
-        items: [...this.state.items, nextProps.stations[nextProps.stations.length - 1]]
+        // items: [...this.state.items, nextProps.stations[nextProps.stations.length - 1]]
+        items: nextProps.stations
       })
     }
   }

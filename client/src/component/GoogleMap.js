@@ -13,19 +13,31 @@ const MapWithAMarker = withGoogleMap(props =>
   </GoogleMap>
 );
 
+const CalculateMedium = (stations) => {
+  const validStations = stations.filter(station => station != undefined)
+  const medium = Math.floor(validStations.length / 2) 
+  if(medium != 0)
+    return validStations[medium].location
+  else
+    return {lat: 25.033262, lng: 121.563201}
+}
+
 export default class GMap extends React.Component {
   constructor(props){
     super(props);
   }
 
   render() {
+
+    
+
     return (
       <div className="form-group">
         <span>Google Map</span>
         <MapWithAMarker
           stations={this.props.stations}
-          lat={ this.props.stations[Math.floor(this.props.stations.length / 2)].location.lat }
-          lng={ this.props.stations[Math.floor(this.props.stations.length / 2)].location.lng }
+          lat={ CalculateMedium(this.props.stations).lat }
+          lng={ CalculateMedium(this.props.stations).lng }
           containerElement={<div className="mt-2" style={{ height: "300px" }} />}
           mapElement={<div style={{ height: `100%` }} />} 
         />
