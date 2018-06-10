@@ -104,10 +104,10 @@ export default class StationModal extends React.Component {
                       <GMapSearch onAddLocation={this.props.onAddStationLocation} />
                     </div>
                     { 
-                      this.props.stationLocation.lat != 0 && this.props.stationLocation.lns != 0 &&
+                      this.props.stationLocation.lat != 0 && this.props.stationLocation.lng != 0 &&
                       <div className="form-group">
                         <span className="badge badge-success">lat : {this.props.stationLocation.lat}</span>
-                        <span className="badge badge-success ml-3">lns : {this.props.stationLocation.lns}</span>
+                        <span className="badge badge-success ml-3">lng : {this.props.stationLocation.lng}</span>
                       </div>
                     }
                   </form>

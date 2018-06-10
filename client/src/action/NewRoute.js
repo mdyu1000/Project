@@ -73,11 +73,11 @@ export function AddStationName(language, name){
   }
 }
 
-export function AddStationLocation(lat, lns){
+export function AddStationLocation(lat, lng){
   return {
     type: ADD_STATION_LOCATION,
     lat,
-    lns
+    lng
   }
 }
 

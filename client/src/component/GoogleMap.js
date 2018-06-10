@@ -29,8 +29,6 @@ export default class GMap extends React.Component {
 
   render() {
 
-    
-
     return (
       <div className="form-group">
         <span>Google Map</span>

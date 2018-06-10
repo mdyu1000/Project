@@ -22,7 +22,7 @@ const initialState = {
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   stations: stations,
   stationName: { en: "Taipei Arena", ch: "台北小巨蛋" },
-  stationLocation: { lat: "0", lns: "0" }
+  stationLocation: { lat: "0", lng: "0" }
 }
 
 function NewDepartureName(state, action){
@@ -99,7 +99,7 @@ function NewStationLocation(state, action){
   switch(action.type){
     case ADD_STATION_LOCATION:
       state["lat"] = action.lat
-      state["lns"] = action.lns
+      state["lng"] = action.lng
       return {
         ...state
       }
