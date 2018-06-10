@@ -37,6 +37,7 @@ export default class StationTimeLine extends React.Component {
       <ul id="station" style={stationStyle} className="bordered-black scrollbar scrollbar-black thin">
         {
           this.props.stations.map( station => 
+            station != undefined &&
             <li style={timeLineStyle(this.props.color)}><div style={stationTextStyle}>{station.name.ch}</div></li>
           )
         }

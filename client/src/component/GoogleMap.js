@@ -6,6 +6,7 @@ const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap defaultZoom={13} defaultCenter={{ lat: props.lat, lng: props.lng }} >
     {
       props.stations.map((station, index) => 
+        station != undefined &&
         <Marker key={ "marker" + index } position={{ lat: station.location.lat, lng: station.location.lng }} />   
       )
     }

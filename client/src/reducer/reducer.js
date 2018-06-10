@@ -11,7 +11,8 @@ import {
   ADD_CONDITION_TWO,
   ADD_CONDITION_THREE,
   ADD_CONDITION_FOUR, 
-  DEL_STATION } from '../action/NewRoute'
+  DEL_STATION,
+  SORT_STATION, } from '../action/NewRoute'
 import { stations } from '../component/Global'
 
 const initialState = {
@@ -72,7 +73,11 @@ function NewStation(state, action){
       ]
     case DEL_STATION:
       delete state[action.index]
-      return 
+      return [
+        ...state
+      ]
+    case SORT_STATION:
+      return action.station
     default:
       return state
   }

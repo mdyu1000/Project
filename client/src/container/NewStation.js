@@ -5,7 +5,8 @@ import {
   AddStation,
   AddStationName,
   AddStationLocation,
-  DelStation
+  DelStation,
+  SortStation
 } from '../action/NewRoute'
 
 class NewStation extends React.Component {
@@ -20,6 +21,7 @@ class NewStation extends React.Component {
         onAddStationName = {this.props.onAddStationName}
         onAddStationLocation = {this.props.onAddStationLocation}
         onDelStation = {this.props.onDelStation}
+        onSortStation = {this.props.onSortStation}
         stations = {this.props.stations}
         stationName = {this.props.stationName}
         stationLocation = {this.props.stationLocation}
@@ -42,6 +44,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDelStation: (index) => {
       dispatch(DelStation(index))
+    },
+    onSortStation: (station) => {
+      dispatch(SortStation(station))
     }
   }
 }
