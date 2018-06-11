@@ -49,16 +49,6 @@ const colorPickerStyle = {
 export default class NewRoute extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      color: "#a1662c",
-    }
-    this.handleColorChange = this.handleColorChange.bind(this);
-  }
-
-  handleColorChange(NewColor){
-    this.setState({
-      color: NewColor,
-    })
   }
 
   render() {
@@ -73,18 +63,22 @@ export default class NewRoute extends React.Component {
                 <Form>
                   <Row>
                     <div className="col-5">
-                      <InputText title="Name" name="route" lists={this.props.nameLists} onAdd={this.props.onAddName} />
+                      <InputText title="Name" name="route" lists={this.props.nameLists} 
+                        onAdd={this.props.onAddName} onDel={this.props.onDelName} />
                     </div>
                     <div className="col-5 offset-1">
-                      <ColorPicker colors={this.props.colors} onColorChange={this.handleColorChange} onAddColor={this.props.onAddColor}/>
+                      <ColorPicker colors={this.props.colors} 
+                        onColorChange={this.props.onChangeDemoColor} 
+                        onAddColor={this.props.onAddColor}  
+                        onDelColor={this.props.onDelColor} />
                     </div>
                     <div className="col-5 mt-3">
-                      <InputText title="Departure" name="departure" MT="1" 
-                        lists={this.props.departureLists} onAdd={this.props.onAddDeparture} />
+                      <InputText title="Departure" name="departure" MT="1" lists={this.props.departureLists} 
+                        onAdd={this.props.onAddDeparture} onDel={this.props.onDelDeparture} />
                     </div>
                     <div className="col-5 offset-1 mt-3">
-                      <InputText title="Destination" name="destination" offset="1" MT="1" 
-                        lists={this.props.destinationLists} onAdd={this.props.onAddDestination}/>
+                      <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.props.destinationLists} 
+                        onAdd={this.props.onAddDestination} onDel={this.props.onDelDestination}/>
                     </div>
                     <div className="col-5 mt-4">
                       <NewStation />

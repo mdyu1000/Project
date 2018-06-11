@@ -1,19 +1,24 @@
 import { combineReducers } from 'redux'
 import { 
   ADD_NAME, 
+  DEL_NAME,
   ADD_COLOR,
+  DEL_COLOR,
   ADD_DEPARTURE,
+  DEL_DEPARTURE,
   ADD_DESTINATION,
+  DEL_DESTINATION,
   ADD_STATION,
+  DEL_STATION,
+  SORT_STATION,  
   ADD_STATION_NAME,
   ADD_STATION_LOCATION,
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
   ADD_CONDITION_THREE,
   ADD_CONDITION_FOUR, 
-  DEL_STATION,
-  SORT_STATION, 
-  DEL_CONDITION, } from '../action/NewRoute'
+  DEL_CONDITION,
+  CHANGE_DEMO_COLOR, } from '../action/NewRoute'
 import { stations, rules } from '../component/Global'
 
 const initialState = {
@@ -24,7 +29,8 @@ const initialState = {
   stations: stations,
   stationName: { en: "Taipei Arena", ch: "台北小巨蛋" },
   stationLocation: { lat: "0", lng: "0" },
-  rules: rules
+  rules: rules,
+  demoColor: "#FF6900"
 }
 
 function NewDepartureName(state, action){
@@ -34,6 +40,11 @@ function NewDepartureName(state, action){
       return {
         ...state
       }
+    case DEL_DEPARTURE:
+      delete state[action.language]
+      return {
+        ...state
+      }   
     default:
       return state
   }
@@ -46,6 +57,11 @@ function NewDestinationName(state, action){
       return {
         ...state
       }
+    case DEL_DESTINATION:
+      delete state[action.language]
+      return {
+        ...state
+      }       
     default:
       return state
   }
@@ -58,6 +74,11 @@ function NewColor(state, action){
         ...state,
         action.color
       ]     
+    case DEL_COLOR:
+      state.splice(state.indexOf(action.color.toUpperCase()), 1)
+      return [
+        ...state
+      ]
     default:
       return state
   }
@@ -116,6 +137,11 @@ function NewRoute(state, action){
         ...state,
         // action.language: action.routeName
       }
+    case DEL_NAME:
+      delete state[action.language]
+      return {
+        ...state
+      }
     default:
       return state
   }
@@ -144,17 +170,6 @@ function NewRule(state, action){
           value: action.value          
         }
       ]
-    case "0":
-      return [
-        ...state,
-        {
-          RID: action.RID,
-          condition: 2,
-          SID: action.SID,
-          type: action.type,
-          value: action.value          
-        }
-      ]
     case ADD_CONDITION_THREE:
       return [
         ...state,
@@ -180,6 +195,13 @@ function NewRule(state, action){
   }
 }
 
+function ChangeDemoColor(state, action){
+  switch(action.type){
+    case CHANGE_DEMO_COLOR:
+      return action.color
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
     nameLists: NewRoute(state.nameLists, action),
@@ -189,7 +211,8 @@ export default function BusPlayApp(state = initialState, action){
     stations: NewStation(state.stations, action),
     stationName: NewStationName(state.stationName, action),
     stationLocation: NewStationLocation(state.stationLocation, action),
-    rules: NewRule(state.rules, action)
+    rules: NewRule(state.rules, action),
+    demoColor: ChangeDemoColor(state.demoColor, action)
   }
 }
 

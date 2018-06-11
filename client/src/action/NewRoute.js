@@ -1,19 +1,23 @@
 export const ADD_NAME = "ADD_NAME"
+export const DEL_NAME = "DEL_NAME"
 export const ADD_COLOR = "ADD_COLOR"
+export const DEL_COLOR = "DEL_COLOR"
 export const ADD_DEPARTURE = "ADD_DEPARTURE"
+export const DEL_DEPARTURE = "DEL_DEPARTURE"
 export const ADD_DESTINATION = "ADD_DESTINATION"
+export const DEL_DESTINATION = "DEL_DESTINATION"
 export const ADD_STATION = "ADD_STATION"
+export const DEL_STATION = "DEL_STATION"
 export const ADD_STATION_NAME = "ADD_STATION_NAME"
 export const ADD_STATION_LOCATION = "ADD_STATION_LOCATION"
 export const ADD_CONDITION_ONE = "ADD_CONDITION_ONE"
+export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
 export const ADD_CONDITION_THREE = "ADD_CONDITION_THREE"
 export const ADD_CONDITION_FOUR = "ADD_CONDITION_FOUR"
-export const DEL_STATION = "DEL_STATION"
 export const DEL_CONDITION = "DEL_CONDITION"
 export const SORT_STATION = "SORT_STATION"
-export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
-const ADD_CONDITION_ONE_TEST = "ADD_CONDITION_ONE_TEST"
-const ADD_CONDITION_TWO_BLA = "ADD_CONDITION_TWO_BLA"
+export const CHANGE_DEMO_COLOR = "CHANGE_DEMO_COLOR"
+
 
 export function AddName(language, routeName){
   return {
@@ -23,9 +27,23 @@ export function AddName(language, routeName){
   }
 }
 
+export function DelName(language){
+  return {
+    type: DEL_NAME,
+    language
+  }
+}
+
 export function AddColor(color){
   return {
     type: ADD_COLOR,
+    color
+  }
+}
+
+export function DelColor(color){
+  return {
+    type: DEL_COLOR,
     color
   }
 }
@@ -38,11 +56,25 @@ export function AddDeparture(language, departure){
   }
 }
 
+export function DelDeparture(language){
+  return {
+    type: DEL_DEPARTURE,
+    language
+  }
+}
+
 export function AddDestination(language, destination){
   return {
     type: ADD_DESTINATION,
     language,
     destination
+  }
+}
+
+export function DelDestination(language){
+  return {
+    type: DEL_DESTINATION,
+    language
   }
 }
 
@@ -126,5 +158,12 @@ export function DelCondition(RID){
   return {
     type: DEL_CONDITION,
     RID
+  }
+}
+
+export function ChangeDemoColor(color){
+  return {
+    type: CHANGE_DEMO_COLOR,
+    color
   }
 }

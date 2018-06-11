@@ -23,7 +23,9 @@ export default class ColorPicker extends React.Component {
           <TwitterPicker triangle="hide" className="mx-auto mt-2" 
           	onChange={this.handleColorChange} colors={this.props.colors}/>
         </FormGroup>
-        <ColorModal colors={this.props.colors} onAddColor={this.props.onAddColor} />
+        <ColorModal colors={this.props.colors} 
+          onAddColor={this.props.onAddColor} 
+          onDelColor={this.props.onDelColor} />
       </div>
 		)
 	}

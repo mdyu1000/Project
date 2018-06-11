@@ -6,7 +6,7 @@ import {
   AddConditionTwo,
   AddConditionThree,
   AddConditionFour,
-  DelCondition
+  DelCondition,
 } from '../action/NewRoute'
 
 const mapDispatchToProps = (dispatch) => {
@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDelCondition: (RID) => {
       dispatch(DelCondition(RID))
-    }
+    },  
   }
 }
 
@@ -33,7 +33,7 @@ const mapStateToProps = (state) => {
   return {
     rules: state.rules,
     stations: state.stations,
-    color: "#111"
+    color: state.demoColor
   }
 }
 

@@ -132,3 +132,7 @@ export default class Condition extends React.Component {
 		)
 	}
 }
+
+Condition.defaultProps = {
+  color: "#c48c31"
+};

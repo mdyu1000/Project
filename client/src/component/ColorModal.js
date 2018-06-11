@@ -27,20 +27,17 @@ export default class ColorModal extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      color_hex: "#000"
+      color_hex: "#000",
+      selectedColor: ""
     }
   }
 
   handleDelColor = () => {
-
+    this.props.onDelColor(this.state.selectedColor)
   }
 
   handleAddColor = () => {
     this.props.onAddColor(this.state.color_hex)
-  }
-
-  handlePickColor = (e) => {
-    alert("123")
   }
 
   handleChangeComplete = (color, event) => {
@@ -48,6 +45,12 @@ export default class ColorModal extends React.Component {
       color_hex: color.hex
     })
   };
+
+  handleSelectedColor = (color) => {
+    this.setState({
+      selectedColor: color.hex
+    })
+  }
 
   render(){
     return (
@@ -58,7 +61,7 @@ export default class ColorModal extends React.Component {
             <div className="modal-body">
               <div className="row">
                 <div className="col-12">
-                  <CirclePicker colors={this.props.colors} width="100%" onClick={this.handlePickColor} />
+                  <CirclePicker colors={this.props.colors} width="100%" onChange={this.handleSelectedColor} />
                 </div>
                 <div className="col-12 mt-3" style={{borderBottom: "1px solid rgb(238, 238, 238)"}}></div>
               </div>

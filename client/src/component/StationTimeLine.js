@@ -44,3 +44,7 @@ export default class StationTimeLine extends React.Component {
 		)
 	}
 }
+
+StationTimeLine.defaultProps = {
+  color: "#c48c31"
+};

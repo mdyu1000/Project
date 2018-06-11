@@ -6,6 +6,11 @@ import {
   AddColor,
   AddDeparture,
   AddDestination,
+  DelName,
+  DelColor,
+  DelDeparture,
+  DelDestination,
+  ChangeDemoColor,
 } from '../action/NewRoute'
 
 const mapDispatchToProps = (dispatch) => {
@@ -22,6 +27,21 @@ const mapDispatchToProps = (dispatch) => {
     onAddDestination: (language, name) => {
       dispatch(AddDestination(language, name))
     },
+    onDelName: (language) => {
+      dispatch(DelName(language))
+    },
+    onDelColor: (color) => {
+      dispatch(DelColor(color))
+    },
+    onDelDeparture: (language) => {
+      dispatch(DelDeparture(language))
+    },
+    onDelDestination: (language) => {
+      dispatch(DelDestination(language))
+    },
+    onChangeDemoColor: (color) => {
+      dispatch(ChangeDemoColor(color))
+    }        
   }
 }
 

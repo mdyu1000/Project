@@ -1,12 +1,14 @@
 import React from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps";
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap defaultZoom={13} defaultCenter={{ lat: props.lat, lng: props.lng }} >
     {
       props.stations.map((station, index) => 
-        <Marker key={ "marker" + index } position={{ lat: station.location.lat, lng: station.location.lng }} />   
+        <Marker key={ "marker" + index } position={{ lat: station.location.lat, lng: station.location.lng }} >
+
+        </Marker>   
       )
     }
   </GoogleMap>
