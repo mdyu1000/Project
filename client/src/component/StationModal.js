@@ -31,8 +31,8 @@ const SortableItem = SortableElement((props) => {
   return (
     <li style={ModalItemStyle} className="mt-1">
     	{props.value}
-    	<i style={{ cursor: "pointer"}} id={"Del"+props.order} className="fa fa-remove my-auto"
-        onClick={props.onDelStation}></i>
+    	<i style={{ cursor: "pointer"}} className="fa fa-remove my-auto"
+        onClick={() => props.onDelStation(props.SID)}></i>
       
   	</li>
   )
@@ -42,8 +42,7 @@ const SortableList = SortableContainer((props) => {
   return (
     <ul style={ ModalListStyle } className="pl-0 pr-2">
       {props.items.map((value, index) => (
-        value != undefined &&
-        <SortableItem key={`item-${index}`} index={index} order={index} value={value.name.ch} onDelStation={props.onDelStation}/>
+        <SortableItem key={`item-${index}`} index={index} SID={value.SID} value={value.name.ch} onDelStation={props.onDelStation}/>
       ))}
     </ul>
   );
@@ -70,9 +69,8 @@ export default class StationModal extends React.Component {
     this.props.onAddStation(this.props.stationName, this.props.stationLocation)
   }
 
-  handleDelStation = (e) => {
-    var index = e.target.id.split("Del")[1]
-    this.props.onDelStation(index)
+  handleDelStation = (SID) => {
+    this.props.onDelStation(SID)
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {

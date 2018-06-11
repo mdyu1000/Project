@@ -6,7 +6,6 @@ const MapWithAMarker = withGoogleMap(props =>
   <GoogleMap defaultZoom={13} defaultCenter={{ lat: props.lat, lng: props.lng }} >
     {
       props.stations.map((station, index) => 
-        station != undefined &&
         <Marker key={ "marker" + index } position={{ lat: station.location.lat, lng: station.location.lng }} />   
       )
     }
@@ -14,10 +13,9 @@ const MapWithAMarker = withGoogleMap(props =>
 );
 
 const CalculateMedium = (stations) => {
-  const validStations = stations.filter(station => station != undefined)
-  const medium = Math.floor(validStations.length / 2) 
+  const medium = Math.floor(stations.length / 2) 
   if(medium != 0)
-    return validStations[medium].location
+    return stations[medium].location
   else
     return {lat: 25.033262, lng: 121.563201}
 }

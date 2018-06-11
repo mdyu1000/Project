@@ -5,9 +5,9 @@ import {
   Card, Button, CardHeader, CardBody, CardTitle, CardText,
   Form, FormGroup, Input, FormText,  } from 'reactstrap';
 import NewStation from '../container/NewStation';
+import NewRule from '../container/NewRule';
 import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
-import Condition from './Condition';
 import InputText from './InputText';
 import GMap from './GoogleMap';
 import { stations, colors } from './Global';
@@ -93,7 +93,7 @@ export default class NewRoute extends React.Component {
                       <GMap stations={this.props.stations}/>
                     </div>
                   </Row>
-                  <Condition color={this.state.color}/>
+                  <NewRule />
                 </Form>
               </CardBody>
             </Card>

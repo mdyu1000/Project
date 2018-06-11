@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col, Button, ButtonGroup, Card, CardHeader, CardBody, CardText, CardFooter, FormGroup } from 'reactstrap';
+import { Condition1, Condition2, Condition3, Condition4} from './ConditionSetting';
 import $ from 'jquery';
 import '../CSS/conditionGroup.css';
 
@@ -15,15 +16,6 @@ const ruleStyle = {
   display: "flex",
   justifyContent: "space-between",
   padding: "0.75rem 1.25rem",
-}
-
-const CardBodyStyle = {
-	padding: "1.5rem 1.25rem"
-}
-
-const inputNumberStyle = {
-	textAlign: "center",
-	width: "65px",
 }
 
 const buttonStyle = (color) => {
@@ -45,8 +37,12 @@ const ConditionGroup = (props) => {
 		  		{"Rule " + (i + 1)}
 	  		</span>
 		  </Button>
-		  { ( i==0 && <Condition1 /> ) || ( i==1 && <Condition2 /> ) || 
-	  		( i==2 && <Condition3 /> ) || ( i==3 && <Condition4 /> ) }
+		  { 
+        ( i==0 && <Condition1 onAddCondition1={props.onAddCondition1} stations={props.stations} /> ) || 
+        ( i==1 && <Condition2 onAddCondition2={props.onAddCondition2} stations={props.stations} /> ) || 
+	  		( i==2 && <Condition3 onAddCondition3={props.onAddCondition3} /> ) || 
+        ( i==3 && <Condition4 onAddCondition4={props.onAddCondition4} /> ) 
+      }
 	 	</div>
 	)
 	return(
@@ -56,88 +52,50 @@ const ConditionGroup = (props) => {
 	)
 }
 
-const CardFooters = () => {
-	return(
-    <CardFooter className="py-1 text-right">
-    	<button type="button" class="btn btn-outline-primary btn-sm py-1 waves-effect" style={{ borderColor: "rgba(0,0,0,.03)"}}>
-    		<span style={{ color: "#1e1e1e" }}> New </span>
-  		</button>
-  	</CardFooter>
-	)
+const RuleItem = (props) => {
+  if(props.rule.condition == 1){
+    const stationName = props.stations.filter(station => station.SID == props.rule.SID)[0].name.ch
+    return(
+      <li class="mt-2" style={ruleStyle}>
+        <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.distance }</b> 公尺，進行廣播 </span>
+        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+      </li> 
+    )
+  }else if(props.rule.condition == 2){
+    const stationName = props.stations.filter(station => station.SID == props.rule.SID)[0].name.ch
+    return(
+      <li class="mt-2" style={ruleStyle}>
+        <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.value }</b> { props.rule.type==0 ? "公尺" : "秒" }，進行廣播 </span>
+        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+      </li>
+    )
+  }else if(props.rule.condition == 3){
+    return(
+      <li class="mt-2" style={ruleStyle}>
+        <span>和下一站距離 <b>{ props.rule.distance }</b> 公尺，進行廣播</span>
+        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+      </li>        
+    )
+  }else {
+    return(
+      <li class="mt-2" style={ruleStyle}>
+        <span>每隔 <b>{ props.rule.interval }</b> 秒，進行廣播</span>
+        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+      </li>  
+    )
+  }
 }
 
-const Condition1 = () => {
-	return(
-    <Card id="condition1" className="collapse mx-1" data-parent="#ConditionGroup">
-	    <CardBody style={CardBodyStyle}>
-	      <span className="card-text">抵達 
-	      	<select id="condition1_station" className="mx-1 browser-default d-inline">
-	      		<option disabled selected value className="d-none"></option>
-	      		<option value="忠孝復興">忠孝復興</option>
-	      		<option value="南京復興">南京復興</option>
-	      		<option value="南京復興">騎你按讚</option>
-	      	</select>
-       		站前 
-       		<input type="number" style={inputNumberStyle} max="6000" min="0" size="35"/> 公尺，進行廣播
-       	</span>
-	    </CardBody>
-	    <CardFooters />
-	  </Card>
-	)
-}
-
-const Condition2 = () => {
-	return (
-    <Card id="condition2" className="collapse mx-1" data-parent="#ConditionGroup">
-	    <CardBody style={CardBodyStyle}>
-	      <span className="card-text">離開 
-	      	<select id="condition2_station" className="mx-1 browser-default d-inline">
-	      		<option disabled selected value className="d-none"></option>
-	      		<option value="忠孝復興">忠孝復興</option>
-	      		<option value="南京復興">南京復興</option>
-	      		<option value="南京復興">騎你按讚</option>
-	      	</select>
-      		站後 
-    			<input id="condition2_value"  className="mx-1" type="number" style={inputNumberStyle} max="600" min="0"/> 
-	      	<select id="condition2_type" className="mx-1 browser-default d-inline">
-	      		<option disabled selected value className="d-none"></option>
-	      		<option value="公尺">公尺</option>
-	      		<option value="秒">秒</option>
-	      	</select>
-    			進行廣播
-      	</span>
-	    </CardBody>
-	    <CardFooters />
-	  </Card>
-	)
-}
-
-const Condition3 = () => {
-	return (
-    <Card id="condition3" className="collapse mx-1" data-parent="#ConditionGroup">
-	    <CardBody style={CardBodyStyle}>
-	      <span className="card-text">和下一站距離 
-	      	<input id="condition3_distance" type="number" style={inputNumberStyle} max="6000" min="0"/> 
-	      	公尺，進行廣播
-	      </span>
-	    </CardBody>
-	    <CardFooters />
-	  </Card>
-	)
-}
-
-const Condition4 = () => {
-	return (
-    <Card id="condition4" className="collapse mx-1" data-parent="#ConditionGroup">
-	    <CardBody style={CardBodyStyle}>
-	      <span className="card-text">每隔 
-	      	<input id="condition4_interval" type="number" style={inputNumberStyle} max="600" min="0"/> 
-	      	秒時，進行廣播
-      	</span>
-	    </CardBody>
-	    <CardFooters />
-	  </Card>	
-	)
+const RuleList = (props) => {
+  return (
+    <ul class="mt-1 px-1" style={ruleGroupStyle}>
+      {
+        props.rules.map(rule => 
+          <RuleItem rule={rule} stations={props.stations} onDelCondition={props.onDelCondition}/>
+        )
+      }
+    </ul>
+  )
 }
 
 export default class Condition extends React.Component {
@@ -154,37 +112,21 @@ export default class Condition extends React.Component {
 				<Col sm="5">
 	        <FormGroup>
 						<span>Condition</span><br/>
-						<ConditionGroup color={this.props.color}/>
+						<ConditionGroup color = {this.props.color} 
+              onAddCondition1 = {this.props.onAddCondition1}
+              onAddCondition2 = {this.props.onAddCondition2}
+              onAddCondition3 = {this.props.onAddCondition3}
+              onAddCondition4 = {this.props.onAddCondition4}
+              stations = {this.props.stations}
+            />
 	        </FormGroup>
 				</Col>
 				<Col sm={{size: "5", offset: "1"}} >
 					<span>Rules</span><br/>
-					<ul class="mt-1 px-1" style={ruleGroupStyle} >
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>抵達 <b>大安</b> 站前 <b>100</b> 公尺，進行廣播 </span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>離開 <b>六張犁</b> 站後 <b>20</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				 	 	</li>
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>抵達 <b>動物園</b> 站前 <b>80</b> 公尺，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>和下一站距離 <b>120</b> 公尺，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>每隔 <b>17</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>			
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>每隔 <b>69</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>	
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>每隔 <b>17</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>	
-					  <li class="mt-2" style={ruleStyle}>
-					  	<span>每隔 <b>69</b> 秒，進行廣播</span><i style={{ cursor: "pointer"}} class="fa fa-remove my-auto"></i>
-				  	</li>					  					  					  		  	
-					</ul>
+          <RuleList rules = {this.props.rules} 
+            stations = {this.props.stations}
+            onDelCondition = {this.props.onDelCondition}
+          />
 				</Col>
      	</Row>
 		)

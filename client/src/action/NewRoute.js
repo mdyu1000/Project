@@ -6,11 +6,14 @@ export const ADD_STATION = "ADD_STATION"
 export const ADD_STATION_NAME = "ADD_STATION_NAME"
 export const ADD_STATION_LOCATION = "ADD_STATION_LOCATION"
 export const ADD_CONDITION_ONE = "ADD_CONDITION_ONE"
-export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
 export const ADD_CONDITION_THREE = "ADD_CONDITION_THREE"
 export const ADD_CONDITION_FOUR = "ADD_CONDITION_FOUR"
 export const DEL_STATION = "DEL_STATION"
+export const DEL_CONDITION = "DEL_CONDITION"
 export const SORT_STATION = "SORT_STATION"
+export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
+const ADD_CONDITION_ONE_TEST = "ADD_CONDITION_ONE_TEST"
+const ADD_CONDITION_TWO_BLA = "ADD_CONDITION_TWO_BLA"
 
 export function AddName(language, routeName){
   return {
@@ -43,18 +46,20 @@ export function AddDestination(language, destination){
   }
 }
 
+let nextSID = 4
 export function AddStation(name, location){
   return {
     type: ADD_STATION,
+    SID: ++nextSID, 
     name,
     location
   }
 }
 
-export function DelStation(index){
+export function DelStation(SID){
   return {
     type: DEL_STATION,
-    index
+    SID
   }
 }
 
@@ -81,19 +86,22 @@ export function AddStationLocation(lat, lng){
   }
 }
 
+let nextRID = 6;
 export function AddConditionOne(SID, distance){
   return {
     type: ADD_CONDITION_ONE,
+    RID: ++nextRID,
     SID,
     distance
   }
 }
 
-export function AddConditionTwo(SID, value, type){
+export function AddConditionTwo(SID, typeID, value){
   return {
     type: ADD_CONDITION_TWO,
+    RID: ++nextRID,
     SID,
-    type,
+    typeID,
     value
   }
 }
@@ -101,6 +109,7 @@ export function AddConditionTwo(SID, value, type){
 export function AddConditionThree(distance){
   return {
     type: ADD_CONDITION_THREE,
+    RID: ++nextRID,
     distance
   }
 }
@@ -108,6 +117,14 @@ export function AddConditionThree(distance){
 export function AddConditionFour(interval){
   return {
     type: ADD_CONDITION_FOUR,
+    RID: ++nextRID,
     interval
+  }
+}
+
+export function DelCondition(RID){
+  return {
+    type: DEL_CONDITION,
+    RID
   }
 }

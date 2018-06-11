@@ -23,6 +23,7 @@ export const colors = {
 
 export const stations = [
   {
+    SID: 1,
     "name": {
       ch: "忠孝復興",
       en: "Zhongxiao Fuxing"
@@ -33,6 +34,7 @@ export const stations = [
     }
   },
   {
+    SID: 2,
     "name": {
       ch: "南京復興",
       en: "Nanjing Fuxing"
@@ -43,6 +45,7 @@ export const stations = [
     }    
   },
   {
+    SID: 3,
     "name": {
       ch: "中山國中",
       en: "Zhongshan Junior High School"
@@ -53,6 +56,7 @@ export const stations = [
     }    
   },
   {
+    SID: 4,
     "name": {
       ch: "松山機場",
       en: "Songshan Airport"
@@ -62,4 +66,43 @@ export const stations = [
       "lng": 121.551962
     }
   },
+]
+
+export const rules = [
+  {
+    RID: 1,
+    "condition": 1,
+    "SID": 3,
+    "distance": 223
+  },
+  {
+    RID: 2,    
+    "condition": 1,
+    "SID": 1,
+    "distance": 24
+  },
+  {          //Rule 2 距離
+    RID: 3,    
+    "condition": 2,
+    "SID": 1,
+    "type": 0,
+    "value": 123
+  },
+  {
+    RID: 4,
+    "condition": 3,
+    "distance": 500
+  },
+  {
+    RID: 5,    
+    "condition": 4,
+    "interval": 20
+  },
+  {          //Rule 2 時間
+    RID: 6,    
+    "condition": 2,
+    "SID": 4,
+    "type": 1,
+    "value": 1243
+  }
 ]

@@ -12,8 +12,9 @@ import {
   ADD_CONDITION_THREE,
   ADD_CONDITION_FOUR, 
   DEL_STATION,
-  SORT_STATION, } from '../action/NewRoute'
-import { stations } from '../component/Global'
+  SORT_STATION, 
+  DEL_CONDITION, } from '../action/NewRoute'
+import { stations, rules } from '../component/Global'
 
 const initialState = {
   nameLists: { en: "NTUT", ch: "北科大" },
@@ -22,7 +23,8 @@ const initialState = {
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   stations: stations,
   stationName: { en: "Taipei Arena", ch: "台北小巨蛋" },
-  stationLocation: { lat: "0", lng: "0" }
+  stationLocation: { lat: "0", lng: "0" },
+  rules: rules
 }
 
 function NewDepartureName(state, action){
@@ -67,15 +69,13 @@ function NewStation(state, action){
       return [
         ...state,    
         {
+          SID: action.SID,
           name: action.name,  
           location: action.location    
         } 
       ]
     case DEL_STATION:
-      delete state[action.index]
-      return [
-        ...state
-      ]
+      return state.filter((state) => action.SID != state.SID)
     case SORT_STATION:
       return action.station
     default:
@@ -116,35 +116,65 @@ function NewRoute(state, action){
         ...state,
         // action.language: action.routeName
       }
+    default:
+      return state
+  }
+}
 
+function NewRule(state, action){
+  switch(action.type){
     case ADD_CONDITION_ONE:
-      return {
-        ...state,      
-        condition: 1,
-        SID: action.SID,
-        distance: action.distance
-      }
+      return [
+        ...state,     
+        {
+          RID: action.RID,
+          condition: 1,
+          SID: action.SID,
+          distance: action.distance,
+        } 
+      ]
     case ADD_CONDITION_TWO:
-      return {
+      return [
         ...state,
-        condition: 2,
-        SID: action.SID,
-        type: action.type,
-        value: action.value
-      }
+        {
+          RID: action.RID,
+          condition: 2,
+          SID: action.SID,
+          type: action.typeID,
+          value: action.value          
+        }
+      ]
+    case "0":
+      return [
+        ...state,
+        {
+          RID: action.RID,
+          condition: 2,
+          SID: action.SID,
+          type: action.type,
+          value: action.value          
+        }
+      ]
     case ADD_CONDITION_THREE:
-      return {
+      return [
         ...state,
-        condition: 3,
-        distance: action.distance
-      }
+        {
+          RID: action.RID,
+          condition: 3,
+          distance: action.distance
+        }
+      ]
     case ADD_CONDITION_FOUR:
-      return {
+      return [
         ...state,    
-        condition: 4,
-        interval: action.interval
-        
-      }
+        {
+          RID: action.RID,
+          condition: 4,
+          interval: action.interval
+        }
+      ]
+    case DEL_CONDITION:
+      return state.filter((state) => action.RID != state.RID)
     default:
       return state
   }
@@ -159,6 +189,7 @@ export default function BusPlayApp(state = initialState, action){
     stations: NewStation(state.stations, action),
     stationName: NewStationName(state.stationName, action),
     stationLocation: NewStationLocation(state.stationLocation, action),
+    rules: NewRule(state.rules, action)
   }
 }
 

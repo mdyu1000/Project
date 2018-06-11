@@ -31,7 +31,8 @@ const mapStateToProps = (state) => {
     departureLists: state.departureLists,
     destinationLists: state.destinationLists,
     colors: state.colors,
-    stations: state.stations
+    stations: state.stations,
+    rules: state.rules,
   }
 }
 
