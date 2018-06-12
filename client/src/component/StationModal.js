@@ -4,7 +4,30 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 import StationTimeLine from './StationTimeLine';
 import InputText from './InputText';
 import GMapSearch from "./GoogleMapSearch";
-import { ModalItemStyle, ModalListStyle } from './Global';
+import { ModalItemStyle, ModalListStyle, badgeStyle } from './Global';
+
+const StateButton = (props) => {
+  return(
+    <div className="form-group d-flex justify-content-end mb-0">
+      <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm" disabled>
+        Modify
+      </button>
+      {
+        (
+          props.location.lat == 0 && props.location.lng == 0 &&
+         <button id="addStationBtn" type="button" className="btn btn-success btn-sm" onClick={props.onAddStation} disabled>
+           Add
+         </button>
+        ) || (
+          props.location.lat != 0 && props.location.lng != 0 &&
+          <button id="addStationBtn" type="button" className="btn btn-success btn-sm" onClick={props.onAddStation}>
+            Add
+          </button>
+        )        
+      }
+    </div>
+  )
+}
 
 const ModalHeader = () => {
 	return (
@@ -20,9 +43,7 @@ const ModalHeader = () => {
 const ModalFooter = (props) => {
   return (
     <div className="modal-footer">
-      <button type="button" className="btn btn-success btn-sm mr-3" onClick={props.onAddStation}>
-        Add
-      </button>
+
     </div>   
   )
 }
@@ -42,7 +63,8 @@ const SortableList = SortableContainer((props) => {
   return (
     <ul style={ ModalListStyle } className="pl-0 pr-2">
       {props.items.map((value, index) => (
-        <SortableItem key={`item-${index}`} index={index} SID={value.SID} value={value.name.ch} onDelStation={props.onDelStation}/>
+        <SortableItem key={`item-${index}`} index={index} SID={value.SID} value={value.name.ch} 
+          onDelStation={props.onDelStation} />
       ))}
     </ul>
   );
@@ -59,7 +81,6 @@ export default class StationModal extends React.Component {
   componentWillReceiveProps(nextProps){
     if(nextProps.stations != this.state.items){
       this.setState({
-        // items: [...this.state.items, nextProps.stations[nextProps.stations.length - 1]]
         items: nextProps.stations
       })
     }
@@ -89,13 +110,17 @@ export default class StationModal extends React.Component {
             <div className="modal-body">
             	<div className="row">
             		<Col sm="5">
-									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} onDelStation={this.handleDelStation} distance="10"/>
-            		</Col>
+									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} 
+                    onDelStation={this.handleDelStation} distance="10"/>
+            		  <div className="text-center" style={{ width: "100%"}} >
+                    <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+                  </div>
+                </Col>
             		<Col sm="7">
                   <form>
                     <div className="form-group">
                       <InputText title="Station Name" name="stationName" 
-                        lists={this.props.stationName} onAdd={this.props.onAddStationName}/>
+                        lists={this.props.stationName} onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName}/>
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>
@@ -104,15 +129,15 @@ export default class StationModal extends React.Component {
                     { 
                       this.props.stationLocation.lat != 0 && this.props.stationLocation.lng != 0 &&
                       <div className="form-group">
-                        <span className="badge badge-success">lat : {this.props.stationLocation.lat}</span>
-                        <span className="badge badge-success ml-3">lng : {this.props.stationLocation.lng}</span>
+                        <span className="badge" style={badgeStyle}>lat : {this.props.stationLocation.lat}</span>
+                        <span className="badge ml-3" style={badgeStyle}>lng : {this.props.stationLocation.lng}</span>
                       </div>
                     }
+                    <StateButton onAddStation={this.handleAddStation} location={this.props.stationLocation}/>
                   </form>
             		</Col>
             	</div>
             </div>
-            <ModalFooter onAddStation={this.handleAddStation}/>
           </div>
         </div>
       </div>

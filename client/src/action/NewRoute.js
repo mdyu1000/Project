@@ -9,6 +9,7 @@ export const DEL_DESTINATION = "DEL_DESTINATION"
 export const ADD_STATION = "ADD_STATION"
 export const DEL_STATION = "DEL_STATION"
 export const ADD_STATION_NAME = "ADD_STATION_NAME"
+export const DEL_STATION_NAME = "DEL_STATION_NAME"
 export const ADD_STATION_LOCATION = "ADD_STATION_LOCATION"
 export const ADD_CONDITION_ONE = "ADD_CONDITION_ONE"
 export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
@@ -107,6 +108,13 @@ export function AddStationName(language, name){
     type: ADD_STATION_NAME,
     language,
     name
+  }
+}
+
+export function DelStationName(language){
+  return {
+    type: DEL_STATION_NAME,
+    language
   }
 }
 

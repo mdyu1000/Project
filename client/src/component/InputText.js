@@ -1,5 +1,7 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
+import { badgeStyle } from './Global'
+
 
 const languageSeleteStyle = {
   background: "#6c757d",
@@ -8,11 +10,6 @@ const languageSeleteStyle = {
   borderRadius: "5px",
   paddingLeft: ".5rem",
   paddingRight: ".5rem",
-}
-
-const badgeStyle = {
-  boxShadow: "none",
-  backgroundColor: "#e8e8e8"
 }
 
 const NameBadge = (props) => {

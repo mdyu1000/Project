@@ -12,6 +12,7 @@ import {
   DEL_STATION,
   SORT_STATION,  
   ADD_STATION_NAME,
+  DEL_STATION_NAME,
   ADD_STATION_LOCATION,
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
@@ -108,6 +109,11 @@ function NewStationName(state, action){
   switch(action.type){
     case ADD_STATION_NAME:
       state[action.language] = action.name
+      return {
+        ...state
+      }
+    case DEL_STATION_NAME:
+      delete state[action.language]
       return {
         ...state
       }

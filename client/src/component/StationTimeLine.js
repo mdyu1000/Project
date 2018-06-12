@@ -23,7 +23,7 @@ const timeLineStyle = (color) => {
 		width: "6px",
 		backgroundColor: color,
     borderColor: color,
-		paddingTop: "3rem",	
+		paddingTop: "1rem",	
 	})
 }
 
@@ -46,5 +46,5 @@ export default class StationTimeLine extends React.Component {
 }
 
 StationTimeLine.defaultProps = {
-  color: "#c48c31"
+  color: "#c48c31",
 };

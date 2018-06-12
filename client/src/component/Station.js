@@ -27,6 +27,7 @@ export default class Station extends React.Component {
           onAddStationName={this.props.onAddStationName} 
           onAddStationLocation={this.props.onAddStationLocation} 
           onDelStation={this.props.onDelStation}
+          onDelStationName={this.props.onDelStationName}
           onSortStation={this.props.onSortStation} />
       </div>
     );
