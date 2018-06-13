@@ -6,6 +6,16 @@ import InputText from './InputText';
 import GMapSearch from "./GoogleMapSearch";
 import { ModalItemStyle, ModalListStyle, badgeStyle } from './Global';
 
+const LocationBadge = (props) => {
+  return(
+    props.location.lat != 0 && props.location.lng != 0 &&
+    <div className="form-group">
+      <span className="badge" style={badgeStyle}>lat : {props.location.lat}</span>
+      <span className="badge ml-3" style={badgeStyle}>lng : {props.location.lng}</span>
+    </div>
+  )
+}
+
 const StateButton = (props) => {
   return(
     <div className="form-group d-flex justify-content-end mb-0">
@@ -40,21 +50,12 @@ const ModalHeader = () => {
 	)
 }
 
-const ModalFooter = (props) => {
-  return (
-    <div className="modal-footer">
-
-    </div>   
-  )
-}
-
 const SortableItem = SortableElement((props) => {
   return (
-    <li style={ModalItemStyle} className="mt-1">
+    <li id={"station" + props.SID} style={ModalItemStyle} className="mt-1">
     	{props.value}
     	<i style={{ cursor: "pointer"}} className="fa fa-remove my-auto"
         onClick={() => props.onDelStation(props.SID)}></i>
-      
   	</li>
   )
 });
@@ -70,12 +71,16 @@ const SortableList = SortableContainer((props) => {
   );
 });
 
+var isInTrashcan = false
+var itemSelected = ""
+
 export default class StationModal extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			items: this.props.stations,
 		}
+    this.handleMouseUp = this.handleMouseUp.bind(this)
 	}
 
   componentWillReceiveProps(nextProps){
@@ -94,12 +99,36 @@ export default class StationModal extends React.Component {
     this.props.onDelStation(SID)
   }
 
-  onSortEnd = ({oldIndex, newIndex}) => {
-    this.setState({
-      items: arrayMove(this.state.items, oldIndex, newIndex),
-    });
-    this.props.onSortStation(this.state.items)
+  handleSortStart = ({node, index, collection}, event) => {
+    itemSelected = node
+  }
+
+  handleSortMove = (event) => {
+    if( event.clientX < document.getElementById("trashcan").getBoundingClientRect().right &&
+        event.clientX > document.getElementById("trashcan").getBoundingClientRect().left &&
+        event.clientY < document.getElementById("trashcan").getBoundingClientRect().bottom &&
+        event.clientY > document.getElementById("trashcan").getBoundingClientRect().top){
+      isInTrashcan = true
+    }else{
+      isInTrashcan = false
+    }
+  }
+
+  handleSortEnd = ({oldIndex, newIndex, collection}, e) => {
+    if(!isInTrashcan){
+      this.setState({
+        items: arrayMove(this.state.items, oldIndex, newIndex),
+      });
+      this.props.onSortStation(this.state.items)  
+    }
   };
+
+  handleMouseUp(ev) {
+    var SID = itemSelected.getAttribute("id").split("station")[1]
+    if(isInTrashcan){
+      this.props.onDelStation(SID)
+    }
+  }
 
 	render() {
 		return (
@@ -110,9 +139,12 @@ export default class StationModal extends React.Component {
             <div className="modal-body">
             	<div className="row">
             		<Col sm="5">
-									<SortableList items={this.state.items} onSortEnd={this.onSortEnd} 
-                    onDelStation={this.handleDelStation} distance="10"/>
-            		  <div className="text-center" style={{ width: "100%"}} >
+									<SortableList items={this.state.items} distance="10" 
+                    onSortStart={this.handleSortStart}
+                    onSortEnd={this.handleSortEnd}
+                    onSortMove={this.handleSortMove}
+                    onDelStation={this.handleDelStation}  />
+            		  <div id="trashcan" className="text-center" style={{ width: "100%"}} onMouseUp={this.handleMouseUp}>
                     <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
                   </div>
                 </Col>
@@ -126,13 +158,7 @@ export default class StationModal extends React.Component {
                       <span>Google Map</span>
                       <GMapSearch onAddLocation={this.props.onAddStationLocation} />
                     </div>
-                    { 
-                      this.props.stationLocation.lat != 0 && this.props.stationLocation.lng != 0 &&
-                      <div className="form-group">
-                        <span className="badge" style={badgeStyle}>lat : {this.props.stationLocation.lat}</span>
-                        <span className="badge ml-3" style={badgeStyle}>lng : {this.props.stationLocation.lng}</span>
-                      </div>
-                    }
+                    <LocationBadge location={this.props.stationLocation} />
                     <StateButton onAddStation={this.handleAddStation} location={this.props.stationLocation}/>
                   </form>
             		</Col>
