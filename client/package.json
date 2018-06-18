@@ -5,6 +5,7 @@
   "dependencies": {
     "animate.css": "^3.6.1",
     "bootstrap": "^4.0.0",
+    "history": "^4.7.2",
     "jquery": "^3.3.1",
     "mdbreact": "^4.2.0",
     "react": "^16.3.1",
@@ -12,6 +13,8 @@
     "react-dom": "^16.3.1",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.4",
     "react-sortable-hoc": "^0.6.8",
     "reactstrap": "^5.0.0-alpha.4",

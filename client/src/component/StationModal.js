@@ -54,8 +54,7 @@ const SortableItem = SortableElement((props) => {
   return (
     <li id={"station" + props.SID} style={ModalItemStyle} className="mt-1">
     	{props.value}
-    	<i style={{ cursor: "pointer"}} className="fa fa-remove my-auto"
-        onClick={() => props.onDelStation(props.SID)}></i>
+    	<i style={{ cursor: "pointer"}} className="fa fa-edit my-auto"></i>
   	</li>
   )
 });
@@ -151,8 +150,8 @@ export default class StationModal extends React.Component {
             		<Col sm="7">
                   <form>
                     <div className="form-group">
-                      <InputText title="Station Name" name="stationName" 
-                        lists={this.props.stationName} onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName}/>
+                      <InputText title="Station Name" name="stationName" lists={this.props.stationName} 
+                        onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName}/>
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>

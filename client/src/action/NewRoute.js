@@ -8,6 +8,8 @@ export const ADD_DESTINATION = "ADD_DESTINATION"
 export const DEL_DESTINATION = "DEL_DESTINATION"
 export const ADD_STATION = "ADD_STATION"
 export const DEL_STATION = "DEL_STATION"
+export const SORT_STATION = "SORT_STATION"
+export const EDIT_STATION = "EDIT_STATION"
 export const ADD_STATION_NAME = "ADD_STATION_NAME"
 export const DEL_STATION_NAME = "DEL_STATION_NAME"
 export const ADD_STATION_LOCATION = "ADD_STATION_LOCATION"
@@ -16,7 +18,6 @@ export const ADD_CONDITION_TWO = "ADD_CONDITION_TWO"
 export const ADD_CONDITION_THREE = "ADD_CONDITION_THREE"
 export const ADD_CONDITION_FOUR = "ADD_CONDITION_FOUR"
 export const DEL_CONDITION = "DEL_CONDITION"
-export const SORT_STATION = "SORT_STATION"
 export const CHANGE_DEMO_COLOR = "CHANGE_DEMO_COLOR"
 
 
@@ -100,6 +101,14 @@ export function SortStation(station){
   return {
     type: SORT_STATION,
     station
+  }
+}
+
+export function EditStation(name, location){
+  return {
+    type: EDIT_STATION,
+    name,
+    location
   }
 }
 

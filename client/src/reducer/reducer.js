@@ -11,6 +11,7 @@ import {
   ADD_STATION,
   DEL_STATION,
   SORT_STATION,  
+  EDIT_STATION,
   ADD_STATION_NAME,
   DEL_STATION_NAME,
   ADD_STATION_LOCATION,
@@ -31,7 +32,9 @@ const initialState = {
   stationName: { en: "Taipei Arena", ch: "台北小巨蛋" },
   stationLocation: { lat: "0", lng: "0" },
   rules: rules,
-  demoColor: "#FF6900"
+  demoColor: "#FF6900",
+  isEdit: false,
+
 }
 
 function NewDepartureName(state, action){
@@ -100,6 +103,7 @@ function NewStation(state, action){
       return state.filter((state) => action.SID != state.SID)
     case SORT_STATION:
       return action.station
+
     default:
       return state
   }
