@@ -5,6 +5,7 @@ import StationTimeLine from './StationTimeLine';
 import InputText from './InputText';
 import GMapSearch from "./GoogleMapSearch";
 import { ModalItemStyle, ModalListStyle, badgeStyle } from './Global';
+import _ from 'lodash';
 
 const LocationBadge = (props) => {
   return(
@@ -109,7 +110,10 @@ export default class StationModal extends React.Component {
   }
 
   handleAddStation = () => {
-    this.props.onAddStation(this.props.stationName, this.props.stationLocation)
+    let stationName = _.cloneDeep(this.props.stationName)
+    let stationLocation = _.cloneDeep(this.props.stationLocation)
+    document.getElementById("googleMapSearchInput").value = ""
+    this.props.onAddStation(stationName, stationLocation)
   }
 
   handleDelStation = (SID) => {

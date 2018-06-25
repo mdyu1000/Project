@@ -7,7 +7,7 @@ import {
   AddConditionThree,
   AddConditionFour,
   DelCondition,
-} from '../action/NewRoute'
+} from '../action/condition'
 
 const mapDispatchToProps = (dispatch) => {
   return {

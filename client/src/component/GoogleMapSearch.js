@@ -86,7 +86,7 @@ const MapWithASearchBox = compose(
       controlPosition={google.maps.ControlPosition.TOP_LEFT}
       onPlacesChanged={props.onPlacesChanged}
     >
-      <input type="text" placeholder="Search..." style={inputStyle} />
+      <input id="googleMapSearchInput" type="text" placeholder="Search..." style={inputStyle} />
     </SearchBox>
     {
       props.markers.map((marker, index) =>

@@ -49,14 +49,15 @@ export default class InputText extends React.Component {
 	}
 
   handleClickAdd = () => {
-    var e = document.getElementById(this.props.name + "Language")
-    var language = e.options[e.selectedIndex].value
-    var name = document.getElementById(this.props.name + "Name").value
-    this.props.onAdd(language, name)
+    let e = document.getElementById(this.props.name + "Language")
+    let language = e.options[e.selectedIndex].value
+    let name = document.getElementById(this.props.name + "Name")
+    this.props.onAdd(language, name.value)
+    name.value = ""
   }
 
   handleClickDel = (e) => {
-    var language = e.target.getAttribute("language")
+    let language = e.target.getAttribute("language")
     this.props.onDel(language)
   }
 

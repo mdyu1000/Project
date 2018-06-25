@@ -23,6 +23,7 @@ import {
   ADD_CONDITION_FOUR, 
   DEL_CONDITION } from '../action/condition'
 import { stations, rules } from '../component/Global'
+import _ from 'lodash';
 
 const initialState = {
   nameLists: { en: "NTUT", ch: "北科大" },
@@ -35,7 +36,6 @@ const initialState = {
   rules: rules,
   demoColor: "#FF6900",
   isEdit: false,
-
 }
 
 function NewDepartureName(state, action){
@@ -92,7 +92,12 @@ function NewColor(state, action){
 function NewStation(state, action, stationName, stationLocation){
   switch(action.type){
     case ADD_STATION:
-      stationName = {}
+      Object.entries(stationName).map(([key, value]) => {
+        delete stationName[key]
+      })
+      Object.entries(stationLocation).map(([key, value]) => {
+        stationLocation[key] = 0
+      })      
       return [
         ...state,    
         {
@@ -113,13 +118,13 @@ function NewStation(state, action, stationName, stationLocation){
 function NewStationName(state, action){
   switch(action.type){
     case ADD_STATION_NAME:
-      let tmp = Object.assign({}, state)
+      let tmp = _.cloneDeep(state)
       tmp[action.language] = action.name
       return {
         ...tmp
       }
     case DEL_STATION_NAME:
-      let temp = Object.assign({}, state) //複製一份 避免干擾到指標
+      let temp = _.cloneDeep(state) //複製一份 避免干擾到指標
       delete temp[action.language]
       return {
         ...temp
@@ -132,7 +137,7 @@ function NewStationName(state, action){
 function NewStationLocation(state, action){
   switch(action.type){
     case ADD_STATION_LOCATION:
-      let tmp = Object.assign({}, state)
+      let tmp = _.cloneDeep(state)
       tmp["lat"] = action.lat
       tmp["lng"] = action.lng
       return {

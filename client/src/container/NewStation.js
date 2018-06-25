@@ -8,7 +8,7 @@ import {
   DelStation,
   DelStationName,
   SortStation,
-} from '../action/NewRoute'
+} from '../action/station'
 
 class NewStation extends React.Component {
   constructor(props){

@@ -11,7 +11,7 @@ import {
   DelDeparture,
   DelDestination,
   ChangeDemoColor,
-} from '../action/NewRoute'
+} from '../action/newRoute'
 
 const mapDispatchToProps = (dispatch) => {
   return {
