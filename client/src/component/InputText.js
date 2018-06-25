@@ -13,7 +13,8 @@ const languageSeleteStyle = {
 }
 
 const NameBadge = (props) => {
-  const badge = Object.entries(props.lists).map(([key, value]) => {
+  let editModeBadge
+  let badge = Object.entries(props.lists).map(([key, value]) => {
     return(
       <span className="badge mt-2 ml-2" style={ badgeStyle }>
         {key.toString() + " | "}
@@ -23,8 +24,22 @@ const NameBadge = (props) => {
       </span>
     )
   })
+
+  if(props.editModeStation != undefined) {
+    editModeBadge = Object.entries(props.editModeStation.name).map(([key, value]) => {
+      return (
+        <span className="badge mt-2 ml-2" style={ badgeStyle }>
+          {key.toString() + " | "}
+          {value.toString()}
+          <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
+            class="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
+        </span>
+      )
+    })
+  }
   return(
-    <div>{badge}</div>
+    (props.editModeStation == undefined && <div>{badge}</div>) ||
+    (props.editModeStation != undefined && <div>{editModeBadge}</div>)
   )
 }
 
@@ -69,10 +84,20 @@ export default class InputText extends React.Component {
 	      	</div>
 	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} style={{ height: "1rem" }} />
       		<div className="input-group-append">
-						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}} onClick={this.handleClickAdd}></i>
+						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}} 
+              onClick={ this.props.isEditMode ? null : this.handleClickAdd}></i>
 	      	</div>
 	      </div>
-        <NameBadge lists={this.props.lists} onDel={this.handleClickDel}/>
+        {
+          (
+            (this.props.isEditMode == undefined || this.props.isEditMode == false) &&
+            <NameBadge lists={this.props.lists} onDel={this.handleClickDel} />
+          ) || 
+          (
+            this.props.isEditMode == true &&
+            <NameBadge lists={this.props.lists} onDel={this.handleClickDel} editModeStation={this.props.editModeStation}/>
+          )
+        }
 	    </FormGroup>
 		)
 	}

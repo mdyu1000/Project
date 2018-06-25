@@ -12,12 +12,23 @@ const MapWithASearchBox = compose(
     mapElement: <div style={{ height: `100%` }} />,
   }),
   lifecycle({
+    componentDidUpdate(prevProps, prevState, snapshot){
+      if(this.props.isEditMode && prevProps.editModeStation != this.props.editModeStation){
+        this.setState({
+          center: {
+            lat: this.props.editModeStation.location.lat,
+            lng: this.props.editModeStation.location.lng
+          }
+        })
+      }
+    },
     componentWillMount() {
+      console.log(this.props);
       const refs = {}
       this.setState({
         bounds: null,
         center: {
-          lat: 25.063130, 
+          lat: 25.063130,
           lng: 121.551962
         },
         markers: [],
@@ -57,7 +68,6 @@ const MapWithASearchBox = compose(
             center: nextCenter,
             markers: nextMarkers,
           });
-          // refs.map.fitBounds(bounds);
         },
       })
     },
@@ -76,15 +86,16 @@ const MapWithASearchBox = compose(
       controlPosition={google.maps.ControlPosition.TOP_LEFT}
       onPlacesChanged={props.onPlacesChanged}
     >
-      <input
-        type="text"
-        placeholder="Search..."
-        style={inputStyle}
-      />
+      <input type="text" placeholder="Search..." style={inputStyle} />
     </SearchBox>
-    {props.markers.map((marker, index) =>
-      <Marker key={index} position={marker.position} onClick={()=>props.onClickMarker(marker.position)}/>
-    )}
+    {
+      props.markers.map((marker, index) =>
+        <Marker key={index} position={marker.position} onClick={()=>props.onClickMarker(marker.position)}/>
+      )
+    }
+    {
+      props.isEditMode && <Marker position={props.editModeStation.location} />
+    }
   </GoogleMap>
 );
 
@@ -111,7 +122,8 @@ export default class GMapSearch extends React.Component {
   render() {
     return(
       <div>
-        <MapWithASearchBox onAddLocation={this.props.onAddLocation}/>
+        <MapWithASearchBox onAddLocation={this.props.onAddLocation} 
+          isEditMode={this.props.isEditMode} editModeStation={this.props.editModeStation}/>
       </div>
     )
   }

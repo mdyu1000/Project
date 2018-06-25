@@ -8,19 +8,20 @@ import {
   DEL_DEPARTURE,
   ADD_DESTINATION,
   DEL_DESTINATION,
+  CHANGE_DEMO_COLOR } from '../action/newRoute'
+import {
   ADD_STATION,
   DEL_STATION,
   SORT_STATION,  
-  EDIT_STATION,
   ADD_STATION_NAME,
   DEL_STATION_NAME,
-  ADD_STATION_LOCATION,
+  ADD_STATION_LOCATION } from '../action/station'
+import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
   ADD_CONDITION_THREE,
   ADD_CONDITION_FOUR, 
-  DEL_CONDITION,
-  CHANGE_DEMO_COLOR, } from '../action/NewRoute'
+  DEL_CONDITION } from '../action/condition'
 import { stations, rules } from '../component/Global'
 
 const initialState = {
@@ -29,7 +30,7 @@ const initialState = {
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   stations: stations,
-  stationName: { en: "Taipei Arena", ch: "台北小巨蛋" },
+  stationName: {},
   stationLocation: { lat: "0", lng: "0" },
   rules: rules,
   demoColor: "#FF6900",
@@ -88,9 +89,10 @@ function NewColor(state, action){
   }
 }
 
-function NewStation(state, action){
+function NewStation(state, action, stationName, stationLocation){
   switch(action.type){
     case ADD_STATION:
+      stationName = {}
       return [
         ...state,    
         {
@@ -103,7 +105,6 @@ function NewStation(state, action){
       return state.filter((state) => action.SID != state.SID)
     case SORT_STATION:
       return action.station
-
     default:
       return state
   }
@@ -112,14 +113,16 @@ function NewStation(state, action){
 function NewStationName(state, action){
   switch(action.type){
     case ADD_STATION_NAME:
-      state[action.language] = action.name
+      let tmp = Object.assign({}, state)
+      tmp[action.language] = action.name
       return {
-        ...state
+        ...tmp
       }
     case DEL_STATION_NAME:
-      delete state[action.language]
+      let temp = Object.assign({}, state) //複製一份 避免干擾到指標
+      delete temp[action.language]
       return {
-        ...state
+        ...temp
       }
     default:
       return state
@@ -129,10 +132,11 @@ function NewStationName(state, action){
 function NewStationLocation(state, action){
   switch(action.type){
     case ADD_STATION_LOCATION:
-      state["lat"] = action.lat
-      state["lng"] = action.lng
+      let tmp = Object.assign({}, state)
+      tmp["lat"] = action.lat
+      tmp["lng"] = action.lng
       return {
-        ...state
+        ...tmp
       }
     default:
       return state   
@@ -218,7 +222,7 @@ export default function BusPlayApp(state = initialState, action){
     departureLists: NewDepartureName(state.departureLists, action),
     destinationLists: NewDestinationName(state.destinationLists, action),
     colors: NewColor(state.colors, action),
-    stations: NewStation(state.stations, action),
+    stations: NewStation(state.stations, action, state.stationName, state.stationLocation),
     stationName: NewStationName(state.stationName, action),
     stationLocation: NewStationLocation(state.stationLocation, action),
     rules: NewRule(state.rules, action),
