@@ -155,12 +155,13 @@ export default class StationModal extends React.Component {
 
   editMode(e) {
     let SID = e.target.getAttribute("id").split("edit")[1]
+    let filterStation = this.state.items.filter(item => item.SID == SID)[0]
     this.setState({
       isEditMode: true,
       editModeStation:{
-        SID: SID,
-        name: this.state.items[SID - 1].name,
-        location: this.state.items[SID - 1].location,
+        SID: filterStation.SID,
+        name: filterStation.name,
+        location: filterStation.location,
       }
     })
   }
