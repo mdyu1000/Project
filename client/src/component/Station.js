@@ -23,12 +23,16 @@ export default class Station extends React.Component {
         <StationModal stations={this.props.stations} 
           stationName={this.props.stationName}
           stationLocation={this.props.stationLocation}
+          isEditMode={this.props.isEditMode}
           onAddStation={this.props.onAddStation}
           onAddStationName={this.props.onAddStationName} 
           onAddStationLocation={this.props.onAddStationLocation} 
           onDelStation={this.props.onDelStation}
           onDelStationName={this.props.onDelStationName}
-          onSortStation={this.props.onSortStation} />
+          onSortStation={this.props.onSortStation} 
+          onEditStationMode={this.props.onEditStationMode} 
+          onEditStation={this.props.onEditStation} 
+          onCloseStationModal={this.props.onCloseStationModal}/>
       </div>
     );
   }

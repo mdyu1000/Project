@@ -13,17 +13,16 @@ const MapWithASearchBox = compose(
   }),
   lifecycle({
     componentDidUpdate(prevProps, prevState, snapshot){
-      if(this.props.isEditMode && prevProps.editModeStation != this.props.editModeStation){
+      if(this.props.isEditMode && prevProps.location != this.props.location){
         this.setState({
           center: {
-            lat: this.props.editModeStation.location.lat,
-            lng: this.props.editModeStation.location.lng
+            lat: this.props.location.lat,
+            lng: this.props.location.lng
           }
         })
       }
     },
     componentWillMount() {
-      console.log(this.props);
       const refs = {}
       this.setState({
         bounds: null,
@@ -94,7 +93,7 @@ const MapWithASearchBox = compose(
       )
     }
     {
-      props.isEditMode && <Marker position={props.editModeStation.location} />
+      props.isEditMode && <Marker position={props.location} />
     }
   </GoogleMap>
 );
@@ -122,8 +121,8 @@ export default class GMapSearch extends React.Component {
   render() {
     return(
       <div>
-        <MapWithASearchBox onAddLocation={this.props.onAddLocation} 
-          isEditMode={this.props.isEditMode} editModeStation={this.props.editModeStation}/>
+        <MapWithASearchBox onAddLocation={this.props.onAddLocation} location={this.props.location}
+          isEditMode = {this.props.isEditMode}/>
       </div>
     )
   }

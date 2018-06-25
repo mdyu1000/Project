@@ -46,12 +46,13 @@ const NameBadge = (props) => {
 export default class InputText extends React.Component {
 	constructor(props){
 		super(props);
+    this.editStation = this.editStation.bind(this)
 	}
 
   handleClickAdd = () => {
-    let e = document.getElementById(this.props.name + "Language")
-    let language = e.options[e.selectedIndex].value
-    let name = document.getElementById(this.props.name + "Name")
+    let e = document.getElementById(this.props.name + "Language") //取得該語言選單
+    let language = e.options[e.selectedIndex].value               //取得該語言
+    let name = document.getElementById(this.props.name + "Name")  //取得該輸入框
     this.props.onAdd(language, name.value)
     name.value = ""
   }
@@ -59,6 +60,13 @@ export default class InputText extends React.Component {
   handleClickDel = (e) => {
     let language = e.target.getAttribute("language")
     this.props.onDel(language)
+  }
+
+  editStation = () => {
+    let e = document.getElementById(this.props.name + "Language") //取得該語言選單
+    let language = e.options[e.selectedIndex].value               //取得該語言
+    let name = document.getElementById(this.props.name + "Name")  //取得該輸入框
+
   }
 
 	render(){
@@ -86,20 +94,21 @@ export default class InputText extends React.Component {
 	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} style={{ height: "1rem" }} />
       		<div className="input-group-append">
 						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}} 
-              onClick={ this.props.isEditMode ? null : this.handleClickAdd}></i>
+              onClick={ this.props.isEditMode ? this.editStation : this.handleClickAdd}></i>
 	      	</div>
 	      </div>
-        {
-          (
-            (this.props.isEditMode == undefined || this.props.isEditMode == false) &&
-            <NameBadge lists={this.props.lists} onDel={this.handleClickDel} />
-          ) || 
-          (
-            this.props.isEditMode == true &&
-            <NameBadge lists={this.props.lists} onDel={this.handleClickDel} editModeStation={this.props.editModeStation}/>
-          )
-        }
+        <NameBadge lists={this.props.lists} onDel={this.handleClickDel} />
 	    </FormGroup>
 		)
 	}
 }
+        // {
+        //   (
+        //     (this.props.isEditMode == undefined || this.props.isEditMode == false) &&
+        //     <NameBadge lists={this.props.lists} onDel={this.handleClickDel} />
+        //   ) || 
+        //   (
+        //     this.props.isEditMode == true &&
+        //     <NameBadge lists={this.props.lists} onDel={this.handleClickDel} editModeStation={this.props.editModeStation}/>
+        //   )
+        // }

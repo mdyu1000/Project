@@ -12,10 +12,13 @@ import {
 import {
   ADD_STATION,
   DEL_STATION,
-  SORT_STATION,  
+  SORT_STATION,
+  EDIT_STATION,
   ADD_STATION_NAME,
   DEL_STATION_NAME,
-  ADD_STATION_LOCATION } from '../action/station'
+  ADD_STATION_LOCATION,
+  EDIT_STATION_MODE, 
+  CLOSE_STATION_MODAL } from '../action/station'
 import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
@@ -35,7 +38,7 @@ const initialState = {
   stationLocation: { lat: "0", lng: "0" },
   rules: rules,
   demoColor: "#FF6900",
-  isEdit: false,
+  isEditMode: false,
 }
 
 function NewDepartureName(state, action){
@@ -110,6 +113,34 @@ function NewStation(state, action, stationName, stationLocation){
       return state.filter((state) => action.SID != state.SID)
     case SORT_STATION:
       return action.station
+    case EDIT_STATION:
+      Object.entries(stationName).map(([key, value]) => {
+        delete stationName[key]
+      })
+      Object.entries(stationLocation).map(([key, value]) => {
+        stationLocation[key] = 0
+      }) 
+      return state.map(item => {
+        if(action.SID != item.SID){
+          return item
+        }else{
+          return {
+            SID: action.SID,
+            name: action.name,
+            location: action.location
+          }
+        }
+      })
+    case CLOSE_STATION_MODAL:
+      Object.entries(stationName).map(([key, value]) => {
+        delete stationName[key]
+      })
+      Object.entries(stationLocation).map(([key, value]) => {
+        stationLocation[key] = 0
+      })
+      return [
+        ...state
+      ]
     default:
       return state
   }
@@ -129,6 +160,10 @@ function NewStationName(state, action){
       return {
         ...temp
       }
+    case EDIT_STATION_MODE:
+      return {
+        ...action.name
+      }
     default:
       return state
   }  
@@ -142,6 +177,10 @@ function NewStationLocation(state, action){
       tmp["lng"] = action.lng
       return {
         ...tmp
+      }
+    case EDIT_STATION_MODE:
+      return {
+        ...action.location
       }
     default:
       return state   
@@ -221,6 +260,19 @@ function ChangeDemoColor(state, action){
   }
 }
 
+function editMode(state, action){
+  switch(action.type){
+    case EDIT_STATION_MODE:
+      return true
+    case EDIT_STATION:
+      return false
+    case CLOSE_STATION_MODAL:
+      return false
+    default:
+      return state
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
     nameLists: NewRoute(state.nameLists, action),
@@ -228,10 +280,11 @@ export default function BusPlayApp(state = initialState, action){
     destinationLists: NewDestinationName(state.destinationLists, action),
     colors: NewColor(state.colors, action),
     stations: NewStation(state.stations, action, state.stationName, state.stationLocation),
-    stationName: NewStationName(state.stationName, action),
+    stationName: NewStationName(state.stationName, action, state.isEditMode),
     stationLocation: NewStationLocation(state.stationLocation, action),
     rules: NewRule(state.rules, action),
-    demoColor: ChangeDemoColor(state.demoColor, action)
+    demoColor: ChangeDemoColor(state.demoColor, action),
+    isEditMode: editMode(state.isEditMode, action)
   }
 }
 

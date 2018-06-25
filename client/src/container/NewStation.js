@@ -8,31 +8,10 @@ import {
   DelStation,
   DelStationName,
   SortStation,
+  EditStation,
+  EditStationMode,
+  CloseStationModal
 } from '../action/station'
-
-class NewStation extends React.Component {
-  constructor(props){
-    super(props)
-  }
-
-  render() {
-    return (
-      <Station  
-        onAddStation = {this.props.onAddStation}
-        onAddStationName = {this.props.onAddStationName}
-        onAddStationLocation = {this.props.onAddStationLocation}
-        onDelStation = {this.props.onDelStation}
-        onDelStationName = {this.props.onDelStationName}
-        onSortStation = {this.props.onSortStation}
-        onChangeDemoColor = {this.props.onChangeDemoColor}
-        stations = {this.props.stations}
-        stationName = {this.props.stationName}
-        stationLocation = {this.props.stationLocation}
-        color = {this.props.color}
-      />
-    );
-  }
-}
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -54,6 +33,15 @@ const mapDispatchToProps = (dispatch) => {
     onSortStation: (station) => {
       dispatch(SortStation(station))
     },
+    onEditStationMode: (SID, language, name) => {
+      dispatch(EditStationMode(SID, language, name))
+    },
+    onEditStation: (SID, language, name) => {
+      dispatch(EditStation(SID, language, name))
+    },
+    onCloseStationModal: () => {
+      dispatch(CloseStationModal())
+    }
   }
 }
 
@@ -62,8 +50,9 @@ const mapStateToProps = (state) => {
     stations: state.stations,
     stationName: state.stationName,
     stationLocation: state.stationLocation,
-    color: state.demoColor
+    color: state.demoColor,
+    isEditMode: state.isEditMode
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewStation)
+export default connect(mapStateToProps, mapDispatchToProps)(Station)

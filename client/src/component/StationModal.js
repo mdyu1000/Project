@@ -22,24 +22,24 @@ const StateButton = (props) => {
     <div className="form-group d-flex justify-content-end mb-0">
       {
         (
-          props.isEditMode == true && 
+          props.isEditMode && 
           <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm" onClick={props.onEditStation}>
             Modify
           </button>
         ) || (
-          props.isEditMode == false && 
-          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm" disabled onClick={props.onEditStation}>
+          !props.isEditMode && 
+          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm" disabled >
             Modify
           </button>
         )
       }{
         (
-          props.location.lat == 0 && props.location.lng == 0 &&
-         <button id="addStationBtn" type="button" className="btn btn-success btn-sm" onClick={props.onAddStation} disabled>
+         (props.isEditMode || (props.location.lat == 0 && props.location.lng == 0)) &&
+         <button id="addStationBtn" type="button" className="btn btn-success btn-sm" disabled>
            Add
          </button>
         ) || (
-          props.location.lat != 0 && props.location.lng != 0 &&
+          !props.isEditMode &&
           <button id="addStationBtn" type="button" className="btn btn-success btn-sm" onClick={props.onAddStation}>
             Add
           </button>
@@ -49,11 +49,11 @@ const StateButton = (props) => {
   )
 }
 
-const ModalHeader = () => {
+const ModalHeader = (props) => {
 	return (
     <div className="modal-header">
       <h5 className="modal-title my-auto">Edit Stations</h5>
-      <button type="button" className="close" data-dismiss="modal">
+      <button type="button" className="close" data-dismiss="modal" onClick={props.onCloseModal}>
         <span>&times;</span>
       </button>
     </div>
@@ -83,19 +83,13 @@ const SortableList = SortableContainer((props) => {
 
 var isInTrashcan = false
 var itemSelected = ""
+var edit_SID
 
 export default class StationModal extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			items: this.props.stations,
-      isEditMode: false,
-      editModeStation: {
-        location: {
-          lat: 0,
-          lng: 0
-        }
-      },
 		}
     this.handleMouseUp = this.handleMouseUp.bind(this)
     this.editMode = this.editMode.bind(this)
@@ -116,14 +110,14 @@ export default class StationModal extends React.Component {
     this.props.onAddStation(stationName, stationLocation)
   }
 
-  handleDelStation = (SID) => {
-    this.props.onDelStation(SID)
+  handleEditStation = () => {
+    let stationName = _.cloneDeep(this.props.stationName)
+    let stationLocation = _.cloneDeep(this.props.stationLocation) 
+    this.props.onEditStation(edit_SID, stationName, stationLocation)
   }
 
-  handleEditStation = () => {
-    this.setState({
-      isEditMode: false,
-    })
+  handleDelStation = (SID) => {
+    this.props.onDelStation(SID)
   }
 
   handleSortStart = ({node, index, collection}, event) => {
@@ -151,7 +145,7 @@ export default class StationModal extends React.Component {
   };
 
   handleMouseUp(ev) {
-    var SID = itemSelected.getAttribute("id").split("station")[1]
+    let SID = itemSelected.getAttribute("id").split("station")[1]
     if(isInTrashcan){
       this.props.onDelStation(SID)
     }
@@ -159,15 +153,9 @@ export default class StationModal extends React.Component {
 
   editMode(e) {
     let SID = e.target.getAttribute("id").split("edit")[1]
+    edit_SID = SID
     let filterStation = this.state.items.filter(item => item.SID == SID)[0]
-    this.setState({
-      isEditMode: true,
-      editModeStation:{
-        SID: filterStation.SID,
-        name: filterStation.name,
-        location: filterStation.location,
-      }
-    })
+    this.props.onEditStationMode(filterStation.SID, filterStation.name, filterStation.location)
   }
 
 	render() {
@@ -175,7 +163,7 @@ export default class StationModal extends React.Component {
       <div className="modal fade" id="stationModal" tabindex="-1">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
-          	<ModalHeader />
+          	<ModalHeader onCloseModal={this.props.onCloseStationModal}/>
             <div className="modal-body">
             	<div className="row">
             		<Col sm="5">
@@ -193,18 +181,18 @@ export default class StationModal extends React.Component {
                   <form>
                     <div className="form-group">
                       <InputText title="Station Name" name="stationName" lists={this.props.stationName} 
-                        onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName}
-                        isEditMode={this.state.isEditMode} editModeStation={this.state.editModeStation} />
+                        onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName} />
                     </div>
                     <div className="form-group">
                       <span>Google Map</span>
                       <GMapSearch onAddLocation={this.props.onAddStationLocation} 
-                        isEditMode={this.state.isEditMode} editModeStation={this.state.editModeStation}/>
+                        isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
                     </div>
-                    <LocationBadge location={this.props.stationLocation} 
-                      isEditMode={this.state.isEditMode} editModeStation={this.state.editModeStation} />
-                    <StateButton onAddStation={this.handleAddStation} location={this.props.stationLocation}
-                      isEditMode={this.state.isEditMode} onEditStation={this.handleEditStation}/>
+                    <LocationBadge location={this.props.stationLocation} />
+                    <StateButton onAddStation={this.handleAddStation} 
+                      onEditStation={this.handleEditStation}
+                      location={this.props.stationLocation}
+                      isEditMode={this.props.isEditMode} />
                   </form>
             		</Col>
             	</div>
