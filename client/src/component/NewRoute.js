@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { 
   Container, Row, Col,
-  Card, Button, CardHeader, CardBody, CardTitle, CardText,
+  Button, CardTitle, CardText,
   Form, FormGroup, Input, FormText,  } from 'reactstrap';
 import NewStation from '../container/NewStation';
 import NewRule from '../container/NewRule';
@@ -49,6 +49,24 @@ const colorPickerStyle = {
 export default class NewRoute extends React.Component {
   constructor(props){
     super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(){
+    let route = {}
+    route["route_name"] = this.props.nameLists
+    route["departure_name"] = this.props.departureLists
+    route["destinationLists"] = this.props.destinationLists
+    route["theme_color"] = this.props.theme_color
+    route["stations"] = []
+    route["rules"] = []
+    this.props.stations.map(station => {
+      route["stations"].push(station.SID)
+    })
+    this.props.rules.map(rule => {
+      route["rules"].push(rule.RID)
+    })
+    this.props.onNewRoute(route, this.props.stations, this.props.rules)
   }
 
   render() {
@@ -57,9 +75,9 @@ export default class NewRoute extends React.Component {
         <Title />
         <Row>
           <Col sm="12">
-            <Card>
-              <CardHeader>Route Form</CardHeader>
-              <CardBody>
+            <div className="card">
+              <div className="card-header">Route Form</div>
+              <div className="card-body">
                 <Form>
                   <Row>
                     <div className="col-5">
@@ -89,8 +107,12 @@ export default class NewRoute extends React.Component {
                   </Row>
                   <NewRule />
                 </Form>
-              </CardBody>
-            </Card>
+              </div>
+              <div className="card-footer">
+                <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
+                  class="btn btn-outline-success btn-block" onClick={this.handleSubmit}>Submit</button>
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>

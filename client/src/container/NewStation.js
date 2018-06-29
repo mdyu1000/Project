@@ -10,7 +10,7 @@ import {
   SortStation,
   EditStation,
   EditStationMode,
-  CloseStationModal
+  CloseStationModal,
 } from '../action/station'
 
 const mapDispatchToProps = (dispatch) => {

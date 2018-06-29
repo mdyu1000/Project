@@ -74,3 +74,18 @@ export function ChangeDemoColor(color){
     color
   }
 }
+
+export const AddRoute = (route, station, rule) => dispatch => {
+  fetch("/NewRoute/", {
+    method: 'POST',
+    body: JSON.stringify({
+      "route": route,
+      "stations": station,
+      "rules": rule
+    }),
+    headers: {"Content-Type": "application/json"}
+  })
+  .catch(function(err){
+    console.log(err)
+  })
+}

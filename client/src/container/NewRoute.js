@@ -11,6 +11,7 @@ import {
   DelDeparture,
   DelDestination,
   ChangeDemoColor,
+  AddRoute,
 } from '../action/newRoute'
 
 const mapDispatchToProps = (dispatch) => {
@@ -41,7 +42,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onChangeDemoColor: (color) => {
       dispatch(ChangeDemoColor(color))
-    }        
+    },
+    onNewRoute: (route, station, rule) => {
+      dispatch(AddRoute(route, station, rule))
+    } 
   }
 }
 
@@ -51,6 +55,7 @@ const mapStateToProps = (state) => {
     departureLists: state.departureLists,
     destinationLists: state.destinationLists,
     colors: state.colors,
+    theme_color: state.demoColor,
     stations: state.stations,
     rules: state.rules,
   }

@@ -11,7 +11,7 @@ class App extends Component {
         <NavgationBar />
         <SideNav />
         <BrowserRouter>
-          <Route exact path="/" component={NewRoute} />
+          <Route exact path="/NewRoute" component={NewRoute} />
         </BrowserRouter> 
       </div>
     );
