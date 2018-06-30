@@ -8,7 +8,8 @@ import {
   DEL_DEPARTURE,
   ADD_DESTINATION,
   DEL_DESTINATION,
-  CHANGE_DEMO_COLOR } from '../action/newRoute'
+  CHANGE_DEMO_COLOR,
+  RECEIVE_ROUTE } from '../action/newRoute'
 import {
   ADD_STATION,
   DEL_STATION,
@@ -39,6 +40,7 @@ const initialState = {
   rules: rules,
   demoColor: "#FF6900",
   isEditMode: false,
+  allRoute: [],
 }
 
 function NewDepartureName(state, action){
@@ -187,7 +189,7 @@ function NewStationLocation(state, action){
   }
 }
 
-function NewRoute(state, action){
+function NewRouteName(state, action){
   switch(action.type){
     case ADD_NAME:
       state[action.language] = action.routeName 
@@ -273,9 +275,20 @@ function editMode(state, action){
   }
 }
 
+function NewRoute(state, action){
+  switch(action.type){
+    case RECEIVE_ROUTE:
+      return [
+        ...action.json
+      ]
+    default:
+      return state
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
-    nameLists: NewRoute(state.nameLists, action),
+    nameLists: NewRouteName(state.nameLists, action),
     departureLists: NewDepartureName(state.departureLists, action),
     destinationLists: NewDestinationName(state.destinationLists, action),
     colors: NewColor(state.colors, action),
@@ -284,7 +297,8 @@ export default function BusPlayApp(state = initialState, action){
     stationLocation: NewStationLocation(state.stationLocation, action),
     rules: NewRule(state.rules, action),
     demoColor: ChangeDemoColor(state.demoColor, action),
-    isEditMode: editMode(state.isEditMode, action)
+    isEditMode: editMode(state.isEditMode, action),
+    allRoute: NewRoute(state.allRoute, action)
   }
 }
 

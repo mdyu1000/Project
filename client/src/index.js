@@ -12,6 +12,7 @@ import { createLogger } from 'redux-logger'
 import BusPlayApp from './reducer/reducer'
 import App from './container/App';
 import registerServiceWorker from './registerServiceWorker';
+import { BrowserRouter } from 'react-router-dom'
 
 const middleware = [ thunk ]
 if(process.env.NODE_ENV !== 'production') {
@@ -25,7 +26,9 @@ let store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>, 
   document.getElementById('root')
 );

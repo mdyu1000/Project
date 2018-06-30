@@ -7,7 +7,9 @@ export const DEL_DEPARTURE = "DEL_DEPARTURE"
 export const ADD_DESTINATION = "ADD_DESTINATION"
 export const DEL_DESTINATION = "DEL_DESTINATION"
 export const CHANGE_DEMO_COLOR = "CHANGE_DEMO_COLOR"
+export const RECEIVE_ROUTE = "RECEIVE_ROUTE"
 
+var nextRID = 0
 
 export function AddName(language, routeName){
   return {
@@ -76,6 +78,8 @@ export function ChangeDemoColor(color){
 }
 
 export const AddRoute = (route, station, rule) => dispatch => {
+  route["RID"] = nextRID + 1 
+
   fetch("/NewRoute/", {
     method: 'POST',
     body: JSON.stringify({
@@ -88,4 +92,20 @@ export const AddRoute = (route, station, rule) => dispatch => {
   .catch(function(err){
     console.log(err)
   })
+}
+
+const ReceiveRoute = (json) => {
+  return {
+    type: RECEIVE_ROUTE,
+    json
+  }
+}
+
+export const FetchRoute = () => dispatch => {
+  return fetch("/AllRoute")
+        .then(response => response.json())
+        .then(json => {
+          nextRID = json.length
+          dispatch(ReceiveRoute(json))
+        })
 }

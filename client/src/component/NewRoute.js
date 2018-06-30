@@ -10,7 +10,8 @@ import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
 import InputText from './InputText';
 import GMap from './GoogleMap';
-import { stations, colors } from './Global';
+import { stations, colors, containerStyle } from './Global';
+import { Redirect } from 'react-router-dom';
 
 const Title = () => {
   return (
@@ -20,17 +21,6 @@ const Title = () => {
       </Col>
     </Row>
   )
-}
-
-const fontSize = 16;
-const sidebarWidthREM = 18;
-const paddingLeft = fontSize * sidebarWidthREM;
-const rowMargin = 30;
-
-const containerStyle = {
-  paddingLeft: paddingLeft + rowMargin + "px",
-  paddingRight: "30px",
-  paddingTop: "56px",
 }
 
 const titleStyle = {
@@ -49,6 +39,9 @@ const colorPickerStyle = {
 export default class NewRoute extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      isRedirect: false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
@@ -56,20 +49,27 @@ export default class NewRoute extends React.Component {
     let route = {}
     route["route_name"] = this.props.nameLists
     route["departure_name"] = this.props.departureLists
-    route["destinationLists"] = this.props.destinationLists
+    route["destination_name"] = this.props.destinationLists
     route["theme_color"] = this.props.theme_color
     route["stations"] = []
     route["rules"] = []
     this.props.stations.map(station => {
-      route["stations"].push(station.SID)
+      route["stations"].push(station)
     })
     this.props.rules.map(rule => {
-      route["rules"].push(rule.RID)
+      route["rules"].push(rule)
     })
     this.props.onNewRoute(route, this.props.stations, this.props.rules)
+    this.setState({
+      isRedirect: true
+    })
   }
 
   render() {
+    if (this.state.isRedirect) {
+      return <Redirect push to="/" />; //or <Redirect push to="/?a=xxx&b=yyy" /> 传递更多参数
+    }
+
     return (
       <Container fluid style={ containerStyle }>
         <Title />

@@ -22,21 +22,19 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.post('/NewRoute/', (req, res, next) => {
-  console.log(req.body.route)
-  console.log(req.body.stations)
-  console.log(req.body.rules)
   let dbo = db.db("project")
   dbo.collection("route").insert(req.body.route, (err, res) => {
     if(err) throw err
     console.log("route are inserted")
   })
-  dbo.collection("stations").insert(req.body.stations, (err, res) => {
-    if (err) throw err
-    console.log("stations are inserted")
-  })
-  dbo.collection("rules").insert(req.body.rules, (err, res) =>{
-    if (err) throw err
-    console.log("rules are inserted")
-  })
+})
+
+app.get('/AllRoute/', (req, res, next) => {
+  console.log("Get is called")
+  let dbo = db.db("project")
+  dbo.collection("route").find().toArray((err, results) => {
+    if(err) throw err
+    res.send(JSON.stringify(results));
+  })  
 })
 

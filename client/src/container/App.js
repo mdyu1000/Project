@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import NavgationBar from '../component/Navbar';
-import SideNav from '../component/SideNav';
-import NewRoute from './NewRoute';
-import { Route, HashRouter, BrowserRouter } from 'react-router-dom';
+import React, { Component } from 'react'
+import NavgationBar from '../component/Navbar'
+import SideNav from '../component/SideNav'
+import NewRoute from './NewRoute'
+import RouteListContainer from './RouteListContainer'
+import { Route, HashRouter } from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -10,12 +11,11 @@ class App extends Component {
       <div>
         <NavgationBar />
         <SideNav />
-        <BrowserRouter>
-          <Route exact path="/NewRoute" component={NewRoute} />
-        </BrowserRouter> 
+        <Route exact path="/NewRoute" component={NewRoute} />
+        <Route exact path="/" component={RouteListContainer} />        
       </div>
     );
   }
 }
 
-export default App;
+export default App

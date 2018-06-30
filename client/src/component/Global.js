@@ -1,3 +1,15 @@
+// 最大的那塊 設定與 navbar 與 sidebar 的距離
+const fontSize = 16;
+const sidebarWidthREM = 18;
+const paddingLeft = fontSize * sidebarWidthREM;
+const rowMargin = 30;
+export const containerStyle = {
+  paddingLeft: paddingLeft + rowMargin + "px",
+  paddingRight: "30px",
+  paddingTop: "56px",
+}
+// ------------------------------------------
+
 export const ModalListStyle = {
   listStyleType: "none",
   border: "none",

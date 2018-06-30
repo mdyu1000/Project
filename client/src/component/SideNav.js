@@ -1,5 +1,6 @@
 import React from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom'
 
 const sideNavStyle = {
 	position: "fixed",
@@ -14,8 +15,8 @@ const sideNavStyle = {
 const itemStyle = {
   color: "white",
   marginLeft: "15px",
-  paddingTop: "1.1rem",
-  paddingBottom: "1.1rem",
+  display: "block",
+  padding: "1.1rem 1rem",
 }
 
 export default class SideNav extends React.Component {
@@ -28,10 +29,10 @@ export default class SideNav extends React.Component {
       <div id="Sidebar">
         <Nav vertical style={sideNavStyle}>
           <NavItem>
-            <NavLink href="#" style={itemStyle}><i className="fa fa-file-text-o" aria-hidden="true"></i> New</NavLink>
+            <Link to="/NewRoute" style={itemStyle}><i className="fa fa-file-text-o" aria-hidden="true"></i> New</Link>
           </NavItem>
           <NavItem>
-            <NavLink href="#" style={itemStyle} ><i className="fa fa-pencil" aria-hidden="true"></i> Layout</NavLink>
+            <Link to="/" style={itemStyle} ><i className="fa fa-pencil" aria-hidden="true"></i> All Route</Link>
           </NavItem>
         </Nav>
       </div>
