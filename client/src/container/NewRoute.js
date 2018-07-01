@@ -12,6 +12,7 @@ import {
   DelDestination,
   ChangeDemoColor,
   AddRoute,
+  UpdateRoute,
 } from '../action/newRoute'
 
 const mapDispatchToProps = (dispatch) => {
@@ -45,7 +46,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onNewRoute: (route, station, rule) => {
       dispatch(AddRoute(route, station, rule))
-    } 
+    },
+    UpdateRoute: (RID, route) => {
+      dispatch(UpdateRoute(RID, route))
+    }
   }
 }
 

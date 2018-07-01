@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import RouteList from '../component/RouteList'
 import {
-  FetchRoute
+  FetchAllRoute,
+  GetRouteRID,
+  FetchOneRoute,
 } from '../action/newRoute'
 
 class RouteListContainer extends React.Component {
@@ -11,20 +13,29 @@ class RouteListContainer extends React.Component {
   }
 
   componentWillMount(){
-    this.props.FetchRoute()    
+    this.props.FetchAllRoute()    
   }
 
   render(){    
     return(
-      <RouteList allRoute={this.props.allRoute} />
+      <RouteList allRoute={this.props.allRoute} 
+        edit_RID={this.props.edit_RID}
+        GetRouteRID={this.props.GetRouteRID} 
+        FetchOneRoute={this.props.FetchOneRoute} />
     )
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    FetchRoute: () => {
-      dispatch(FetchRoute())
+    FetchAllRoute: () => {
+      dispatch(FetchAllRoute())
+    },
+    GetRouteRID: (SID) => {
+      dispatch(GetRouteRID(SID))
+    },
+    FetchOneRoute: (RID) => {
+      dispatch(FetchOneRoute(RID))
     }
   }
 }
@@ -32,6 +43,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     allRoute: state.allRoute,
+    edit_RID: state.edit_RID,
   }
 }
 

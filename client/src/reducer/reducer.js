@@ -9,7 +9,9 @@ import {
   ADD_DESTINATION,
   DEL_DESTINATION,
   CHANGE_DEMO_COLOR,
-  RECEIVE_ROUTE } from '../action/newRoute'
+  RECEIVE_ALL_ROUTE,
+  GET_ROUTE_RID,
+  RECEIVE_ONE_ROUTE } from '../action/newRoute'
 import {
   ADD_STATION,
   DEL_STATION,
@@ -41,6 +43,7 @@ const initialState = {
   demoColor: "#FF6900",
   isEditMode: false,
   allRoute: [],
+  edit_RID: 0,
 }
 
 function NewDepartureName(state, action){
@@ -55,6 +58,10 @@ function NewDepartureName(state, action){
       return {
         ...state
       }   
+    case RECEIVE_ONE_ROUTE:
+      return {
+        ...action.json.departure_name
+      }
     default:
       return state
   }
@@ -71,7 +78,11 @@ function NewDestinationName(state, action){
       delete state[action.language]
       return {
         ...state
-      }       
+      }
+    case RECEIVE_ONE_ROUTE:
+      return {
+        ...action.json.destination_name
+      }      
     default:
       return state
   }
@@ -143,6 +154,10 @@ function NewStation(state, action, stationName, stationLocation){
       return [
         ...state
       ]
+    case RECEIVE_ONE_ROUTE:
+      return [
+        ...action.json.stations
+      ]
     default:
       return state
   }
@@ -165,7 +180,7 @@ function NewStationName(state, action){
     case EDIT_STATION_MODE:
       return {
         ...action.name
-      }
+      }     
     default:
       return state
   }  
@@ -202,6 +217,10 @@ function NewRouteName(state, action){
       return {
         ...state
       }
+    case RECEIVE_ONE_ROUTE:
+      return {
+        ...action.json.route_name
+      }      
     default:
       return state
   }
@@ -250,6 +269,10 @@ function NewRule(state, action){
       ]
     case DEL_CONDITION:
       return state.filter((state) => action.RID != state.RID)
+    case RECEIVE_ONE_ROUTE:
+      return [
+        ...action.json.rules
+      ]
     default:
       return state
   }
@@ -259,6 +282,10 @@ function ChangeDemoColor(state, action){
   switch(action.type){
     case CHANGE_DEMO_COLOR:
       return action.color
+    case RECEIVE_ONE_ROUTE:
+      return action.json.theme_color
+    default:
+      return state
   }
 }
 
@@ -277,10 +304,19 @@ function editMode(state, action){
 
 function NewRoute(state, action){
   switch(action.type){
-    case RECEIVE_ROUTE:
+    case RECEIVE_ALL_ROUTE:
       return [
         ...action.json
       ]
+    default:
+      return state
+  }
+}
+
+function GetEditRID(state, action){
+  switch(action.type){
+    case GET_ROUTE_RID:
+      return action.RID
     default:
       return state
   }
@@ -298,7 +334,8 @@ export default function BusPlayApp(state = initialState, action){
     rules: NewRule(state.rules, action),
     demoColor: ChangeDemoColor(state.demoColor, action),
     isEditMode: editMode(state.isEditMode, action),
-    allRoute: NewRoute(state.allRoute, action)
+    allRoute: NewRoute(state.allRoute, action),
+    edit_RID: GetEditRID(state.edit_RID, action),
   }
 }
 

@@ -12,16 +12,7 @@ import InputText from './InputText';
 import GMap from './GoogleMap';
 import { stations, colors, containerStyle } from './Global';
 import { Redirect } from 'react-router-dom';
-
-const Title = () => {
-  return (
-    <Row>
-      <Col sm="12">
-        <h2 style={titleStyle}>New Route</h2>
-      </Col>
-    </Row>
-  )
-}
+import { matchPath } from 'react-router'
 
 const titleStyle = {
   marginTop: "2rem",
@@ -36,17 +27,49 @@ const colorPickerStyle = {
   paddingLeft: "0.5rem",
 }
 
+const Title = () => {
+  return (
+    <Row>
+      <Col sm="12">
+        <h2 style={titleStyle}>New Route</h2>
+      </Col>
+    </Row>
+  )
+}
+
+const CardFooter = props => {
+  return (
+    <div className="card-footer">
+      {
+        ( props.match != null &&
+          <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
+          class="btn btn-outline-success btn-block" onClick={props.onUpdateRoute}>Update</button> ) 
+        || ( 
+          props.match == null && 
+          <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
+          class="btn btn-outline-success btn-block" onClick={props.onNewRoute}>Submit</button> ) 
+      }
+    </div>
+  )
+}
+
 export default class NewRoute extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      isRedirect: false
+      isRedirect: false,
+      match: matchPath(window.location.pathname, {
+        path: '/UpdateRoute/:RID',
+        exact: true,
+        strict: false
+      })
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleNewRoute = this.handleNewRoute.bind(this)
+    this.handleUpdateRoute = this.handleUpdateRoute.bind(this)
+    this.StoreRoute = this.StoreRoute.bind(this)
   }
 
-  handleSubmit(){
-    let route = {}
+  StoreRoute(route) {
     route["route_name"] = this.props.nameLists
     route["departure_name"] = this.props.departureLists
     route["destination_name"] = this.props.destinationLists
@@ -59,6 +82,20 @@ export default class NewRoute extends React.Component {
     this.props.rules.map(rule => {
       route["rules"].push(rule)
     })
+  }
+
+  handleUpdateRoute() {
+    let route = {}
+    this.StoreRoute(route)
+    this.props.UpdateRoute(this.state.match.params.RID, route)
+    this.setState({
+      isRedirect: true
+    })
+  }
+
+  handleNewRoute(){
+    let route = {}
+    this.StoreRoute(route)
     this.props.onNewRoute(route, this.props.stations, this.props.rules)
     this.setState({
       isRedirect: true
@@ -77,12 +114,13 @@ export default class NewRoute extends React.Component {
           <Col sm="12">
             <div className="card">
               <div className="card-header">Route Form</div>
-              <div className="card-body">
+              <div className="card-body pb-1">
                 <Form>
                   <Row>
                     <div className="col-5">
                       <InputText title="Name" name="route" lists={this.props.nameLists} 
-                        onAdd={this.props.onAddName} onDel={this.props.onDelName} />
+                        onAdd={this.props.onAddName} 
+                        onDel={this.props.onDelName} />
                     </div>
                     <div className="col-5 offset-1">
                       <ColorPicker colors={this.props.colors} 
@@ -92,11 +130,13 @@ export default class NewRoute extends React.Component {
                     </div>
                     <div className="col-5 mt-3">
                       <InputText title="Departure" name="departure" MT="1" lists={this.props.departureLists} 
-                        onAdd={this.props.onAddDeparture} onDel={this.props.onDelDeparture} />
+                        onAdd={this.props.onAddDeparture} 
+                        onDel={this.props.onDelDeparture} />
                     </div>
                     <div className="col-5 offset-1 mt-3">
                       <InputText title="Destination" name="destination" offset="1" MT="1" lists={this.props.destinationLists} 
-                        onAdd={this.props.onAddDestination} onDel={this.props.onDelDestination}/>
+                        onAdd={this.props.onAddDestination} 
+                        onDel={this.props.onDelDestination} />
                     </div>
                     <div className="col-5 mt-4">
                       <NewStation />
@@ -105,13 +145,12 @@ export default class NewRoute extends React.Component {
                       <GMap stations={this.props.stations}/>
                     </div>
                   </Row>
-                  <NewRule />
+                  <NewRule  />
                 </Form>
               </div>
-              <div className="card-footer">
-                <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
-                  class="btn btn-outline-success btn-block" onClick={this.handleSubmit}>Submit</button>
-              </div>
+              <CardFooter match={this.state.match} 
+                onNewRoute={this.handleNewRoute}  
+                onUpdateRoute={this.handleUpdateRoute} />
             </div>
           </Col>
         </Row>

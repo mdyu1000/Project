@@ -12,6 +12,7 @@ class App extends Component {
         <NavgationBar />
         <SideNav />
         <Route exact path="/NewRoute" component={NewRoute} />
+        <Route exact path="/UpdateRoute/:RID" component={NewRoute} />        
         <Route exact path="/" component={RouteListContainer} />        
       </div>
     );

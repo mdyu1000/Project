@@ -7,8 +7,9 @@ export const DEL_DEPARTURE = "DEL_DEPARTURE"
 export const ADD_DESTINATION = "ADD_DESTINATION"
 export const DEL_DESTINATION = "DEL_DESTINATION"
 export const CHANGE_DEMO_COLOR = "CHANGE_DEMO_COLOR"
-export const RECEIVE_ROUTE = "RECEIVE_ROUTE"
-
+export const RECEIVE_ALL_ROUTE = "RECEIVE_ROUTE"
+export const GET_ROUTE_RID = "GET_ROUTE_RID"
+export const RECEIVE_ONE_ROUTE = "RECEIVE_ONE_ROUTE"
 var nextRID = 0
 
 export function AddName(language, routeName){
@@ -94,18 +95,53 @@ export const AddRoute = (route, station, rule) => dispatch => {
   })
 }
 
-const ReceiveRoute = (json) => {
-  return {
-    type: RECEIVE_ROUTE,
-    json
-  }
-}
-
-export const FetchRoute = () => dispatch => {
+export const FetchAllRoute = () => dispatch => {
   return fetch("/AllRoute")
         .then(response => response.json())
         .then(json => {
           nextRID = json.length
-          dispatch(ReceiveRoute(json))
+          dispatch(ReceiveAllRoute(json))
         })
+}
+
+const ReceiveAllRoute = (json) => {
+  return {
+    type: RECEIVE_ALL_ROUTE,
+    json
+  }
+}
+
+export function GetRouteRID(RID){
+  return {
+    type: GET_ROUTE_RID,
+    RID
+  }
+}
+
+export const FetchOneRoute = (RID) => dispatch => {
+  return fetch("/AllRoute/" + RID)
+        .then(response => response.json())
+        .then(json => {
+          dispatch(ReceiveOneRoute(json[0]))
+        })
+}
+
+const ReceiveOneRoute = (json) => {
+  return {
+    type: RECEIVE_ONE_ROUTE,
+    json
+  }
+}
+
+export const UpdateRoute = (RID, route) => dispatch => {
+  return  fetch("/UpdateRoute/" + RID, {
+            method: 'PUT',
+            body: JSON.stringify({
+              "route": route,
+            }),
+            headers: {"Content-Type": "application/json"}
+          })
+          .catch(function(err){
+            console.log(err)
+          })
 }
