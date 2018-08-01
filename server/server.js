@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://localhost:27017/";
+const url = "mongodb://K7Yu:lin1000@ds255347.mlab.com:55347/kkk777";
 
 const app = express()
 const port = process.env.PORT || 4000

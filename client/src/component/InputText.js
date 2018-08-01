@@ -81,9 +81,9 @@ export default class InputText extends React.Component {
 		return(
 	    <FormGroup>
 	      <span>{this.props.title}</span>
-	      <div className="input-group mt-2">
+	      <div className="input-group mt-2" style={{height: "2rem"}}>
 	      	<div className="input-group-prepend">
-	      		<select style={ languageSeleteStyle } id={this.props.name + "Language"} className="browser-default mt-2">
+	      		<select style={ languageSeleteStyle } id={this.props.name + "Language"} className="browser-default py-1">
       				<option disabled selected value className="d-none p-3"></option>
 	      			<option value="ch" className="m-5">Chinese</option>
 	      			<option value="en" className="m-3">English</option>
@@ -91,9 +91,9 @@ export default class InputText extends React.Component {
               <option value="jp" className="m-3">Japan</option>
             </select>
 	      	</div>
-	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} style={{ height: "1rem" }} />
+	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} className="pb-2" />
       		<div className="input-group-append">
-						<i className="fa fa-plus my-auto" style={{ cursor: "pointer"}} 
+						<i className="fa fa-plus my-auto ml-1" style={{ cursor: "pointer"}} 
               onClick={ this.props.isEditMode ? this.editStation : this.handleClickAdd}></i>
 	      	</div>
 	      </div>
