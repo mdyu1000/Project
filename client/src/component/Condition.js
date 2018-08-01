@@ -24,6 +24,7 @@ const buttonStyle = (color) => {
 		paddingBottom: "5px",
 		border: "2px solid " + color,
 		color: color,
+    backgroundColor: "transparent",
 	})
 }
 
@@ -31,12 +32,12 @@ const ConditionGroup = (props) => {
 	const arr = ["Condition 1", "Condition 2", "Condition 3", "Condition 4"];
 	const btnLists = arr.map((btnList, i) => 
 		<div style={{ width: "100%"}}>
-		  <Button type="button" key={i} outline className="ml-0" style={buttonStyle(props.color)}
+		  <button type="button" key={i} outline className="btn ml-0" style={buttonStyle(props.color)}
 		 		data-toggle="collapse" data-target={"#condition" + (i + 1)}>
 		  	<span style={{ color: props.color}}>
 		  		{"Rule " + (i + 1)}
 	  		</span>
-		  </Button>
+		  </button>
 		  { 
         ( i==0 && <Condition1 onAddCondition1={props.onAddCondition1} stations={props.stations} /> ) || 
         ( i==1 && <Condition2 onAddCondition2={props.onAddCondition2} stations={props.stations} /> ) || 

@@ -7,7 +7,6 @@ const languageSeleteStyle = {
   background: "#6c757d",
   opacity: ".3",
   color: "white",
-  borderRadius: "5px",
   paddingLeft: ".5rem",
   paddingRight: ".5rem",
 }
@@ -16,7 +15,7 @@ const NameBadge = (props) => {
   let editModeBadge
   let badge = Object.entries(props.lists).map(([key, value]) => {
     return(
-      <span className="badge mt-2 ml-2" style={ badgeStyle }>
+      <span className="badge badge-info mt-2 ml-2 text-dark rounded" style={ badgeStyle }>
         {key.toString() + " | "}
         {value.toString()}
         <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
@@ -83,7 +82,8 @@ export default class InputText extends React.Component {
 	      <span>{this.props.title}</span>
 	      <div className="input-group mt-2" style={{height: "2rem"}}>
 	      	<div className="input-group-prepend">
-	      		<select style={ languageSeleteStyle } id={this.props.name + "Language"} className="browser-default py-1">
+	      		<select style={ languageSeleteStyle } id={this.props.name + "Language"} 
+              className="browser-default py-1 rounded">
       				<option disabled selected value className="d-none p-3"></option>
 	      			<option value="ch" className="m-5">Chinese</option>
 	      			<option value="en" className="m-3">English</option>
@@ -91,7 +91,7 @@ export default class InputText extends React.Component {
               <option value="jp" className="m-3">Japan</option>
             </select>
 	      	</div>
-	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} className="pb-2" />
+	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} className="pb-2 rounded" />
       		<div className="input-group-append">
 						<i className="fa fa-plus my-auto ml-1" style={{ cursor: "pointer"}} 
               onClick={ this.props.isEditMode ? this.editStation : this.handleClickAdd}></i>
