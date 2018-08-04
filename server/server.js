@@ -22,14 +22,14 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.post('/NewRoute/', (req, res, next) => {
-  let dbo = db.db("project")
+  let dbo = db.db("kkk777")
   dbo.collection("route").insert(req.body.route, (err, res) => {
     if(err) throw err
   })
 })
 
 app.get('/AllRoute/', (req, res, next) => {
-  let dbo = db.db("project")
+  let dbo = db.db("kkk777")
   dbo.collection("route").find().toArray((err, results) => {
     if(err) throw err
     res.send(JSON.stringify(results));
@@ -37,7 +37,7 @@ app.get('/AllRoute/', (req, res, next) => {
 })
 
 app.get('/AllRoute/:RID', (req, res, next) => {
-  let dbo = db.db("project")
+  let dbo = db.db("kkk777")
   let RouteID = parseInt(req.params.RID)  // 原參數為 string 型態 必須轉換為 int 才可使用
   let query = { RID: RouteID}
   dbo.collection("route").find(query).toArray((err, result) => {
