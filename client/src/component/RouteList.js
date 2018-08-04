@@ -24,7 +24,7 @@ const RouteItem = props => {
     <tbody>
       {
         props.routes.map((route, index) => 
-          <tr id={ "route" + route.RID} onClick={props.onClick} style={{ cursor: "pointer"}}>
+          <tr key={index} id={ "route" + route.RID} onClick={props.onClick} style={{ cursor: "pointer"}}>
             <th>{index + 1}</th>
             <th>{route.route_name.ch == null ? route.route_name.en : route.route_name.ch}</th>
             <th>{route.departure_name.ch == null ? route.departure_name.en : route.departure_name.ch}</th>

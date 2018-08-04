@@ -48,7 +48,7 @@ app.get('/AllRoute/:RID', (req, res, next) => {
 
 app.put('/UpdateRoute/:RID', (req, res, next) => {
   console.log(req.body.route)
-  let dbo = db.db("project")
+  let dbo = db.db("kkk777")
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
   let newValue = { $set: {
@@ -61,6 +61,7 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   }}
   dbo.collection("route").updateOne(query, newValue, (err, result) => {
     if (err) throw err;
+    res.send("update successful")
   })
 })
 

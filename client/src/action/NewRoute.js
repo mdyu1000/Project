@@ -1,3 +1,5 @@
+import { SERVER } from "../constant"
+
 export const ADD_NAME = "ADD_NAME"
 export const DEL_NAME = "DEL_NAME"
 export const ADD_COLOR = "ADD_COLOR"
@@ -10,6 +12,7 @@ export const CHANGE_DEMO_COLOR = "CHANGE_DEMO_COLOR"
 export const RECEIVE_ALL_ROUTE = "RECEIVE_ROUTE"
 export const GET_ROUTE_RID = "GET_ROUTE_RID"
 export const RECEIVE_ONE_ROUTE = "RECEIVE_ONE_ROUTE"
+
 var nextRID = 0
 
 export function AddName(language, routeName){
@@ -96,12 +99,12 @@ export const AddRoute = (route, station, rule) => dispatch => {
 }
 
 export const FetchAllRoute = () => dispatch => {
-  return fetch("/AllRoute")
-        .then(response => response.json())
-        .then(json => {
-          nextRID = json.length
-          dispatch(ReceiveAllRoute(json))
-        })
+  return fetch(`${SERVER}/AllRoute`)
+  .then(response => response.json())
+  .then(json => {
+    nextRID = json.length
+    dispatch(ReceiveAllRoute(json))
+  })
 }
 
 const ReceiveAllRoute = (json) => {
@@ -119,7 +122,7 @@ export function GetRouteRID(RID){
 }
 
 export const FetchOneRoute = (RID) => dispatch => {
-  return fetch("/AllRoute/" + RID)
+  return fetch(`${SERVER}/AllRoute/${RID}`)
         .then(response => response.json())
         .then(json => {
           dispatch(ReceiveOneRoute(json[0]))
@@ -134,7 +137,7 @@ const ReceiveOneRoute = (json) => {
 }
 
 export const UpdateRoute = (RID, route) => dispatch => {
-  return  fetch("/UpdateRoute/" + RID, {
+  return  fetch(`${SERVER}/UpdateRoute/${RID}`, {
             method: 'PUT',
             body: JSON.stringify({
               "route": route,
