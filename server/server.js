@@ -1,14 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://K7Yu:lin1000@ds255347.mlab.com:55347/kkk777";
+const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777";
 
 const app = express()
 const port = process.env.PORT || 4000
 
 var db
 
-MongoClient.connect(url, function(err, database){
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, database){
   if(err) throw err;  
   db = database
   app.listen(port, () => {

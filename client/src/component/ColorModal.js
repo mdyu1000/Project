@@ -54,7 +54,7 @@ export default class ColorModal extends React.Component {
 
   render(){
     return (
-      <div className="modal fade" id="colorModal" tabindex="-1">
+      <div className="modal fade" id="colorModal" tabIndex="-1">
         <div className="modal-dialog">
           <div className="modal-content">
             <ModalHeader />

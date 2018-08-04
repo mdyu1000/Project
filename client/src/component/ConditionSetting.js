@@ -1,4 +1,4 @@
-import { Row, Col, Button, ButtonGroup, Card, CardHeader, CardBody, CardText, CardFooter, FormGroup } from 'reactstrap';
+import { Card, CardBody, CardFooter } from 'reactstrap';
 import React from 'react';
 import '../CSS/conditionGroup.css';
 
@@ -27,24 +27,28 @@ const handleAddCondition1 = (SID, distance, onAdd) => {
   onAdd(SID, distance)
 }
 
+const StationOption = props => {
+  return (  
+    props.stations.map((station, index) =>
+      <option key={station + index} value={station.name.ch}>{station.name.ch}</option>
+    )
+  )
+}
+
 export const Condition1 = (props) => {
   return(
     <Card id="condition1" className="collapse mx-1" data-parent="#ConditionGroup">
       <CardBody style={CardBodyStyle}>
         <span className="card-text">抵達 
           <select id="C1_station" className="mx-1 browser-default d-inline">
-            <option disabled selected value className="d-none"></option>
-            {
-              props.stations.map(station =>
-                <option value={station.name.ch} SID={station.SID}>{station.name.ch}</option>
-              )
-            }
+            <option disabled value='' selected className="d-none"></option>
+            <StationOption stations={props.stations} />
           </select>站前 
           <input id="C1_distance" type="number" style={inputNumberStyle} max="6000" min="0" size="35"/>公尺，進行廣播
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" class="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition1(
             document.getElementById("C1_station").options[document.getElementById("C1_station").selectedIndex].getAttribute("SID"), 
@@ -65,11 +69,7 @@ export const Condition2 = (props) => {
         <span className="card-text">離開 
           <select id="C2_station" className="mx-1 browser-default d-inline">
             <option disabled selected value className="d-none"></option>
-            {
-              props.stations.map(station => 
-                <option value={station.name.ch} SID={station.SID}> {station.name.ch}</option>
-              )
-            }
+            <StationOption stations={props.stations} />
           </select>
           站後 
           <input id="C2_value" className="mx-1" type="number" style={inputNumberStyle} max="600" min="0"/> 
@@ -82,7 +82,7 @@ export const Condition2 = (props) => {
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" class="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition2(
             document.getElementById("C2_station").options[document.getElementById("C2_station").selectedIndex].getAttribute("SID"),
@@ -107,7 +107,7 @@ export const Condition3 = (props) => {
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" class="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition3(document.getElementById("C3_distance").value, props.onAddCondition3) }>
           <span style={{ color: "#1e1e1e" }}> New </span>
@@ -127,7 +127,7 @@ export const Condition4 = (props) => {
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" class="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}} 
           onClick={ () => handleAddCondition4(document.getElementById("C4_interval").value, props.onAddCondition4) }>
           <span style={{ color: "#1e1e1e" }}> New </span>

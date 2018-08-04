@@ -81,27 +81,11 @@ export function ChangeDemoColor(color){
   }
 }
 
-export const AddRoute = (route, station, rule) => dispatch => {
-  route["RID"] = nextRID + 1 
-
-  fetch("/NewRoute/", {
-    method: 'POST',
-    body: JSON.stringify({
-      "route": route,
-      "stations": station,
-      "rules": rule
-    }),
-    headers: {"Content-Type": "application/json"}
-  })
-  .catch(function(err){
-    console.log(err)
-  })
-}
-
 export const FetchAllRoute = () => dispatch => {
   return fetch(`${SERVER}/AllRoute`)
   .then(response => response.json())
   .then(json => {
+    console.log("length = " + json.length)
     nextRID = json.length
     dispatch(ReceiveAllRoute(json))
   })
@@ -134,6 +118,25 @@ const ReceiveOneRoute = (json) => {
     type: RECEIVE_ONE_ROUTE,
     json
   }
+}
+
+export const AddRoute = (route, station, rule) => dispatch => {
+  route["RID"] = nextRID 
+  nextRID += 1
+  console.log("RID = " + nextRID)
+
+  fetch("/NewRoute/", {
+    method: 'POST',
+    body: JSON.stringify({
+      "route": route,
+      "stations": station,
+      "rules": rule
+    }),
+    headers: {"Content-Type": "application/json"}
+  })
+  .catch(function(err){
+    console.log(err)
+  })
 }
 
 export const UpdateRoute = (RID, route) => dispatch => {

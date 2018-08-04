@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, FormGroup, Input } from 'reactstrap';
+import { FormGroup, Input } from 'reactstrap';
 import { badgeStyle } from './Global'
 
 
@@ -15,11 +15,11 @@ const NameBadge = (props) => {
   let editModeBadge
   let badge = Object.entries(props.lists).map(([key, value]) => {
     return(
-      <span className="badge badge-info mt-2 ml-2 text-dark rounded" style={ badgeStyle }>
+      <span key={value} className="badge badge-info mt-2 ml-2 text-dark rounded" style={ badgeStyle }>
         {key.toString() + " | "}
         {value.toString()}
         <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
-          class="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
+          className="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
       </span>
     )
   })
@@ -27,11 +27,11 @@ const NameBadge = (props) => {
   if(props.editModeStation != undefined) {
     editModeBadge = Object.entries(props.editModeStation.name).map(([key, value]) => {
       return (
-        <span className="badge mt-2 ml-2" style={ badgeStyle }>
+        <span key={value} className="badge mt-2 ml-2" style={ badgeStyle }>
           {key.toString() + " | "}
           {value.toString()}
           <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
-            class="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
+            className="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
         </span>
       )
     })
@@ -102,13 +102,3 @@ export default class InputText extends React.Component {
 		)
 	}
 }
-        // {
-        //   (
-        //     (this.props.isEditMode == undefined || this.props.isEditMode == false) &&
-        //     <NameBadge lists={this.props.lists} onDel={this.handleClickDel} />
-        //   ) || 
-        //   (
-        //     this.props.isEditMode == true &&
-        //     <NameBadge lists={this.props.lists} onDel={this.handleClickDel} editModeStation={this.props.editModeStation}/>
-        //   )
-        // }

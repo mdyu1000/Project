@@ -10,7 +10,7 @@ import _ from 'lodash';
 const LocationBadge = (props) => {
   return(
     props.location.lat != 0 && props.location.lng != 0 && 
-    <div className="form-group">
+    <div>
       <span className="badge" style={badgeStyle}>lat : {props.location.lat}</span>
       <span className="badge ml-3" style={badgeStyle}>lng : {props.location.lng}</span>
     </div>
@@ -19,7 +19,7 @@ const LocationBadge = (props) => {
 
 const StateButton = (props) => {
   return(
-    <div className="form-group d-flex justify-content-end mb-0">
+    <div className="mt-4 d-flex justify-content-end mb-0">
       {
         (
           props.isEditMode && 
@@ -160,30 +160,30 @@ export default class StationModal extends React.Component {
 
 	render() {
 		return (
-      <div className="modal fade" id="stationModal" tabindex="-1">
+      <div className="modal fade" id="stationModal" tabIndex="-1">
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
           	<ModalHeader onCloseModal={this.props.onCloseStationModal}/>
             <div className="modal-body">
             	<div className="row">
             		<Col sm="5">
-									<SortableList items={this.state.items} distance="10" 
+									<SortableList items={this.state.items} 
+                    // distance="10" 
                     onSortStart={this.handleSortStart}
                     onSortEnd={this.handleSortEnd}
                     onSortMove={this.handleSortMove}
                     onDelStation={this.handleDelStation}  
                     handleEditMode={this.editMode}/>
             		  <div id="trashcan" className="text-center" style={{ width: "100%"}} onMouseUp={this.handleMouseUp}>
-                    <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+                    <i className="fa fa-trash fa-2x" aria-hidden="true"></i>
                   </div>
                 </Col>
             		<Col sm="7">
-                  <form>
-                    <div className="form-group">
+                    <div>
                       <InputText title="Station Name" name="stationName" lists={this.props.stationName} 
                         onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName} />
                     </div>
-                    <div className="form-group">
+                    <div>
                       <span>Google Map</span>
                       <GMapSearch onAddLocation={this.props.onAddStationLocation} 
                         isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
@@ -193,7 +193,6 @@ export default class StationModal extends React.Component {
                       onEditStation={this.handleEditStation}
                       location={this.props.stationLocation}
                       isEditMode={this.props.isEditMode} />
-                  </form>
             		</Col>
             	</div>
             </div>

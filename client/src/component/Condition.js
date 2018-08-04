@@ -1,7 +1,6 @@
 import React from 'react';
-import { Row, Col, Button, ButtonGroup, Card, CardHeader, CardBody, CardText, CardFooter, FormGroup } from 'reactstrap';
+import { Row, Col, ButtonGroup, FormGroup } from 'reactstrap';
 import { Condition1, Condition2, Condition3, Condition4} from './ConditionSetting';
-import $ from 'jquery';
 import '../CSS/conditionGroup.css';
 
 const ruleGroupStyle = {
@@ -31,8 +30,8 @@ const buttonStyle = (color) => {
 const ConditionGroup = (props) => {
 	const arr = ["Condition 1", "Condition 2", "Condition 3", "Condition 4"];
 	const btnLists = arr.map((btnList, i) => 
-		<div style={{ width: "100%"}}>
-		  <button type="button" key={i} outline className="btn ml-0" style={buttonStyle(props.color)}
+		<div style={{ width: "100%"}} key={"Rule" + i}>
+		  <button type="button" className="btn ml-0" style={buttonStyle(props.color)}
 		 		data-toggle="collapse" data-target={"#condition" + (i + 1)}>
 		  	<span style={{ color: props.color}}>
 		  		{"Rule " + (i + 1)}
@@ -57,31 +56,31 @@ const RuleItem = (props) => {
   if(props.rule.condition == 1){
     const stationName = props.stations.filter(station => station.SID == props.rule.SID)[0].name.ch
     return(
-      <li class="mt-2" style={ruleStyle}>
+      <li className="mt-2" style={ruleStyle}>
         <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.distance }</b> 公尺，進行廣播 </span>
-        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li> 
     )
   }else if(props.rule.condition == 2){
     const stationName = props.stations.filter(station => station.SID == props.rule.SID)[0].name.ch
     return(
-      <li class="mt-2" style={ruleStyle}>
+      <li className="mt-2" style={ruleStyle}>
         <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.value }</b> { props.rule.type==0 ? "公尺" : "秒" }，進行廣播 </span>
-        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>
     )
   }else if(props.rule.condition == 3){
     return(
-      <li class="mt-2" style={ruleStyle}>
+      <li className="mt-2" style={ruleStyle}>
         <span>和下一站距離 <b>{ props.rule.distance }</b> 公尺，進行廣播</span>
-        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>        
     )
   }else {
     return(
-      <li class="mt-2" style={ruleStyle}>
+      <li className="mt-2" style={ruleStyle}>
         <span>每隔 <b>{ props.rule.interval }</b> 秒，進行廣播</span>
-        <i style={{ cursor: "pointer"}} class="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>  
     )
   }
@@ -89,10 +88,11 @@ const RuleItem = (props) => {
 
 const RuleList = (props) => {
   return (
-    <ul class="mt-1 px-1" style={ruleGroupStyle}>
+    <ul className="mt-1 px-1" style={ruleGroupStyle}>
       {
-        props.rules.map(rule => 
-          <RuleItem rule={rule} stations={props.stations} onDelCondition={props.onDelCondition}/>
+        props.rules.map((rule, index) => 
+          <RuleItem key={"rule" + index} rule={rule} stations={props.stations} 
+            onDelCondition={props.onDelCondition}/>
         )
       }
     </ul>

@@ -1,16 +1,13 @@
 import React from 'react';
-import $ from 'jquery';
 import { 
   Container, Row, Col,
-  Button, CardTitle, CardText,
-  Form, FormGroup, Input, FormText,  } from 'reactstrap';
+  Form, FormText } from 'reactstrap';
 import NewStation from '../container/NewStation';
 import NewRule from '../container/NewRule';
-import { TwitterPicker  } from 'react-color';
 import ColorPicker from './ColorPicker';
 import InputText from './InputText';
 import GMap from './GoogleMap';
-import { stations, colors, containerStyle } from './Global';
+import { containerStyle } from './Global';
 import { Redirect } from 'react-router-dom';
 import { matchPath } from 'react-router'
 
@@ -43,11 +40,11 @@ const CardFooter = props => {
       {
         ( props.match != null &&
           <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
-          class="btn btn-outline-success btn-block" onClick={props.onUpdateRoute}>Update</button> ) 
+          className="btn btn-outline-success btn-block" onClick={props.onUpdateRoute}>Update</button> ) 
         || ( 
           props.match == null && 
           <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
-          class="btn btn-outline-success btn-block" onClick={props.onNewRoute}>Submit</button> ) 
+          className="btn btn-outline-success btn-block" onClick={props.onNewRoute}>Submit</button> ) 
       }
     </div>
   )
