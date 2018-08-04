@@ -13,7 +13,10 @@ class RouteListContainer extends React.Component {
   }
 
   componentWillMount(){
-    this.props.FetchAllRoute()    
+    const SERVER_SLOW_RESPONSE_TIME = 1000
+    setTimeout(() => {
+      this.props.FetchAllRoute()    
+    }, SERVER_SLOW_RESPONSE_TIME)
   }
 
   render(){    
