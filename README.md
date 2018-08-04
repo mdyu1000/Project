@@ -19,6 +19,6 @@ export const SERVER = ""
 ```
 然後 前後端都要 run 起來才可以 不然前端抓不到資料會是 empty
 ```
-yarn server
+cd server
 node server.js    // run 後端
 ```
