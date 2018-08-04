@@ -30,7 +30,7 @@ const buttonStyle = (color) => {
 const ConditionGroup = (props) => {
 	const arr = ["Condition 1", "Condition 2", "Condition 3", "Condition 4"];
 	const btnLists = arr.map((btnList, i) => 
-		<div style={{ width: "100%"}} key={"Rule" + i}>
+		<div className="w-100 mt-2" key={"Rule" + i}>
 		  <button type="button" className="btn ml-0" style={buttonStyle(props.color)}
 		 		data-toggle="collapse" data-target={"#condition" + (i + 1)}>
 		  	<span style={{ color: props.color}}>
@@ -58,7 +58,7 @@ const RuleItem = (props) => {
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.distance }</b> 公尺，進行廣播 </span>
-        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li> 
     )
   }else if(props.rule.condition == 2){
@@ -66,21 +66,21 @@ const RuleItem = (props) => {
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.value }</b> { props.rule.type==0 ? "公尺" : "秒" }，進行廣播 </span>
-        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>
     )
   }else if(props.rule.condition == 3){
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>和下一站距離 <b>{ props.rule.distance }</b> 公尺，進行廣播</span>
-        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>        
     )
   }else {
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>每隔 <b>{ props.rule.interval }</b> 秒，進行廣播</span>
-        <i style={{ cursor: "pointer"}} className="fa fa-remove my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
+        <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>  
     )
   }

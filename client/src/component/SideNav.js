@@ -17,6 +17,7 @@ const itemStyle = {
   marginLeft: "15px",
   display: "block",
   padding: "1.1rem 1rem",
+  textDecoration: "none"
 }
 
 export default class SideNav extends React.Component {
@@ -29,10 +30,10 @@ export default class SideNav extends React.Component {
       <div id="Sidebar">
         <Nav vertical style={sideNavStyle}>
           <NavItem>
-            <Link to="/NewRoute" style={itemStyle}><i className="fa fa-file-text-o" aria-hidden="true"></i> New</Link>
+            <Link to="/NewRoute" style={itemStyle}><i className="icon-note" aria-hidden="true"></i> New</Link>
           </NavItem>
           <NavItem>
-            <Link to="/" style={itemStyle} ><i className="fa fa-pencil" aria-hidden="true"></i> All Route</Link>
+            <Link to="/" style={itemStyle} ><i className="icon-pencil" aria-hidden="true"></i> All Route</Link>
           </NavItem>
         </Nav>
       </div>

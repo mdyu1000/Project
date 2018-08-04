@@ -27,7 +27,10 @@ export default class NavgationBar extends React.Component {
           <Link to="/" style={tmp}>Back End </Link>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink> <i className="fa fa-sign-out" aria-hidden="true"></i>SignOut</NavLink>
+              <span className="text-white" style={{ cursor: "pointer"}}> 
+                <i className="icon-logout mr-2"></i>
+                SignOut
+              </span>
             </NavItem>
           </Nav>
         </Container>

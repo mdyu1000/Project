@@ -64,7 +64,7 @@ const SortableItem = SortableElement((props) => {
   return (
     <li id={"station" + props.SID} style={ModalItemStyle} className="mt-1">
     	{props.value}
-    	<i id={"edit" + props.SID} style={{ cursor: "pointer"}} className="fa fa-edit my-auto" 
+    	<i id={"edit" + props.SID} style={{ cursor: "pointer"}} className="icon-note my-auto" 
         onClick={props.handleEditMode}></i>
   	</li>
   )

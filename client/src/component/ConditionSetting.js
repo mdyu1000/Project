@@ -9,6 +9,10 @@ const CardBodyStyle = {
 const inputNumberStyle = {
   textAlign: "center",
   width: "65px",
+  border: 0,
+  outline: 0,
+  background: "transparent",
+  borderBottom: "1px solid"
 }
 
 const handleAddCondition4 = (interval, onAdd) => {
@@ -48,7 +52,7 @@ export const Condition1 = (props) => {
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-light btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition1(
             document.getElementById("C1_station").options[document.getElementById("C1_station").selectedIndex].getAttribute("SID"), 
@@ -82,7 +86,7 @@ export const Condition2 = (props) => {
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-light btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition2(
             document.getElementById("C2_station").options[document.getElementById("C2_station").selectedIndex].getAttribute("SID"),
@@ -102,12 +106,12 @@ export const Condition3 = (props) => {
     <Card id="condition3" className="collapse mx-1" data-parent="#ConditionGroup">
       <CardBody style={CardBodyStyle}>
         <span className="card-text">和下一站距離 
-          <input id="C3_distance" type="number" style={inputNumberStyle} max="6000" min="0"/> 
+          <input id="C3_distance" type="number" style={inputNumberStyle} className="border-bottom" max="6000" min="0"/> 
           公尺，進行廣播
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-light btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition3(document.getElementById("C3_distance").value, props.onAddCondition3) }>
           <span style={{ color: "#1e1e1e" }}> New </span>
@@ -127,7 +131,7 @@ export const Condition4 = (props) => {
         </span>
       </CardBody>
       <CardFooter className="py-1 text-right">
-        <button type="button" className="btn btn-outline-primary btn-sm py-1 waves-effect" 
+        <button type="button" className="btn btn-light btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}} 
           onClick={ () => handleAddCondition4(document.getElementById("C4_interval").value, props.onAddCondition4) }>
           <span style={{ color: "#1e1e1e" }}> New </span>

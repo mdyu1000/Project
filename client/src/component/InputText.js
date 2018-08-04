@@ -4,7 +4,7 @@ import { badgeStyle } from './Global'
 
 
 const languageSeleteStyle = {
-  background: "#6c757d",
+  background: "#808080",
   opacity: ".3",
   color: "white",
   paddingLeft: ".5rem",
@@ -15,11 +15,11 @@ const NameBadge = (props) => {
   let editModeBadge
   let badge = Object.entries(props.lists).map(([key, value]) => {
     return(
-      <span key={value} className="badge badge-info mt-2 ml-2 text-dark rounded" style={ badgeStyle }>
+      <span key={value} className="badge mt-2 ml-2 rounded" style={ badgeStyle }>
         {key.toString() + " | "}
         {value.toString()}
         <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
-          className="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
+          className="icon-trash my-auto ml-1" onClick={props.onDel}></i>
       </span>
     )
   })
@@ -31,7 +31,7 @@ const NameBadge = (props) => {
           {key.toString() + " | "}
           {value.toString()}
           <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
-            className="fa fa-remove my-auto ml-1" onClick={props.onDel}></i>
+            className="icon-trash my-auto ml-1" onClick={props.onDel}></i>
         </span>
       )
     })
@@ -93,7 +93,7 @@ export default class InputText extends React.Component {
 	      	</div>
 	      	<Input type="text" id={this.props.name + "Name"} name={this.props.name} className="pb-2 rounded" />
       		<div className="input-group-append">
-						<i className="fa fa-plus my-auto ml-1" style={{ cursor: "pointer"}} 
+						<i className="icon-plus my-auto ml-1" style={{ cursor: "pointer"}} 
               onClick={ this.props.isEditMode ? this.editStation : this.handleClickAdd}></i>
 	      	</div>
 	      </div>
