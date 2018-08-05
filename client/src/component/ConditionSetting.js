@@ -34,7 +34,7 @@ const handleAddCondition1 = (SID, distance, onAdd) => {
 const StationOption = props => {
   return (  
     props.stations.map((station, index) =>
-      <option key={station + index} value={station.name.ch}>{station.name.ch}</option>
+      <option key={station + index} value={station.name.ch} SID={station.SID}>{station.name.ch}</option>
     )
   )
 }
