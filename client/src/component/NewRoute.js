@@ -67,10 +67,10 @@ export default class NewRoute extends React.Component {
   }
 
   StoreRoute(route) {
-    route["route_name"] = this.props.nameLists
-    route["departure_name"] = this.props.departureLists
-    route["destination_name"] = this.props.destinationLists
-    route["theme_color"] = this.props.theme_color
+    route["routeName"] = this.props.nameLists
+    route["departureName"] = this.props.departureLists
+    route["destinationName"] = this.props.destinationLists
+    route["themeColor"] = this.props.theme_color
     route["stations"] = []
     route["rules"] = []
     this.props.stations.map(station => {

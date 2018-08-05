@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({
 
 app.post('/NewRoute/', (req, res, next) => {
   let dbo = db.db("kkk777")
-  console.log(req.body.route)
   dbo.collection("route").insert(req.body.route, (err, res) => {
     if(err) throw err
   })
@@ -52,10 +51,10 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
   let newValue = { $set: {
-    route_name: req.body.route.route_name,
-    departure_name: req.body.route.departure_name,
-    destination_name: req.body.route.destination_name,
-    theme_color: req.body.route.theme_color,
+    routeName: req.body.route.routeName,
+    departureName: req.body.route.departureName,
+    destinationName: req.body.route.destinationName,
+    themeColor: req.body.route.themeColor,
     stations: req.body.route.stations,
     rules: req.body.route.rules
   }}

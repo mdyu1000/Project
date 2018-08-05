@@ -26,9 +26,9 @@ const RouteItem = props => {
         props.routes.map((route, index) => 
           <tr key={index} id={ "route" + route.RID} onClick={props.onClick} style={{ cursor: "pointer"}}>
             <th>{index + 1}</th>
-            <th>{route.route_name.ch == null ? route.route_name.en : route.route_name.ch}</th>
-            <th>{route.departure_name.ch == null ? route.departure_name.en : route.departure_name.ch}</th>
-            <th>{route.destination_name.ch == null? route.destination_name.en: route.destination_name.ch}</th>
+            <th>{route.routeName.ch == null ? route.routeName.en : route.routeName.ch}</th>
+            <th>{route.departureName.ch == null ? route.departureName.en : route.departureName.ch}</th>
+            <th>{route.destinationName.ch == null? route.destinationName.en: route.destinationName.ch}</th>
           </tr>
         )
       }

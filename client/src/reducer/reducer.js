@@ -62,7 +62,7 @@ function NewDepartureName(state, action){
       }   
     case RECEIVE_ONE_ROUTE:
       return {
-        ...action.json.departure_name
+        ...action.json.departureName
       }
     default:
       return state
@@ -83,7 +83,7 @@ function NewDestinationName(state, action){
       }
     case RECEIVE_ONE_ROUTE:
       return {
-        ...action.json.destination_name
+        ...action.json.destinationName
       }      
     default:
       return state
@@ -221,7 +221,7 @@ function NewRouteName(state, action){
       }
     case RECEIVE_ONE_ROUTE:
       return {
-        ...action.json.route_name
+        ...action.json.routeName
       }      
     default:
       return state
@@ -285,7 +285,7 @@ function ChangeDemoColor(state, action){
     case CHANGE_DEMO_COLOR:
       return action.color
     case RECEIVE_ONE_ROUTE:
-      return action.json.theme_color
+      return action.json.themeColor
     default:
       return state
   }
