@@ -85,7 +85,6 @@ export const FetchAllRoute = () => dispatch => {
   return fetch(`${SERVER}/AllRoute`)
   .then(response => response.json())
   .then(json => {
-    console.log("length = " + json.length)
     nextRID = json.length
     dispatch(ReceiveAllRoute(json))
   })
@@ -123,7 +122,6 @@ const ReceiveOneRoute = (json) => {
 export const AddRoute = (route, station, rule) => dispatch => {
   route["RID"] = nextRID 
   nextRID += 1
-  console.log("RID = " + nextRID)
 
   fetch("/NewRoute/", {
     method: 'POST',

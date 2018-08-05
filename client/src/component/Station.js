@@ -29,6 +29,8 @@ export default class Station extends React.Component {
           stationName={this.props.stationName}
           stationLocation={this.props.stationLocation}
           isEditMode={this.props.isEditMode}
+          rules={this.props.rules}
+
           onAddStation={this.props.onAddStation}
           onAddStationName={this.props.onAddStationName} 
           onAddStationLocation={this.props.onAddStationLocation} 
@@ -37,7 +39,9 @@ export default class Station extends React.Component {
           onSortStation={this.props.onSortStation} 
           onEditStationMode={this.props.onEditStationMode} 
           onEditStation={this.props.onEditStation} 
-          onCloseStationModal={this.props.onCloseStationModal}/>
+          onCloseStationModal={this.props.onCloseStationModal}
+          onDelCondition={this.props.onDelCondition}
+        />
       </div>
     );
   }

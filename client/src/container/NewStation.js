@@ -13,6 +13,10 @@ import {
   GetSIDOnGMap,
 } from '../action/station'
 
+import {
+  DelCondition,
+} from '../action/condition'
+
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddStation: (name, location) => {
@@ -45,6 +49,9 @@ const mapDispatchToProps = (dispatch) => {
     GetSIDOnGMap: (SID) => {
       dispatch(GetSIDOnGMap(SID))
     },
+    onDelCondition: (RID) => {
+      dispatch(DelCondition(RID))
+    },  
   }
 }
 
@@ -54,7 +61,8 @@ const mapStateToProps = (state) => {
     stationName: state.stationName,
     stationLocation: state.stationLocation,
     color: state.demoColor,
-    isEditMode: state.isEditMode
+    isEditMode: state.isEditMode,
+    rules: state.rules,
   }
 }
 

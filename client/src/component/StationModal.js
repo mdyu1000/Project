@@ -161,6 +161,12 @@ export default class StationModal extends React.Component {
       let item = itemSelected.getAttribute("id")
       let SID = item.split("station")[1]
       if(this.state.isInTrashcan && item != undefined){
+        this.props.rules.map(rule => {
+          if(rule.SID != null && rule.SID == SID)
+            this.props.onDelCondition(rule.RID)
+        })
+
+
         this.props.onDelStation(SID)
       }
     }
@@ -174,7 +180,6 @@ export default class StationModal extends React.Component {
   }
 
 	render() {
-    console.log(this.state.isInTrashcan)
 		return (
       <div className="modal fade" id="stationModal" tabIndex="-1">
         <div className="modal-dialog modal-lg">

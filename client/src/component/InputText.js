@@ -52,8 +52,16 @@ export default class InputText extends React.Component {
     let e = document.getElementById(this.props.name + "Language") //取得該語言選單
     let language = e.options[e.selectedIndex].value               //取得該語言
     let name = document.getElementById(this.props.name + "Name")  //取得該輸入框
-    this.props.onAdd(language, name.value)
-    name.value = ""
+    if(language == ''){
+      alert("Choose a language")
+    }
+    else if(name.value == ''){
+      alert("Name is empty")
+    }
+    else{
+      this.props.onAdd(language, name.value)
+      name.value = ''
+    }
   }
 
   handleClickDel = (e) => {
@@ -89,7 +97,7 @@ export default class InputText extends React.Component {
 	      	<div className="input-group-prepend">
 	      		<select style={ languageSeleteStyle } id={this.props.name + "Language"} 
               className="browser-default py-1 rounded">
-      				<option disabled selected value className="d-none p-3"></option>
+      				<option disabled selected value='' className="d-none p-3"></option>
 	      			<option value="ch" className="m-5">Chinese</option>
 	      			<option value="en" className="m-3">English</option>
               <option value="kr" className="m-3">Korea</option>

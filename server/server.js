@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({
 
 app.post('/NewRoute/', (req, res, next) => {
   let dbo = db.db("kkk777")
+  console.log(req.body.route)
   dbo.collection("route").insert(req.body.route, (err, res) => {
     if(err) throw err
   })
