@@ -65,7 +65,12 @@ export default class InputText extends React.Component {
     let e = document.getElementById(this.props.name + "Language") //取得該語言選單
     let language = e.options[e.selectedIndex].value               //取得該語言
     let name = document.getElementById(this.props.name + "Name")  //取得該輸入框
+  }
 
+  componentDidMount() {
+    document.getElementById(this.props.name + "Name").onkeyup = (e) => {
+      if(e.keyCode == 13) this.handleClickAdd()
+    }
   }
 
 	render(){

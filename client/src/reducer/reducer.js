@@ -21,7 +21,8 @@ import {
   DEL_STATION_NAME,
   ADD_STATION_LOCATION,
   EDIT_STATION_MODE, 
-  CLOSE_STATION_MODAL } from '../action/station'
+  CLOSE_STATION_MODAL,
+  GET_SID_ON_GMAP } from '../action/station'
 import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
@@ -33,7 +34,7 @@ import _ from 'lodash';
 
 const initialState = {
   nameLists: { en: "NTUT", ch: "北科大" },
-  departureLists: { en: "Zhongxiao Fuxing" },
+  departureLists: { ch: "忠孝復興" },
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   stations: stations,
@@ -44,6 +45,7 @@ const initialState = {
   isEditMode: false,
   allRoute: [],
   edit_RID: 0,
+  SIDOnGMap: -1, 
 }
 
 function NewDepartureName(state, action){
@@ -322,6 +324,15 @@ function GetEditRID(state, action){
   }
 }
 
+function GetSIDOnGMAP(state, action){
+  switch(action.type){
+    case GET_SID_ON_GMAP:
+      return action.SID
+    default:
+      return state
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
     nameLists: NewRouteName(state.nameLists, action),
@@ -336,6 +347,7 @@ export default function BusPlayApp(state = initialState, action){
     isEditMode: editMode(state.isEditMode, action),
     allRoute: NewRoute(state.allRoute, action),
     edit_RID: GetEditRID(state.edit_RID, action),
+    SIDOnGMap: GetSIDOnGMAP(state.SIDOnGMap, action),
   }
 }
 

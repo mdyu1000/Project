@@ -10,6 +10,7 @@ import {
   EditStation,
   EditStationMode,
   CloseStationModal,
+  GetSIDOnGMap,
 } from '../action/station'
 
 const mapDispatchToProps = (dispatch) => {
@@ -40,7 +41,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCloseStationModal: () => {
       dispatch(CloseStationModal())
-    }
+    },
+    GetSIDOnGMap: (SID) => {
+      dispatch(GetSIDOnGMap(SID))
+    },
   }
 }
 

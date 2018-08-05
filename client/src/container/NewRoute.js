@@ -61,6 +61,7 @@ const mapStateToProps = (state) => {
     theme_color: state.demoColor,
     stations: state.stations,
     rules: state.rules,
+    SIDOnGMap: state.SIDOnGMap,
   }
 }
 

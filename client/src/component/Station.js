@@ -19,7 +19,11 @@ export default class Station extends React.Component {
             <i type="button" data-toggle="modal" data-target="#stationModal" className="icon-note ml-2" 
               style={{ cursor: "pointer", webkitAppearance: "initial"}}></i>
           </span> 
-          <StationTimeLine color={this.props.color} stations={this.props.stations} />
+          <StationTimeLine 
+            color={this.props.color} 
+            stations={this.props.stations} 
+            GetSIDOnGMap={this.props.GetSIDOnGMap}
+          />
         </FormGroup> 
         <StationModal stations={this.props.stations} 
           stationName={this.props.stationName}

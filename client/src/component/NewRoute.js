@@ -91,12 +91,47 @@ export default class NewRoute extends React.Component {
   }
 
   handleNewRoute(){
-    let route = {}
-    this.StoreRoute(route)
-    this.props.onNewRoute(route, this.props.stations, this.props.rules)
-    this.setState({
-      isRedirect: true
-    })
+    if(this.props.nameLists.ch == null){
+      alert("Chinese route name is necessary")
+    }
+    else if(this.props.departureLists.ch == null){
+      alert("Chinese departure name is necessary")
+    }
+    else if(this.props.destinationLists.ch == null){
+      alert("Chinese destination name is necessary")
+    }
+    else if(this.props.stations.length == 0){
+      alert("Station is empty")
+    }
+    else{
+      let route = {}
+      let isFieldsEqual = true
+
+      this.StoreRoute(route)
+      
+      /* 比較起點的欄位是否跟終點一致 */
+      for(var key in route.departure_name){
+        if(!route.destination_name.hasOwnProperty(key)){
+          isFieldsEqual = false
+        }
+      }
+
+      /* 比較終點的欄位是否跟起點一致 */
+      for(var key in route.destination_name){
+        if(!route.departure_name.hasOwnProperty(key)){
+          isFieldsEqual = false
+        }
+      }
+
+      if(isFieldsEqual){
+        this.props.onNewRoute(route, this.props.stations, this.props.rules)
+        this.setState({
+          isRedirect: true
+        })
+      }else if(!isFieldsEqual){
+        alert("The departure and destination language fields must be equal")
+      }
+    }
   }
 
   render() {
@@ -139,7 +174,8 @@ export default class NewRoute extends React.Component {
                       <NewStation />
                     </div>
                     <div className="col-5 offset-1 mt-4">                    
-                      <GMap stations={this.props.stations}/>
+                      <GMap stations={this.props.stations}
+                        SIDOnGMap={this.props.SIDOnGMap}/>
                     </div>
                   </Row>
                   <NewRule  />

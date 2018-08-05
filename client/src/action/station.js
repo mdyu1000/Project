@@ -7,6 +7,7 @@ export const DEL_STATION_NAME = "DEL_STATION_NAME"
 export const ADD_STATION_LOCATION = "ADD_STATION_LOCATION"
 export const EDIT_STATION_MODE = "EDIT_STATION_MODE"
 export const CLOSE_STATION_MODAL = "CLOSE_STATION_MODAL"
+export const GET_SID_ON_GMAP = "GET_SID_ON_GMAP"
 
 let nextSID = 4
 export function AddStation(name, location){
@@ -76,5 +77,12 @@ export function AddStationLocation(lat, lng){
 export function CloseStationModal(){
   return {
     type: CLOSE_STATION_MODAL
+  }
+}
+
+export function GetSIDOnGMap(SID){
+  return {
+    type: GET_SID_ON_GMAP,
+    SID
   }
 }

@@ -9,7 +9,8 @@ const MapWithAMarker = withGoogleMap(props =>
       props.stations.map((station, index) => 
         <Marker key={ "marker" + index } 
           position={{ lat: station.location.lat, lng: station.location.lng }} 
-          animation= { google.maps.Animation.BOUNCE } />
+          animation={ props.SIDOnGMap == index + 1 ? google.maps.Animation.BOUNCE : null }
+        />
 
       )
     }
@@ -30,7 +31,6 @@ export default class GMap extends React.Component {
   }
 
   render() {
-
     return (
       <div className="form-group">
         <span>Google Map</span>
@@ -40,6 +40,7 @@ export default class GMap extends React.Component {
           lng={ CalculateMedium(this.props.stations).lng }
           containerElement={<div className="mt-2" style={{ height: "300px" }} />}
           mapElement={<div style={{ height: `100%` }} />} 
+          SIDOnGMap={this.props.SIDOnGMap}
         />
       </div>
     );

@@ -80,7 +80,15 @@ export default class RouteList extends React.Component {
     return (
       <div className="container-fluid" style={containerStyle}>
         <Title />
-        <RouteTable routes={this.props.allRoute} onClick={this.GetRID}/>
+        {
+          (
+            this.props.allRoute.length != 0 &&
+            <RouteTable routes={this.props.allRoute} onClick={this.GetRID}/>
+          ) || (
+            this.props.allRoute.length == 0 &&
+            <span className="d-block text-center font-italic font-weight-bold"> Route list is empty...</span>
+          )
+        }
       </div>
     );
   }

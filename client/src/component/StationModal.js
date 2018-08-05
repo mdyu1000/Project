@@ -23,12 +23,13 @@ const StateButton = (props) => {
       {
         (
           props.isEditMode && 
-          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm" onClick={props.onEditStation}>
+          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm mr-3" 
+            onClick={props.onEditStation}>
             Modify
           </button>
         ) || (
           !props.isEditMode && 
-          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm" disabled >
+          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm mr-3" disabled >
             Modify
           </button>
         )
@@ -81,15 +82,21 @@ const SortableList = SortableContainer((props) => {
   );
 });
 
-var isInTrashcan = false
 var itemSelected = ""
 var edit_SID
+
+const trashcanStyle = (isInTrashcan) => {
+  return ({
+    border: isInTrashcan ? "dashed 1px gray" : null
+  })
+}
 
 export default class StationModal extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
 			items: this.props.stations,
+      isInTrashcan: false,
 		}
     this.handleMouseUp = this.handleMouseUp.bind(this)
     this.editMode = this.editMode.bind(this)
@@ -129,14 +136,19 @@ export default class StationModal extends React.Component {
         event.clientX > document.getElementById("trashcan").getBoundingClientRect().left &&
         event.clientY < document.getElementById("trashcan").getBoundingClientRect().bottom &&
         event.clientY > document.getElementById("trashcan").getBoundingClientRect().top){
-      isInTrashcan = true
+          // border: dashed 1px gray;
+      this.setState({
+        isInTrashcan: true
+      })
     }else{
-      isInTrashcan = false
+      this.setState({
+        isInTrashcan: false
+      })
     }
   }
 
   handleSortEnd = ({oldIndex, newIndex, collection}, e) => {
-    if(!isInTrashcan){
+    if(!this.state.isInTrashcan){
       this.setState({
         items: arrayMove(this.state.items, oldIndex, newIndex),
       });
@@ -145,9 +157,12 @@ export default class StationModal extends React.Component {
   };
 
   handleMouseUp(ev) {
-    let SID = itemSelected.getAttribute("id").split("station")[1]
-    if(isInTrashcan){
-      this.props.onDelStation(SID)
+    if(itemSelected != ""){
+      let item = itemSelected.getAttribute("id")
+      let SID = item.split("station")[1]
+      if(this.state.isInTrashcan && item != undefined){
+        this.props.onDelStation(SID)
+      }
     }
   }
 
@@ -159,6 +174,7 @@ export default class StationModal extends React.Component {
   }
 
 	render() {
+    console.log(this.state.isInTrashcan)
 		return (
       <div className="modal fade" id="stationModal" tabIndex="-1">
         <div className="modal-dialog modal-lg">
@@ -168,14 +184,17 @@ export default class StationModal extends React.Component {
             	<div className="row">
             		<Col sm="5">
 									<SortableList items={this.state.items} 
-                    // distance="10" 
+                    distance="10" 
                     onSortStart={this.handleSortStart}
                     onSortEnd={this.handleSortEnd}
                     onSortMove={this.handleSortMove}
                     onDelStation={this.handleDelStation}  
                     handleEditMode={this.editMode}/>
-            		  <div id="trashcan" className="text-center" style={{ width: "100%"}} onMouseUp={this.handleMouseUp}>
-                    <i className="fa fa-trash fa-2x" aria-hidden="true"></i>
+            		  <div id="trashcan" className="text-center w-100 py-2" 
+                    onMouseUp={this.handleMouseUp}
+                    style={trashcanStyle(this.state.isInTrashcan)}
+                  >
+                    <i className="icon-trash fa-2x" aria-hidden="true"></i>
                   </div>
                 </Col>
             		<Col sm="7">
