@@ -11,7 +11,7 @@ import {
   CHANGE_DEMO_COLOR,
   RECEIVE_ALL_ROUTE,
   GET_ROUTE_RID,
-  RECEIVE_ONE_ROUTE } from '../action/newRoute'
+  RECEIVE_ONE_ROUTE } from '../action/NewRoute'
 import {
   ADD_STATION,
   DEL_STATION,

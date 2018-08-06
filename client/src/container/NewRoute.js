@@ -12,7 +12,7 @@ import {
   ChangeDemoColor,
   AddRoute,
   UpdateRoute,
-} from '../action/newRoute'
+} from '../action/NewRoute'
 
 const mapDispatchToProps = (dispatch) => {
   return {
