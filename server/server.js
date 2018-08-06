@@ -6,14 +6,15 @@ const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777";
 const app = express()
 const port = process.env.PORT || 4000
 
+const TAIPEI_BUS = require('./TaipeiBus')
+
 var db
+var dbo
 
 MongoClient.connect(url, { useNewUrlParser: true }, function(err, database){
   if(err) throw err;  
   db = database
-  app.listen(port, () => {
-    console.log(`${port} is listening...`);
-  })
+  dbo = db.db("kkk777")
 })
 
 app.use(bodyParser.json())
@@ -22,14 +23,12 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.post('/NewRoute/', (req, res, next) => {
-  let dbo = db.db("kkk777")
   dbo.collection("route").insert(req.body.route, (err, res) => {
     if(err) throw err
   })
 })
 
 app.get('/AllRoute/', (req, res, next) => {
-  let dbo = db.db("kkk777")
   dbo.collection("route").find().toArray((err, results) => {
     if(err) throw err
     res.send(JSON.stringify(results));
@@ -37,7 +36,6 @@ app.get('/AllRoute/', (req, res, next) => {
 })
 
 app.get('/AllRoute/:RID', (req, res, next) => {
-  let dbo = db.db("kkk777")
   let RouteID = parseInt(req.params.RID)  // 原參數為 string 型態 必須轉換為 int 才可使用
   let query = { RID: RouteID}
   dbo.collection("route").find(query).toArray((err, result) => {
@@ -47,7 +45,6 @@ app.get('/AllRoute/:RID', (req, res, next) => {
 })
 
 app.put('/UpdateRoute/:RID', (req, res, next) => {
-  let dbo = db.db("kkk777")
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
   let newValue = { $set: {
@@ -64,3 +61,18 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   })
 })
 
+function storeTaipeiBusFromOpenData() {
+  TAIPEI_BUS.getTaipeiBusFromOpenData(result => {
+    dbo.collection("TaipeiBus").remove({}, err => {
+      dbo.collection("TaipeiBus").insert(result, err2 => {
+        console.log("Taipei bus information insert successful")
+      })
+    })
+  })
+}
+
+// storeTaipeiBusFromOpenData()
+
+app.listen(port, () => {
+  console.log(`${port} is listening...`);
+})

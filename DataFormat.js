@@ -100,3 +100,38 @@ const rules = [
     value: 1243
   }
 ]
+
+const bus = [
+  {
+    openDataRID: 22321,
+    name: {
+      ch: "藍37",
+      en: "BL37"
+    },
+    city: "NewTaipei"
+    station: [
+      {
+        openDataSID: 388122,
+        name: {
+          ch: "捷運新埔站",
+          en: "Xing Pu MRT Station"
+        },
+        location: {
+          lat: "25.823948",
+          lng: "122.912011"
+        }
+      },
+      {
+        openDataSID: 188822,
+        name: {
+          ch: "板橋花市",
+          en: "Banqiao Flower"
+        },
+        location: {
+          lat: "25.82311",
+          lng: "122.319110"
+        }
+      }
+    ]
+  }
+]

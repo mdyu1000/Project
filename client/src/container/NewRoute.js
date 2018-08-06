@@ -62,6 +62,7 @@ const mapStateToProps = (state) => {
     stations: state.stations,
     rules: state.rules,
     SIDOnGMap: state.SIDOnGMap,
+    isEditMode: state.isEditMode,
   }
 }
 
