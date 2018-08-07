@@ -11,7 +11,9 @@ import {
   CHANGE_DEMO_COLOR,
   RECEIVE_ALL_ROUTE,
   GET_ROUTE_RID,
-  RECEIVE_ONE_ROUTE } from '../action/NewRoute'
+  RECEIVE_ONE_ROUTE,
+  RECEIVE_BUS_INFO,
+  LOAD_ROUTE_INFO } from '../action/NewRoute'
 import {
   ADD_STATION,
   DEL_STATION,
@@ -37,18 +39,19 @@ const initialState = {
   departureLists: { ch: "忠孝復興" },
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
-  stations: stations,
+  stations: [],
   stationName: {},
   stationLocation: { lat: "0", lng: "0" },
-  rules: rules,
+  rules: [],
   demoColor: "#FF6900",
   isEditMode: false,
   allRoute: [],
   edit_RID: 0,
   SIDOnGMap: -1, 
+  busInfo: []
 }
 
-function NewDepartureName(state, action){
+function NewDepartureName(state, action, busInfo){
   switch(action.type){
     case ADD_DEPARTURE:
       state[action.language] = action.departure
@@ -64,12 +67,17 @@ function NewDepartureName(state, action){
       return {
         ...action.json.departureName
       }
+    case LOAD_ROUTE_INFO:
+      let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
+      return {
+        ...filterInfo[0].departure
+      }
     default:
       return state
   }
 }
 
-function NewDestinationName(state, action){
+function NewDestinationName(state, action, busInfo){
   switch(action.type){
     case ADD_DESTINATION:
       state[action.language] = action.destination
@@ -85,6 +93,11 @@ function NewDestinationName(state, action){
       return {
         ...action.json.destinationName
       }      
+    case LOAD_ROUTE_INFO:
+      let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
+      return {
+        ...filterInfo[0].destination
+      }
     default:
       return state
   }
@@ -107,7 +120,7 @@ function NewColor(state, action){
   }
 }
 
-function NewStation(state, action, stationName, stationLocation){
+function NewStation(state, action, stationName, stationLocation, busInfo){
   switch(action.type){
     case ADD_STATION:
       Object.entries(stationName).map(([key, value]) => {
@@ -160,6 +173,20 @@ function NewStation(state, action, stationName, stationLocation){
       return [
         ...action.json.stations
       ]
+    case LOAD_ROUTE_INFO:
+      let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
+      let stations = []
+      // console.log(filterInfo)
+      stations = filterInfo[0].station.map((station, index) => {
+        return {
+          SID: index,
+          name: station.name,
+          location: station.location
+        }
+      })
+      return [
+        ...stations
+      ]
     default:
       return state
   }
@@ -183,6 +210,7 @@ function NewStationName(state, action){
       return {
         ...action.name
       }     
+
     default:
       return state
   }  
@@ -206,7 +234,7 @@ function NewStationLocation(state, action){
   }
 }
 
-function NewRouteName(state, action){
+function NewRouteName(state, action, busInfo){
   switch(action.type){
     case ADD_NAME:
       state[action.language] = action.routeName 
@@ -223,6 +251,11 @@ function NewRouteName(state, action){
       return {
         ...action.json.routeName
       }      
+    case LOAD_ROUTE_INFO:
+      let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
+      return {
+        ...filterInfo[0].destination
+      }
     default:
       return state
   }
@@ -333,13 +366,22 @@ function GetSIDOnGMAP(state, action){
   }
 }
 
+function GetBusInfo(state, action){
+  switch(action.type){
+    case RECEIVE_BUS_INFO:
+      return action.json
+    default:
+      return state
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
-    nameLists: NewRouteName(state.nameLists, action),
-    departureLists: NewDepartureName(state.departureLists, action),
-    destinationLists: NewDestinationName(state.destinationLists, action),
+    nameLists: NewRouteName(state.nameLists, action, state.busInfo),
+    departureLists: NewDepartureName(state.departureLists, action, state.busInfo),
+    destinationLists: NewDestinationName(state.destinationLists, action, state.busInfo),
     colors: NewColor(state.colors, action),
-    stations: NewStation(state.stations, action, state.stationName, state.stationLocation),
+    stations: NewStation(state.stations, action, state.stationName, state.stationLocation, state.busInfo),
     stationName: NewStationName(state.stationName, action, state.isEditMode),
     stationLocation: NewStationLocation(state.stationLocation, action),
     rules: NewRule(state.rules, action),
@@ -348,6 +390,7 @@ export default function BusPlayApp(state = initialState, action){
     allRoute: NewRoute(state.allRoute, action),
     edit_RID: GetEditRID(state.edit_RID, action),
     SIDOnGMap: GetSIDOnGMAP(state.SIDOnGMap, action),
+    busInfo: GetBusInfo(state.busInfo, action)
   }
 }
 

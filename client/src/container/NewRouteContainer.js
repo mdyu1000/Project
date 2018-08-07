@@ -1,3 +1,4 @@
+import React from 'react'
 import { connect } from 'react-redux'
 import NewRoute from '../component/NewRoute'
 import {
@@ -12,8 +13,49 @@ import {
   ChangeDemoColor,
   AddRoute,
   UpdateRoute,
+  fetchBusInfo,
+  loadRouteInfo
 } from '../action/NewRoute'
 
+class NewRouteContainer extends React.Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentWillMount(){
+    this.props.fetchBusInfo()
+  }
+
+  render(){
+    return (
+      <NewRoute
+        nameLists={this.props.nameLists}
+        departureLists={this.props.departureLists}
+        destinationLists={this.props.destinationLists}
+        colors={this.props.colors}
+        theme_color={this.props.theme_color} 
+        stations={this.props.stations}
+        rules={this.props.rules}
+        SIDOnGMap={this.props.SIDOnGMap}
+        isEditMode={this.props.isEditMode}
+        busInfo={this.props.busInfo}
+
+        onAddName={this.props.onAddName}
+        onAddColor={this.props.onAddColor}
+        onAddDeparture={this.props.onAddDeparture}
+        onAddDestination={this.props.onAddDestination}
+        onDelName={this.props.onDelName}
+        onDelColor={this.props.onDelColor}
+        onDelDeparture={this.props.onDelDeparture}
+        onDelDestination={this.props.onDelDestination}
+        onChangeDemoColor={this.props.onChangeDemoColor}
+        onNewRoute={this.props.onNewRoute}
+        UpdateRoute={this.props.UpdateRoute}
+        loadRouteInfo={this.props.loadRouteInfo}
+      />
+    )
+  }
+}
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddName: (language, name) => {
@@ -48,6 +90,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     UpdateRoute: (RID, route) => {
       dispatch(UpdateRoute(RID, route))
+    },
+    fetchBusInfo: () => {
+      dispatch(fetchBusInfo())
+    },
+    loadRouteInfo: (RID) => {
+      dispatch(loadRouteInfo(RID))
     }
   }
 }
@@ -63,7 +111,8 @@ const mapStateToProps = (state) => {
     rules: state.rules,
     SIDOnGMap: state.SIDOnGMap,
     isEditMode: state.isEditMode,
+    busInfo: state.busInfo
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewRoute)
+export default connect(mapStateToProps, mapDispatchToProps)(NewRouteContainer)

@@ -44,6 +44,13 @@ app.get('/AllRoute/:RID', (req, res, next) => {
   })
 })
 
+app.get('/BusInfo/', (req, res, next) => {
+  dbo.collection("TaipeiBus").find().toArray((err, results) => {
+    if(err) throw err
+    res.send(JSON.stringify(results));
+  }) 
+})
+
 app.put('/UpdateRoute/:RID', (req, res, next) => {
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
@@ -71,7 +78,7 @@ function storeTaipeiBusFromOpenData() {
   })
 }
 
-// storeTaipeiBusFromOpenData()
+storeTaipeiBusFromOpenData()
 
 app.listen(port, () => {
   console.log(`${port} is listening...`);

@@ -1,15 +1,16 @@
-import React from 'react';
+import React from 'react'
 import { 
   Container, Row, Col,
-  Form, FormText } from 'reactstrap';
-import NewStation from '../container/NewStation';
-import NewRule from '../container/NewRule';
-import ColorPicker from './ColorPicker';
-import InputText from './InputText';
-import GMap from './GoogleMap';
-import { containerStyle } from './Global';
-import { Redirect } from 'react-router-dom';
+  Form, FormText } from 'reactstrap'
+import NewStation from '../container/NewStation'
+import NewRule from '../container/NewRule'
+import ColorPicker from './ColorPicker'
+import InputText from './InputText'
+import GMap from './GoogleMap'
+import { containerStyle } from './Global'
+import { Redirect } from 'react-router-dom'
 import { matchPath } from 'react-router'
+import BusInfo from './BusInfo'
 
 const titleStyle = {
   marginTop: "2rem",
@@ -26,11 +27,18 @@ const colorPickerStyle = {
 
 const Title = () => {
   return (
-    <Row>
-      <Col sm="12">
+    <div className="row">
+      <div className="col-10">
         <h2 style={titleStyle}>New Route</h2>
-      </Col>
-    </Row>
+      </div>
+      <div className="col-2 my-auto">
+        <div className="text-center">
+          <button type="button" className="btn btn-success" style={{borderRadius: "50px"}} data-toggle="modal" data-target="#exampleModal">
+            Load Bus File
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -187,6 +195,10 @@ export default class NewRoute extends React.Component {
             </div>
           </Col>
         </Row>
+        <BusInfo 
+          busInfo={this.props.busInfo}
+          loadRouteInfo={this.props.loadRouteInfo}
+        />
       </Container>
     );
   }

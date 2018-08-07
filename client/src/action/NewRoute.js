@@ -12,6 +12,8 @@ export const CHANGE_DEMO_COLOR = "CHANGE_DEMO_COLOR"
 export const RECEIVE_ALL_ROUTE = "RECEIVE_ROUTE"
 export const GET_ROUTE_RID = "GET_ROUTE_RID"
 export const RECEIVE_ONE_ROUTE = "RECEIVE_ONE_ROUTE"
+export const RECEIVE_BUS_INFO = "RECEIVE_BUS_INFO"
+export const LOAD_ROUTE_INFO = "LOAD_ROUTE_INFO"
 
 var nextRID = 0
 
@@ -148,4 +150,27 @@ export const UpdateRoute = (RID, route) => dispatch => {
           .catch(function(err){
             console.log(err)
           })
+}
+
+
+export const fetchBusInfo = () => dispatch => {
+  return fetch(`${SERVER}/BusInfo`)
+  .then(response => response.json())
+  .then(json => {
+    dispatch(ReceiveBusInfo(json))
+  })
+}
+
+const ReceiveBusInfo = json => {
+  return {
+    type: RECEIVE_BUS_INFO,
+    json
+  }
+}
+
+export const loadRouteInfo = (RID) => {
+  return {
+    type: LOAD_ROUTE_INFO,
+    RID
+  }
 }

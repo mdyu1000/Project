@@ -4,11 +4,11 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 const MapWithAMarker = withGoogleMap(props =>
-  <GoogleMap defaultZoom={13} defaultCenter={{ lat: props.lat, lng: props.lng }} >
+  <GoogleMap defaultZoom={13} center={{ lat: props.lat, lng: props.lng }} >
     {
       props.stations.map((station, index) => 
         <Marker key={ "marker" + index } 
-          position={{ lat: station.location.lat, lng: station.location.lng }} 
+          position={{ lat: Number(station.location.lat), lng: Number(station.location.lng) }} 
           animation={ props.SIDOnGMap == index + 1 ? google.maps.Animation.BOUNCE : null }
         />
 
@@ -17,27 +17,20 @@ const MapWithAMarker = withGoogleMap(props =>
   </GoogleMap>
 );
 
-const CalculateMedium = (stations) => {
-  const medium = Math.floor(stations.length / 2) 
-  if(medium != 0)
-    return stations[medium].location
-  else
-    return {lat: 25.033262, lng: 121.563201}
-}
-
 export default class GMap extends React.Component {
   constructor(props){
     super(props);
   }
 
   render() {
+    console.log(this.props.stations)
     return (
       <div className="form-group">
         <span>Google Map</span>
         <MapWithAMarker
           stations={this.props.stations}
-          lat={ CalculateMedium(this.props.stations).lat }
-          lng={ CalculateMedium(this.props.stations).lng }
+          lat={ this.props.stations.length == 0 ? 25.033262 : Number(this.props.stations[0].location.lat) }
+          lng={ this.props.stations.length == 0 ? 121.5632 : Number(this.props.stations[0].location.lng) }
           containerElement={<div className="mt-2" style={{ height: "300px" }} />}
           mapElement={<div style={{ height: `100%` }} />} 
           SIDOnGMap={this.props.SIDOnGMap}

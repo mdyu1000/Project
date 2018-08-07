@@ -34,6 +34,14 @@ function combineTaipeiRouteAndStop(route, stop, callback) {
 				ch: routeItem.nameZh,
 				en: routeItem.nameEn
 			},
+			departure: {
+				ch: routeItem.departureZh,
+				en: routeItem.departureEn
+			},
+			destination: {
+				ch: routeItem.destinationZh,
+				en: routeItem.destinationEn
+			},
 			city: "Taipei",
 			station: []
 		}
