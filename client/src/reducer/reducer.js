@@ -254,7 +254,7 @@ function NewRouteName(state, action, busInfo){
     case LOAD_ROUTE_INFO:
       let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
       return {
-        ...filterInfo[0].destination
+        ...filterInfo[0].name
       }
     default:
       return state
