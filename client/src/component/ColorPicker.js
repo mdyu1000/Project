@@ -19,7 +19,7 @@ export default class ColorPicker extends React.Component {
           <span>
             Color
             <i type="button" data-toggle="modal" data-target="#colorModal" className="icon-note ml-2" 
-              style={{ cursor: "pointer", webkitAppearance: "initial"}}></i>
+              style={{ cursor: "pointer", WebkitAppearance: "initial"}}></i>
           </span><br/>
           <TwitterPicker triangle="hide" className="mx-auto mt-2" 
           	onChange={this.handleColorChange} colors={this.props.colors}/>

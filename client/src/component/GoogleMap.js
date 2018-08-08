@@ -23,7 +23,6 @@ export default class GMap extends React.Component {
   }
 
   render() {
-    console.log(this.props.stations)
     return (
       <div className="form-group">
         <span>Google Map</span>

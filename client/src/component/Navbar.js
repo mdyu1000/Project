@@ -16,7 +16,8 @@ const tmp = {
   fontSize: "1.25rem",
   lineHeight: "inherit",
   whiteSpace: "nowrap",
-  color: "white"
+  color: "white",
+  textDecoration: "none" 
 }
 
 export default class NavgationBar extends React.Component {

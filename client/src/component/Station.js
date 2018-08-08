@@ -17,7 +17,7 @@ export default class Station extends React.Component {
         <FormGroup>
           <span>Station 
             <i type="button" data-toggle="modal" data-target="#stationModal" className="icon-note ml-2" 
-              style={{ cursor: "pointer", webkitAppearance: "initial"}}></i>
+              style={{ cursor: "pointer", WebkitAppearance: "initial"}}></i>
           </span> 
           <StationTimeLine 
             color={this.props.color} 
