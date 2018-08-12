@@ -7,12 +7,13 @@ const app = express()
 const port = process.env.PORT || 4000
 
 const TAIPEI_BUS = require('./TaipeiBus')
+const NEWTAIPEI_BUS = require('./NewTaipeiBus')
 
 var db
 var dbo
 
 MongoClient.connect(url, { useNewUrlParser: true }, function(err, database){
-  if(err) throw err;  
+  if(err) throw err;
   db = database
   dbo = db.db("kkk777")
 })
@@ -32,7 +33,7 @@ app.get('/AllRoute/', (req, res, next) => {
   dbo.collection("route").find().toArray((err, results) => {
     if(err) throw err
     res.send(JSON.stringify(results));
-  })  
+  })
 })
 
 app.get('/AllRoute/:RID', (req, res, next) => {
@@ -48,7 +49,7 @@ app.get('/BusInfo/', (req, res, next) => {
   dbo.collection("TaipeiBus").find().toArray((err, results) => {
     if(err) throw err
     res.send(JSON.stringify(results));
-  }) 
+  })
 })
 
 app.put('/UpdateRoute/:RID', (req, res, next) => {
@@ -78,8 +79,18 @@ function storeTaipeiBusFromOpenData() {
   })
 }
 
-storeTaipeiBusFromOpenData()
+function storeNewTaipeiBusFromOpenData() {
+  NEWTAIPEI_BUS.getNewTaipeiBusFromOpenData(result => {
+    dbo.collection("NewTaipeiBus").remove({}, err => {
+      dbo.collection("NewTaipeiBus").insert(result, err2 => {
+        console.log("NewTaipei bus information insert successful")
+      })
+    })
+  })
+}
 
+storeTaipeiBusFromOpenData()
+storeNewTaipeiBusFromOpenData()
 app.listen(port, () => {
   console.log(`${port} is listening...`);
 })
