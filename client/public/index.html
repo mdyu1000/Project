@@ -6,7 +6,18 @@
     <meta name="theme-color" content="#000000">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <title>Busplay</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY&v=3.exp&libraries=geometry,drawing,places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY&v=3.exp&libraries=geometry,drawing,places">
+    </script>
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "5823f414-d65c-4fda-91db-2e85a3fec1c0",
+        });
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,7 +1,8 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const MongoClient = require('mongodb').MongoClient;
-const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777";
+const MongoClient = require('mongodb').MongoClient
+const ObjectId = require('mongodb').ObjectID
+const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777"
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -68,6 +69,39 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   })
 })
 
+/* 前端 Route Table 需要的資料 */
+app.get('/AllRouteXQ/', (req, res, next) => {
+  let routes = []
+
+  dbo.collection("route").find().toArray((err, results) => {
+    if(err) throw err
+
+    results.map(result => {
+      routes.push({
+        id: result._id,
+        name: result.routeName,
+        departure: result.departureName,
+        destination: result.destinationName,
+      })
+    })
+
+    res.send(routes)
+  }) 
+})
+
+/* 前端 播放路線 需要的資料 */
+app.get('/OneRouteXQ/:RID', (req, res, next) => {
+
+  let query = {
+    "_id": ObjectId(req.params.RID)
+  }
+  
+  dbo.collection("route").find(query).toArray((err, result) => {
+    if(err) throw err
+    res.send(JSON.stringify(result))
+  })
+})
+
 function storeTaipeiBusFromOpenData() {
   TAIPEI_BUS.getTaipeiBusFromOpenData(result => {
     dbo.collection("TaipeiBus").remove({}, err => {
@@ -78,7 +112,7 @@ function storeTaipeiBusFromOpenData() {
   })
 }
 
-storeTaipeiBusFromOpenData()
+// storeTaipeiBusFromOpenData()
 
 app.listen(port, () => {
   console.log(`${port} is listening...`);
