@@ -41,17 +41,16 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
 			city: "NewTaipei",
 			station: []
     }
-
+    
     let filterStop = stopObj.filter(stop => routeItem.Id == stop.routeId)
 
     for(var j = 0; j < filterStop.length; j++){
-
       busInfo = {
         ...busInfo,
         station: [
           ...busInfo.station,
           {
-            openDataSID: filterStop[j].routeId,
+            openDataSID: filterStop[j].Id,
             name: {
               ch: filterStop[j].nameZh,
               en: filterStop[j].nameEn

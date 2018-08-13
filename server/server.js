@@ -89,8 +89,15 @@ function storeNewTaipeiBusFromOpenData() {
   })
 }
 
-storeTaipeiBusFromOpenData()
-storeNewTaipeiBusFromOpenData()
+setTimeout(()=>{
+  storeTaipeiBusFromOpenData()
+},3000)
+
+// storeTaipeiBusFromOpenData()
+setTimeout(()=>{
+  storeNewTaipeiBusFromOpenData()
+},3000)
+
 app.listen(port, () => {
   console.log(`${port} is listening...`);
 })
