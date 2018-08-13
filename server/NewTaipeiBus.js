@@ -1,16 +1,18 @@
 const request = require('request')
 const fs = require('fs');
+const CONST = require('../constant') 
 
 function combineNewTaipeiRouteAndStop(route, stop, callback) {
-  let routeObj = JSON.parse(route)
-	let stopObj = JSON.parse(stop)
+  //already json no need to parse
+  let routeObj = route
+  let stopObj = stop
 
   let result = []
 	/* 由於 Route ID 會有重複 所以先暫時掠過 */
 	let prevRecordRID = -999
 	let recordRID = -998
 	let busInfo = {}
-
+ 
   /*
 		先對 route 做 loop
 		利用 route.Id 去對應 Stop.routeId
@@ -71,10 +73,24 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
 module.exports = {
 	getNewTaipeiBusFromOpenData: function(callback){
     /* Read NewTaipei Route json */
-    fs.readFile('newTaipeiBusRoute.json', 'utf8', (err, route) => {
-      fs.readFile('newTaipeiBusStop.json', 'utf8', (err, stop) => {
-        combineNewTaipeiRouteAndStop(route, stop, callback)
-      })
-    })
+    // fs.readFile('newTaipeiBusRoute.json', 'utf8', (err, route) => {
+    //   fs.readFile('newTaipeiBusStop.json', 'utf8', (err, stop) => {
+    //     combineNewTaipeiRouteAndStop(route, stop, callback)
+    //   })
+    // })
+    global.fetch = require("node-fetch");
+    fetch(CONST.NEWTAIPEI_BUS_ROUTE)
+    .then(function(response) {
+      return response.json();
+    }).then(function(route) {
+        fetch(CONST.NEWTAIPEI_BUS_STOP)
+        .then(function(response) {
+          return response.json();
+        }).then(function(stop) {
+          combineNewTaipeiRouteAndStop(route, stop, callback)
+        });
+    });
+    
+
   }
 }

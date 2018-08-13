@@ -93,7 +93,6 @@ setTimeout(()=>{
   storeTaipeiBusFromOpenData()
 },3000)
 
-// storeTaipeiBusFromOpenData()
 setTimeout(()=>{
   storeNewTaipeiBusFromOpenData()
 },3000)
