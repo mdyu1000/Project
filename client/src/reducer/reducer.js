@@ -271,7 +271,7 @@ function NewRule(state, action){
       return [
         ...state,     
         {
-          RID: action.RID,
+          RID: state.length,
           condition: 1,
           SID: action.SID,
           distance: action.distance,
@@ -281,7 +281,7 @@ function NewRule(state, action){
       return [
         ...state,
         {
-          RID: action.RID,
+          RID: state.length,
           condition: 2,
           SID: action.SID,
           type: action.typeID,
@@ -292,7 +292,7 @@ function NewRule(state, action){
       return [
         ...state,
         {
-          RID: action.RID,
+          RID: state.length,
           condition: 3,
           distance: action.distance
         }
@@ -301,7 +301,7 @@ function NewRule(state, action){
       return [
         ...state,    
         {
-          RID: action.RID,
+          RID: state.length,
           condition: 4,
           interval: action.interval
         }
