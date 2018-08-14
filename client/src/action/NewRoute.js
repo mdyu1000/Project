@@ -152,7 +152,7 @@ export const UpdateRoute = (RID, route) => dispatch => {
           })
 }
 
-
+/* Fetch 雙北公車檔案 */
 export const fetchBusInfo = () => dispatch => {
   return fetch(`${SERVER}/BusInfo`)
   .then(response => response.json())

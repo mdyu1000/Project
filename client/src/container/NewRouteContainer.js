@@ -13,17 +13,12 @@ import {
   ChangeDemoColor,
   AddRoute,
   UpdateRoute,
-  fetchBusInfo,
   loadRouteInfo
 } from '../action/NewRoute'
 
 class NewRouteContainer extends React.Component {
   constructor(props){
     super(props)
-  }
-
-  componentWillMount(){
-    this.props.fetchBusInfo()
   }
 
   render(){
@@ -90,9 +85,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     UpdateRoute: (RID, route) => {
       dispatch(UpdateRoute(RID, route))
-    },
-    fetchBusInfo: () => {
-      dispatch(fetchBusInfo())
     },
     loadRouteInfo: (RID) => {
       dispatch(loadRouteInfo(RID))

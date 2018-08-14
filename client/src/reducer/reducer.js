@@ -179,10 +179,14 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
       // console.log(filterInfo)
       stations = filterInfo[0].station.map((station, index) => {
         return {
-          SID: index,
+          SID: station.openDataSID,
           name: station.name,
           location: station.location
         }
+      })
+
+      stations = stations.sort((a, b) => {
+        return a.SID > b.SID ? 1 : -1
       })
       return [
         ...stations

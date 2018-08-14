@@ -55,7 +55,7 @@ function combineTaipeiRouteAndStop(route, stop, callback) {
 				station: [
 					...busInfo.station,
 					{
-		        openDataSID: filterStop[j].routeId,
+		        openDataSID: filterStop[j].Id,
 		        name: {
 		          ch: filterStop[j].nameZh,
 		          en: filterStop[j].nameEn
