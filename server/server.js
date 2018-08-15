@@ -103,30 +103,37 @@ app.get('/OneRouteXQ/:RID', (req, res, next) => {
   })
 })
 
-function storeTaipeiBusFromOpenData() {
+function setBusFileToDB(result){
+  for(var i = 0; i < result.length; i++) {
+    let query = {
+      openDataRID: result[i].openDataRID
+    }
+
+    let set = {
+      $set: result[i]
+    }
+
+    dbo.collection("busOpenData").findOneAndUpdate(query, set, {
+      upsert: true
+    }, (err, doc) => {
+      if (err) console.log(err)
+    })
+  }
+}
+
+function storeBusFromOpenData() {
   TAIPEI_BUS.getTaipeiBusFromOpenData(result => {
-    dbo.collection("TaipeiBus").remove({}, err => {
-      dbo.collection("TaipeiBus").insert(result, err2 => {
-        console.log("Taipei bus information insert successful")
-      })
-    })
+    setBusFileToDB(result)
   })
-}
 
-function storeNewTaipeiBusFromOpenData() {
   NEWTAIPEI_BUS.getNewTaipeiBusFromOpenData(result => {
-    dbo.collection("NewTaipeiBus").remove({}, err => {
-      dbo.collection("NewTaipeiBus").insert(result, err2 => {
-        console.log("NewTaipei bus information insert successful")
-      })
-    })
+    setBusFileToDB(result)
   })
 }
 
-// setTimeout(()=>{
-  storeTaipeiBusFromOpenData()
-  storeNewTaipeiBusFromOpenData()
-// },3000)
+setTimeout(() => {
+  storeBusFromOpenData()
+},3000)
 
 
 app.listen(port, () => {

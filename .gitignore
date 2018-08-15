@@ -3,7 +3,9 @@ client/node_modules
 server/db
 yarn-error.log
 yarn.lock
-taipeiBusRoute.gz
-taipeiBusRoute.json
-taipeiBusStop.gz
-taipeiBusStop.json
+server/taipeiBusRoute.gz
+server/taipeiBusRoute.json
+server/taipeiBusStop.gz
+server/taipeiBusStop.json
+server/newTaipeiBusRoute.json
+server/newTaipeiBusStop.json
