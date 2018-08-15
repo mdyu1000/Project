@@ -16,19 +16,41 @@ const inputNumberStyle = {
 }
 
 const handleAddCondition4 = (interval, onAdd) => {
-  onAdd(interval)
+  if(interval == ""){
+    alert("value can't be empty")
+  }else{
+   onAdd(interval)
+  }
 }
 
 const handleAddCondition3 = (distance, onAdd) => {
-  onAdd(distance)
+  if(distance == ""){
+    alert("distance can't be empty")
+  }else{
+   onAdd(distance)
+  }
 }
 
 const handleAddCondition2 = (SID, type, value, onAdd) => {
-  onAdd(SID, type, value)
+  if(SID == null){
+    alert("Please choose a station")
+  }else if(type == null){
+    alert("Please choose a type")
+  }else if(value == ""){
+    alert("value can't be empty")
+  }else{
+    onAdd(SID, type, value)
+  }
 }
 
 const handleAddCondition1 = (SID, distance, onAdd) => {
-  onAdd(SID, distance)
+  if(SID == null){
+    alert("Please choose a station")
+  }else if(distance == ""){
+    alert("distance can't be empty")
+  }else{
+    onAdd(SID, distance)
+  }
 }
 
 const StationOption = props => {

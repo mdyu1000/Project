@@ -13,7 +13,8 @@ import {
   ChangeDemoColor,
   AddRoute,
   UpdateRoute,
-  loadRouteInfo
+  loadRouteInfo,
+  initState
 } from '../action/NewRoute'
 
 class NewRouteContainer extends React.Component {
@@ -21,7 +22,14 @@ class NewRouteContainer extends React.Component {
     super(props)
   }
 
+  componentDidMount(){
+    if(this.props.location.pathname == "/NewRoute"){
+      this.props.initState()
+    }
+  }
+
   render(){
+    console.log(this.props.location)
     return (
       <NewRoute
         nameLists={this.props.nameLists}
@@ -88,6 +96,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadRouteInfo: (RID) => {
       dispatch(loadRouteInfo(RID))
+    },
+    initState: () => {
+      dispatch(initState())
     }
   }
 }

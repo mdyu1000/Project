@@ -13,7 +13,8 @@ import {
   GET_ROUTE_RID,
   RECEIVE_ONE_ROUTE,
   RECEIVE_BUS_INFO,
-  LOAD_ROUTE_INFO } from '../action/NewRoute'
+  LOAD_ROUTE_INFO,
+  INIT_STATE } from '../action/NewRoute'
 import {
   ADD_STATION,
   DEL_STATION,
@@ -36,7 +37,7 @@ import _ from 'lodash';
 
 const initialState = {
   nameLists: { en: "NTUT", ch: "北科大" },
-  departureLists: { ch: "忠孝復興" },
+  departureLists: { ch: "復興肛" },
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
   stations: [],
@@ -72,6 +73,10 @@ function NewDepartureName(state, action, busInfo){
       return {
         ...filterInfo[0].departure
       }
+    case INIT_STATE:
+      return {
+        ...initialState.departureLists
+      }
     default:
       return state
   }
@@ -98,6 +103,10 @@ function NewDestinationName(state, action, busInfo){
       return {
         ...filterInfo[0].destination
       }
+    case INIT_STATE:
+      return {
+        ...initialState.destinationLists
+      }
     default:
       return state
   }
@@ -115,6 +124,10 @@ function NewColor(state, action){
       return [
         ...state
       ]
+    case INIT_STATE:
+      return {
+        ...initialState.colors
+      }
     default:
       return state
   }
@@ -191,6 +204,11 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
       return [
         ...stations
       ]
+
+    case INIT_STATE:
+      return [
+        ...initialState.stations
+      ]
     default:
       return state
   }
@@ -214,7 +232,10 @@ function NewStationName(state, action){
       return {
         ...action.name
       }     
-
+    case INIT_STATE:
+      return {
+        ...initialState.stationName
+      }
     default:
       return state
   }  
@@ -232,6 +253,10 @@ function NewStationLocation(state, action){
     case EDIT_STATION_MODE:
       return {
         ...action.location
+      }
+    case INIT_STATE:
+      return {
+        ...initialState.stationLocation
       }
     default:
       return state   
@@ -259,6 +284,10 @@ function NewRouteName(state, action, busInfo){
       let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
       return {
         ...filterInfo[0].name
+      }
+    case INIT_STATE:
+      return {
+        ...initialState.nameLists
       }
     default:
       return state
@@ -311,6 +340,10 @@ function NewRule(state, action){
     case RECEIVE_ONE_ROUTE:
       return [
         ...action.json.rules
+      ]
+    case INIT_STATE:
+      return [
+        ...initialState.rules
       ]
     default:
       return state

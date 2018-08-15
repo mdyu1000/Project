@@ -15,6 +15,7 @@ export const RECEIVE_ONE_ROUTE = "RECEIVE_ONE_ROUTE"
 export const RECEIVE_BUS_INFO = "RECEIVE_BUS_INFO"
 export const LOAD_ROUTE_INFO = "LOAD_ROUTE_INFO"
 
+export const INIT_STATE = "INIT_STATE"
 var nextRID = 0
 
 export function AddName(language, routeName){
@@ -172,5 +173,11 @@ export const loadRouteInfo = (RID) => {
   return {
     type: LOAD_ROUTE_INFO,
     RID
+  }
+}
+
+export const initState = () => {
+  return {
+    type: INIT_STATE
   }
 }
