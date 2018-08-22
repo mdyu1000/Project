@@ -99,7 +99,7 @@ app.get('/OneRouteXQ/:RID', (req, res, next) => {
   
   dbo.collection("route").find(query).toArray((err, result) => {
     if(err) throw err
-    res.send(JSON.stringify(result))
+    res.send(JSON.stringify(result[0]))
   })
 })
 
