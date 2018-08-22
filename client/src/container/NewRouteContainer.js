@@ -29,7 +29,6 @@ class NewRouteContainer extends React.Component {
   }
 
   render(){
-    console.log(this.props.location)
     return (
       <NewRoute
         nameLists={this.props.nameLists}

@@ -47,7 +47,7 @@ app.get('/AllRoute/:RID', (req, res, next) => {
 })
 
 app.get('/BusInfo/', (req, res, next) => {
-  dbo.collection("TaipeiBus").find().toArray((err, results) => {
+  dbo.collection("busOpenData").find().toArray((err, results) => {
     if(err) throw err
     res.send(JSON.stringify(results));
   })
@@ -131,9 +131,9 @@ function storeBusFromOpenData() {
   })
 }
 
-setTimeout(() => {
-  storeBusFromOpenData()
-},3000)
+// setTimeout(() => {
+//   storeBusFromOpenData()
+// },3000)
 
 
 app.listen(port, () => {
