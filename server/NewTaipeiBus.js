@@ -48,7 +48,7 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
 
     for(var j = 0; j < filterStop.length; j++){
 
-      if(parseFloat(filterStop[j].latitude) > 180 || parseFloat(filterStop[j].longitude > 90) continue
+      if(parseFloat(filterStop[j].latitude) > 180 || parseFloat(filterStop[j].longitude > 90)) continue
 
       busInfo = {
         ...busInfo,

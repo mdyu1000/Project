@@ -4,6 +4,13 @@ const fs = require('fs');
 
 const CONST = require('../constant') 
 
+function checkStationsRepeat(stations, filterStop){
+	for(var i = 0; i < stations.length; i++){
+		if(stations[i].name.ch == filterStop.nameZh) return true
+	}
+	return false
+}
+
 function combineTaipeiRouteAndStop(route, stop, callback) {
 	let routeObj = JSON.parse(route)
 	let stopObj = JSON.parse(stop)
@@ -50,7 +57,9 @@ function combineTaipeiRouteAndStop(route, stop, callback) {
 
 		for(var j = 0; j < filterStop.length; j++){
 
-			if(parseFloat(filterStop[j].latitude) > 180 || parseFloat(filterStop[j].longitude > 90) continue
+			if(parseFloat(filterStop[j].latitude) > 180 || parseFloat(filterStop[j].longitude > 90)) continue
+
+			if(checkStationsRepeat(busInfo.station, filterStop[j])) continue
 
 			busInfo = {
 				...busInfo,

@@ -131,9 +131,9 @@ function storeBusFromOpenData() {
   })
 }
 
-// setTimeout(() => {
-//   storeBusFromOpenData()
-// },3000)
+setTimeout(() => {
+  storeBusFromOpenData()
+},3000)
 
 
 app.listen(port, () => {
