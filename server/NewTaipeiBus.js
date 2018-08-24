@@ -47,6 +47,9 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
     let filterStop = stopObj.filter(stop => routeItem.Id == stop.routeId)
 
     for(var j = 0; j < filterStop.length; j++){
+
+      if(parseFloat(filterStop[j].latitude) > 180 || parseFloat(filterStop[j].longitude > 90) continue
+
       busInfo = {
         ...busInfo,
         station: [
@@ -58,8 +61,8 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
               en: filterStop[j].nameEn
             },
             location: {
-              lat: filterStop[j].latitude,
-              lng: filterStop[j].longitude
+              lat: parseFloat(filterStop[j].latitude),
+              lng: parseFloat(filterStop[j].longitude)
             }
           }
         ]
