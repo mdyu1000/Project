@@ -67,7 +67,12 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
           }
         ]
       }
+
+      busInfo.station.sort((a, b) => {
+        return a.seqNo > b.seqNo ? 1 : -1
+      })
     }
+
     result.push(busInfo)
   }
   callback(result)
@@ -75,23 +80,16 @@ function combineNewTaipeiRouteAndStop(route, stop, callback) {
 
 module.exports = {
 	getNewTaipeiBusFromOpenData: function(callback){
-    /* Read NewTaipei Route json */
-    // fs.readFile('newTaipeiBusRoute.json', 'utf8', (err, route) => {
-    //   fs.readFile('newTaipeiBusStop.json', 'utf8', (err, stop) => {
-    //     combineNewTaipeiRouteAndStop(route, stop, callback)
-    //   })
-    // })
+
     global.fetch = require("node-fetch");
     fetch(CONST.NEWTAIPEI_BUS_ROUTE)
-    .then(function(response) {
-      return response.json();
-    }).then(function(route) {
-        fetch(CONST.NEWTAIPEI_BUS_STOP)
-        .then(function(response) {
-          return response.json();
-        }).then(function(stop) {
-          combineNewTaipeiRouteAndStop(route, stop, callback)
-        });
+    .then(response => response.json())
+    .then(route => {
+      fetch(CONST.NEWTAIPEI_BUS_STOP)
+      .then(response => response.json())
+      .then(stop => {
+        combineNewTaipeiRouteAndStop(route, stop, callback)
+      });
     });
     
 

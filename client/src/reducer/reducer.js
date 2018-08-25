@@ -195,7 +195,6 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
           SID: station.openDataSID,
           name: station.name,
           location: station.location,
-          seqNo: station.seqNo
         }
       })
 
