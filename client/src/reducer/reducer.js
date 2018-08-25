@@ -147,7 +147,7 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
         {
           SID: action.SID,
           name: action.name,  
-          location: action.location    
+          location: action.location,
         } 
       ]
     case DEL_STATION:
@@ -194,13 +194,11 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
         return {
           SID: station.openDataSID,
           name: station.name,
-          location: station.location
+          location: station.location,
+          seqNo: station.seqNo
         }
       })
 
-      stations = stations.sort((a, b) => {
-        return a.SID > b.SID ? 1 : -1
-      })
       return [
         ...stations
       ]

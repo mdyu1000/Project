@@ -105,6 +105,7 @@ app.get('/OneRouteXQ/:RID', (req, res, next) => {
 
 function setBusFileToDB(result){
   for(var i = 0; i < result.length; i++) {
+
     let query = {
       openDataRID: result[i].openDataRID
     }
@@ -131,9 +132,9 @@ function storeBusFromOpenData() {
   })
 }
 
-setTimeout(() => {
-  storeBusFromOpenData()
-},3000)
+// setTimeout(() => {
+//   storeBusFromOpenData()
+// },3000)
 
 
 app.listen(port, () => {

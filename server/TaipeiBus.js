@@ -74,11 +74,18 @@ function combineTaipeiRouteAndStop(route, stop, callback) {
 		        location: {
 		          lat: parseFloat(filterStop[j].latitude),
 		          lng: parseFloat(filterStop[j].longitude)
-		        }
+		        },
+		        seqNo: filterStop[j].seqNo,
 					}
 				]
 			}
+
+			busInfo.station.sort((a, b) => {
+				return a.seqNo > b.seqNo ? 1 : -1
+			})
+
 		}
+
 		result.push(busInfo)
 	}
 	callback(result)
