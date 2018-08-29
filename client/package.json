@@ -28,5 +28,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:4000/"
+  "proxy": "http://localhost:4000/",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.3.1"
+  }
 }

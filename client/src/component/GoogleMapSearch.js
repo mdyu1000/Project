@@ -78,6 +78,9 @@ const MapWithASearchBox = compose(
     defaultZoom={15}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
+    options={{
+      mapTypeControl: false
+    }}
   >
     <SearchBox
       ref={props.onSearchBoxMounted}
@@ -101,9 +104,10 @@ const MapWithASearchBox = compose(
 const inputStyle = {
   boxSizing: `border-box`,
   border: `1px solid transparent`,
-  width: `240px`,
-  height: `29.33px`,
-  marginTop: `10px`,
+  width: `270px`,
+  height: `29px`,
+  marginTop: `15px`,
+  marginLeft: `65px`,
   padding: `0 12px`,
   borderRadius: `3px`,
   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,

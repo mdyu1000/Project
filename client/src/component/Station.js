@@ -28,6 +28,8 @@ export default class Station extends React.Component {
         <StationModal stations={this.props.stations} 
           stationName={this.props.stationName}
           stationLocation={this.props.stationLocation}
+          stationInfos={this.props.stationInfos}
+          stationInfo={this.props.stationInfo}
           isEditMode={this.props.isEditMode}
           rules={this.props.rules}
 
@@ -41,6 +43,9 @@ export default class Station extends React.Component {
           onEditStation={this.props.onEditStation} 
           onCloseStationModal={this.props.onCloseStationModal}
           onDelCondition={this.props.onDelCondition}
+          SetStationSpotIcon={this.props.SetStationSpotIcon}
+          AddStationSpotName={this.props.AddStationSpotName}
+          AddStationSpot={this.props.AddStationSpot}
         />
       </div>
     );

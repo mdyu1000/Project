@@ -4,7 +4,9 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "reac
 import MarkerClusterer from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 const MapWithAMarker = withGoogleMap(props =>
-  <GoogleMap defaultZoom={13} center={{ lat: props.lat, lng: props.lng }} >
+  <GoogleMap defaultZoom={13} center={{ lat: props.lat, lng: props.lng }}     
+    options={{ mapTypeControl: false }}
+  >
     {
       props.stations.map((station, index) => 
         <Marker key={ "marker" + index } 

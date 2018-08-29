@@ -25,14 +25,17 @@ import {
   ADD_STATION_LOCATION,
   EDIT_STATION_MODE, 
   CLOSE_STATION_MODAL,
-  GET_SID_ON_GMAP } from '../action/station'
+  GET_SID_ON_GMAP,
+  SET_STATION_SPOT_ICON,
+  ADD_STATION_SPOT_NAME,
+  ADD_STATION_SPOT } from '../action/station'
 import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
   ADD_CONDITION_THREE,
   ADD_CONDITION_FOUR, 
   DEL_CONDITION } from '../action/condition'
-import { stations, rules } from '../component/Global'
+import { stationInfos } from '../component/Global'
 import _ from 'lodash';
 
 const initialState = {
@@ -43,6 +46,8 @@ const initialState = {
   stations: [],
   stationName: {},
   stationLocation: { lat: "0", lng: "0" },
+  stationInfos: stationInfos,
+  stationInfo: { en: "Mr. Brown Cafe", ch: "伯朗咖啡科大店", icon: "question"},
   rules: [],
   demoColor: "#FF6900",
   isEditMode: false,
@@ -260,6 +265,41 @@ function NewStationLocation(state, action){
   }
 }
 
+function NewStationInfos(state, action){
+  switch(action.type){
+    case ADD_STATION_SPOT:
+      return {
+        ...state,
+        spot: [
+          ...state.spot,
+          {
+            name: action.name,
+            icon: action.icon
+          }
+        ]
+      }
+    default:
+      return state
+  }
+}
+
+function NewStationInfo(state, action){
+  switch(action.type){
+    case SET_STATION_SPOT_ICON:
+      return {
+        ...state,
+        icon: action.icon
+      }
+    case ADD_STATION_SPOT_NAME:
+      state[action.language] = action.name
+      return {
+        ...state,
+      } 
+    default:
+      return state
+  }
+}
+
 function NewRouteName(state, action, busInfo){
   switch(action.type){
     case ADD_NAME:
@@ -418,6 +458,8 @@ export default function BusPlayApp(state = initialState, action){
     stations: NewStation(state.stations, action, state.stationName, state.stationLocation, state.busInfo),
     stationName: NewStationName(state.stationName, action, state.isEditMode),
     stationLocation: NewStationLocation(state.stationLocation, action),
+    stationInfos: NewStationInfos(state.stationInfos, action),
+    stationInfo: NewStationInfo(state.stationInfo, action),
     rules: NewRule(state.rules, action),
     demoColor: ChangeDemoColor(state.demoColor, action),
     isEditMode: editMode(state.isEditMode, action),

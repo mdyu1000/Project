@@ -11,6 +11,9 @@ import {
   EditStationMode,
   CloseStationModal,
   GetSIDOnGMap,
+  SetStationSpotIcon,
+  AddStationSpotName,
+  AddStationSpot
 } from '../action/station'
 
 import {
@@ -52,6 +55,15 @@ const mapDispatchToProps = (dispatch) => {
     onDelCondition: (RID) => {
       dispatch(DelCondition(RID))
     },  
+    SetStationSpotIcon: icon => {
+      dispatch(SetStationSpotIcon(icon))
+    },
+    AddStationSpotName: (language, name) => {
+      dispatch(AddStationSpotName(language, name))
+    },
+    AddStationSpot: (icon, name) => {
+      dispatch(AddStationSpot(icon, name))
+    }
   }
 }
 
@@ -60,6 +72,8 @@ const mapStateToProps = (state) => {
     stations: state.stations,
     stationName: state.stationName,
     stationLocation: state.stationLocation,
+    stationInfos: state.stationInfos,
+    stationInfo: state.stationInfo,
     color: state.demoColor,
     isEditMode: state.isEditMode,
     rules: state.rules,

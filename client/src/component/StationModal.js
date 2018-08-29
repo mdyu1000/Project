@@ -6,6 +6,7 @@ import InputText from './InputText';
 import GMapSearch from "./GoogleMapSearch";
 import { ModalItemStyle, ModalListStyle, badgeStyle } from './Global';
 import _ from 'lodash';
+import StationSpotInput from './StationSpotInput'
 
 const LocationBadge = (props) => {
   return(
@@ -207,16 +208,25 @@ export default class StationModal extends React.Component {
                       <InputText title="Station Name" name="stationName" lists={this.props.stationName} 
                         onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName} />
                     </div>
-                    <div>
+                    <div className="mb-3">
                       <span>Google Map</span>
                       <GMapSearch onAddLocation={this.props.onAddStationLocation} 
                         isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
                     </div>
                     <LocationBadge location={this.props.stationLocation} />
+                    <StationSpotInput title="Information"
+                      stationInfos={this.props.stationInfos}
+                      stationInfo={this.props.stationInfo}
+
+                      SetStationSpotIcon={this.props.SetStationSpotIcon}
+                      AddStationSpotName={this.props.AddStationSpotName}
+                      AddStationSpot={this.props.AddStationSpot}
+                    />
                     <StateButton onAddStation={this.handleAddStation} 
                       onEditStation={this.handleEditStation}
                       location={this.props.stationLocation}
-                      isEditMode={this.props.isEditMode} />
+                      isEditMode={this.props.isEditMode} 
+                    />
             		</Col>
             	</div>
             </div>
