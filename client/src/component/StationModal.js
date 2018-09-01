@@ -221,6 +221,8 @@ export default class StationModal extends React.Component {
                       SetStationSpotIcon={this.props.SetStationSpotIcon}
                       AddStationSpotName={this.props.AddStationSpotName}
                       AddStationSpot={this.props.AddStationSpot}
+                      DelStationSpotName={this.props.DelStationSpotName}
+                      DelStationSpot={this.props.DelStationSpot}
                     />
                     <StateButton onAddStation={this.handleAddStation} 
                       onEditStation={this.handleEditStation}

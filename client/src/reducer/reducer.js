@@ -28,7 +28,9 @@ import {
   GET_SID_ON_GMAP,
   SET_STATION_SPOT_ICON,
   ADD_STATION_SPOT_NAME,
-  ADD_STATION_SPOT } from '../action/station'
+  DEL_STATION_SPOT_NAME,
+  ADD_STATION_SPOT,
+  DEL_STATION_SPOT, } from '../action/station'
 import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
@@ -47,7 +49,8 @@ const initialState = {
   stationName: {},
   stationLocation: { lat: "0", lng: "0" },
   stationInfos: stationInfos,
-  stationInfo: { en: "Mr. Brown Cafe", ch: "伯朗咖啡科大店", icon: "question"},
+  stationInfo: {icon: "question"},
+  // stationInfo: { en: "Mr. Brown Cafe", ch: "伯朗咖啡科大店", icon: "question"},
   rules: [],
   demoColor: "#FF6900",
   isEditMode: false,
@@ -271,11 +274,20 @@ function NewStationInfos(state, action){
       return {
         ...state,
         spot: [
-          ...state.spot,
           {
+            spotId: state.spot.length,
             name: action.name,
             icon: action.icon
-          }
+          },
+          ...state.spot
+        ]
+      }
+    case DEL_STATION_SPOT:
+      let tmp = state.spot.filter(item => action.spotId != item.spotId)
+      return {
+        ...state,
+        spot: [
+          ...tmp
         ]
       }
     default:
@@ -295,6 +307,13 @@ function NewStationInfo(state, action){
       return {
         ...state,
       } 
+    case DEL_STATION_SPOT_NAME:
+      delete state[action.language]
+      return {
+        ...state,
+      }
+    case ADD_STATION_SPOT:
+      return {icon: "question"}
     default:
       return state
   }

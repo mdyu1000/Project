@@ -11,7 +11,9 @@ export const GET_SID_ON_GMAP = "GET_SID_ON_GMAP"
 
 export const SET_STATION_SPOT_ICON = "SET_STATION_SPOT_ICON"
 export const ADD_STATION_SPOT_NAME = "ADD_STATION_SPOT_NAME"
+export const DEL_STATION_SPOT_NAME = "DEL_STATION_SPOT_NAME"
 export const ADD_STATION_SPOT = "ADD_STATION_SPOT"
+export const DEL_STATION_SPOT = "DEL_STATION_SPOT"
 
 let nextSID = 4
 export function AddStation(name, location){
@@ -106,10 +108,24 @@ export function AddStationSpotName(language, name){
   }
 }
 
+export function DelStationSpotName(language){
+  return {
+    type: DEL_STATION_SPOT_NAME,
+    language
+  }
+}
+
 export function AddStationSpot(icon, name){
   return {
     type: ADD_STATION_SPOT,
     icon,
     name
+  }
+}
+
+export function DelStationSpot(spotId){
+  return {
+    type: DEL_STATION_SPOT,
+    spotId
   }
 }

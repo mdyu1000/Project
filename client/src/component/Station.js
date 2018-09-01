@@ -46,6 +46,8 @@ export default class Station extends React.Component {
           SetStationSpotIcon={this.props.SetStationSpotIcon}
           AddStationSpotName={this.props.AddStationSpotName}
           AddStationSpot={this.props.AddStationSpot}
+          DelStationSpotName={this.props.DelStationSpotName}
+          DelStationSpot={this.props.DelStationSpot}
         />
       </div>
     );

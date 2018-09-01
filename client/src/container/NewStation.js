@@ -13,7 +13,9 @@ import {
   GetSIDOnGMap,
   SetStationSpotIcon,
   AddStationSpotName,
-  AddStationSpot
+  DelStationSpotName,
+  AddStationSpot,
+  DelStationSpot,
 } from '../action/station'
 
 import {
@@ -61,9 +63,15 @@ const mapDispatchToProps = (dispatch) => {
     AddStationSpotName: (language, name) => {
       dispatch(AddStationSpotName(language, name))
     },
+    DelStationSpotName: language => {
+      dispatch(DelStationSpotName(language))
+    },
     AddStationSpot: (icon, name) => {
       dispatch(AddStationSpot(icon, name))
-    }
+    },
+    DelStationSpot: spotId => {
+      dispatch(DelStationSpot(spotId))
+    },
   }
 }
 

@@ -41,6 +41,7 @@ export const colors = {
 export const stationInfos = {
   spot: [
     {
+      spotId: 0,
       name: {
         ch: "凱薩大飯店",
         en: "KDM Hotel",
@@ -48,6 +49,7 @@ export const stationInfos = {
       icon: "hotel"
     },
     {
+      spotId: 1,
       name: {
         ch: "三維人股份有限公司",
         en: "3drens"
@@ -55,6 +57,7 @@ export const stationInfos = {
       icon: "building"
     },
     {
+      spotId: 2,
       name: {
         ch: "台北自來水園區",
         en: "Taipei Water Park"
