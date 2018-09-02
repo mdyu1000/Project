@@ -7,7 +7,7 @@ import NewRule from '../container/NewRule'
 import ColorPicker from './ColorPicker'
 import InputText from './InputText'
 import GMap from './GoogleMap'
-import { containerStyle } from './Global'
+import { containerStyle, marquee } from './Global'
 import { Redirect } from 'react-router-dom'
 import { matchPath } from 'react-router'
 import BusInfo from './BusInfo'
@@ -81,6 +81,7 @@ export default class NewRoute extends React.Component {
     route["themeColor"] = this.props.theme_color
     route["stations"] = []
     route["rules"] = []
+    route["marquee"] = [...marquee]
     this.props.stations.map(station => {
       route["stations"].push(station)
     })

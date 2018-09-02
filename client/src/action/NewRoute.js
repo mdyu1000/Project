@@ -131,7 +131,7 @@ export const AddRoute = (route, station, rule) => dispatch => {
     body: JSON.stringify({
       "route": route,
       "stations": station,
-      "rules": rule
+      "rules": rule,
     }),
     headers: {"Content-Type": "application/json"}
   })

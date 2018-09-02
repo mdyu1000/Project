@@ -195,6 +195,7 @@ export default class StationModal extends React.Component {
                     <span>Google Map</span>
                     <GMapSearch onAddLocation={this.props.onAddStationLocation} 
                       isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
+                    <LocationBadge location={this.props.stationLocation} />
                   </div>									
                   <SortableList items={this.state.items} 
                     distance="10" 
@@ -212,7 +213,6 @@ export default class StationModal extends React.Component {
                         onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName} />
                     </div>
 
-                    <LocationBadge location={this.props.stationLocation} />
                     <StationSpotInput title="Information"
                       stationInfos={this.props.stationInfos}
                       stationInfo={this.props.stationInfo}
