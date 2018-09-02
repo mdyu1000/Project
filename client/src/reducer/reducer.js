@@ -177,7 +177,8 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
           return {
             SID: action.SID,
             name: action.name,
-            location: action.location
+            location: action.location,
+            info: action.infos
           }
         }
       })
@@ -204,7 +205,9 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
           SID: station.openDataSID,
           name: station.name,
           location: station.location,
-          info: {}
+          info: {
+            spot: []
+          }
         }
       })
 
@@ -277,7 +280,7 @@ function NewStationInfos(state, action){
         ...state,
         spot: [
           {
-            spotId: state.hasOwnProperty("spot") == undefined ? 0 : state.spot.length,
+            spotId: state.spot.length == 0 ? 0 : state.spot.length,
             name: action.name,
             icon: action.icon
           },
@@ -300,8 +303,14 @@ function NewStationInfos(state, action){
       return {
         ...initialState.stationInfos
       }
+    case EDIT_STATION:
+      return {
+        spot: []
+      }
     case ADD_STATION:
-      return {}
+      return {
+        spot: []
+      }
     default:
       return state
   }

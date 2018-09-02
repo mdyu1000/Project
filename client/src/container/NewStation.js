@@ -45,8 +45,8 @@ const mapDispatchToProps = (dispatch) => {
     onEditStationMode: (SID, language, name, infos) => {
       dispatch(EditStationMode(SID, language, name, infos))
     },
-    onEditStation: (SID, language, name) => {
-      dispatch(EditStation(SID, language, name))
+    onEditStation: (SID, language, name, infos) => {
+      dispatch(EditStation(SID, language, name, infos))
     },
     onCloseStationModal: () => {
       dispatch(CloseStationModal())

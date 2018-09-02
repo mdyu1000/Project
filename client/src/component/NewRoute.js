@@ -81,7 +81,7 @@ export default class NewRoute extends React.Component {
     route["themeColor"] = this.props.theme_color
     route["stations"] = []
     route["rules"] = []
-    route["marquee"] = [...marquee]
+    route["marquee"] = [marquee[Math.floor((Math.random() * 8))], marquee[Math.floor((Math.random() * 8))]]
     this.props.stations.map(station => {
       route["stations"].push(station)
     })

@@ -65,12 +65,13 @@ export function EditStationMode(SID, name, location, infos){
   }
 }
 
-export function EditStation(SID, name, location){
+export function EditStation(SID, name, location, infos){
   return {
     type: EDIT_STATION,
     SID,
     name,
-    location
+    location,
+    infos
   }
 }
 

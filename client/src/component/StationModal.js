@@ -123,7 +123,12 @@ export default class StationModal extends React.Component {
   handleEditStation = () => {
     let stationName = _.cloneDeep(this.props.stationName)
     let stationLocation = _.cloneDeep(this.props.stationLocation) 
-    this.props.onEditStation(edit_SID, stationName, stationLocation)
+    let stationInfos = _.cloneDeep(this.props.stationInfos)
+
+    console.log(stationInfos)
+
+    document.getElementById("googleMapSearchInput").value = ""
+    this.props.onEditStation(edit_SID, stationName, stationLocation, stationInfos)
   }
 
   handleDelStation = (SID) => {
