@@ -20,7 +20,7 @@ const LocationBadge = (props) => {
 
 const StateButton = (props) => {
   return(
-    <div className="mt-4 d-flex justify-content-end mb-0">
+    <div className="d-flex justify-content-end mb-0">
       {
         (
           props.isEditMode && 
@@ -114,8 +114,10 @@ export default class StationModal extends React.Component {
   handleAddStation = () => {
     let stationName = _.cloneDeep(this.props.stationName)
     let stationLocation = _.cloneDeep(this.props.stationLocation)
+    let stationInfos = _.cloneDeep(this.props.stationInfos)
+
     document.getElementById("googleMapSearchInput").value = ""
-    this.props.onAddStation(stationName, stationLocation)
+    this.props.onAddStation(stationName, stationLocation, stationInfos)
   }
 
   handleEditStation = () => {
@@ -177,7 +179,7 @@ export default class StationModal extends React.Component {
     let SID = e.target.getAttribute("id").split("edit")[1]
     edit_SID = SID
     let filterStation = this.state.items.filter(item => item.SID == SID)[0]
-    this.props.onEditStationMode(filterStation.SID, filterStation.name, filterStation.location)
+    this.props.onEditStationMode(filterStation.SID, filterStation.name, filterStation.location, filterStation.info)
   }
 
 	render() {
@@ -188,31 +190,28 @@ export default class StationModal extends React.Component {
           	<ModalHeader onCloseModal={this.props.onCloseStationModal}/>
             <div className="modal-body">
             	<div className="row">
-            		<Col sm="5">
-									<SortableList items={this.state.items} 
+            		<div className="col-6">
+                  <div className="mb-3">
+                    <span>Google Map</span>
+                    <GMapSearch onAddLocation={this.props.onAddStationLocation} 
+                      isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
+                  </div>									
+                  <SortableList items={this.state.items} 
                     distance="10" 
                     onSortStart={this.handleSortStart}
                     onSortEnd={this.handleSortEnd}
                     onSortMove={this.handleSortMove}
                     onDelStation={this.handleDelStation}  
-                    handleEditMode={this.editMode}/>
-            		  <div id="trashcan" className="text-center w-100 py-2" 
-                    onMouseUp={this.handleMouseUp}
-                    style={trashcanStyle(this.state.isInTrashcan)}
-                  >
-                    <i className="icon-trash fa-2x" aria-hidden="true"></i>
-                  </div>
-                </Col>
-            		<Col sm="7">
+                    handleEditMode={this.editMode}
+                  />
+
+                </div>
+            		<div className="col-6">
                     <div>
                       <InputText title="Station Name" name="stationName" lists={this.props.stationName} 
                         onAdd={this.props.onAddStationName} onDel={this.props.onDelStationName} />
                     </div>
-                    <div className="mb-3">
-                      <span>Google Map</span>
-                      <GMapSearch onAddLocation={this.props.onAddStationLocation} 
-                        isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
-                    </div>
+
                     <LocationBadge location={this.props.stationLocation} />
                     <StationSpotInput title="Information"
                       stationInfos={this.props.stationInfos}
@@ -224,13 +223,26 @@ export default class StationModal extends React.Component {
                       DelStationSpotName={this.props.DelStationSpotName}
                       DelStationSpot={this.props.DelStationSpot}
                     />
-                    <StateButton onAddStation={this.handleAddStation} 
-                      onEditStation={this.handleEditStation}
-                      location={this.props.stationLocation}
-                      isEditMode={this.props.isEditMode} 
-                    />
-            		</Col>
+
+            		</div>
             	</div>
+              <div className="row">
+                <div className="col-6">
+                  <div id="trashcan" className="text-center w-100 py-2" 
+                    onMouseUp={this.handleMouseUp}
+                    style={trashcanStyle(this.state.isInTrashcan)}
+                  >
+                    <i className="icon-trash fa-2x" aria-hidden="true"></i>
+                  </div>                
+                </div>
+                <div className="col-6 my-auto">
+                  <StateButton onAddStation={this.handleAddStation} 
+                    onEditStation={this.handleEditStation}
+                    location={this.props.stationLocation}
+                    isEditMode={this.props.isEditMode} 
+                  />               
+                </div>
+              </div>
             </div>
           </div>
         </div>

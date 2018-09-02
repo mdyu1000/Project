@@ -16,12 +16,13 @@ export const ADD_STATION_SPOT = "ADD_STATION_SPOT"
 export const DEL_STATION_SPOT = "DEL_STATION_SPOT"
 
 let nextSID = 4
-export function AddStation(name, location){
+export function AddStation(name, location, infos){
   return {
     type: ADD_STATION,
     SID: ++nextSID, 
     name,
-    location
+    location,
+    infos
   }
 }
 
@@ -54,12 +55,13 @@ export function DelStationName(language){
   }
 }
 
-export function EditStationMode(SID, name, location){
+export function EditStationMode(SID, name, location, infos){
   return {
     type: EDIT_STATION_MODE,
     SID,
     name,
-    location
+    location,
+    infos
   }
 }
 

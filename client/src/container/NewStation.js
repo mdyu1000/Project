@@ -24,8 +24,8 @@ import {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddStation: (name, location) => {
-      dispatch(AddStation(name, location))
+    onAddStation: (name, location, infos) => {
+      dispatch(AddStation(name, location, infos))
     },
     onAddStationName: (language, name) => {
       dispatch(AddStationName(language, name))
@@ -42,8 +42,8 @@ const mapDispatchToProps = (dispatch) => {
     onSortStation: (station) => {
       dispatch(SortStation(station))
     },
-    onEditStationMode: (SID, language, name) => {
-      dispatch(EditStationMode(SID, language, name))
+    onEditStationMode: (SID, language, name, infos) => {
+      dispatch(EditStationMode(SID, language, name, infos))
     },
     onEditStation: (SID, language, name) => {
       dispatch(EditStation(SID, language, name))

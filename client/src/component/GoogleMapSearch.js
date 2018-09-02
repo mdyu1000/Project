@@ -8,7 +8,7 @@ import { compose, withState, withProps, lifecycle, withHandlers } from 'recompos
 const MapWithASearchBox = compose(
   withProps({
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div className="mt-2" style={{ height: `250px` }} />,
+    containerElement: <div className="mt-2" style={{ height: `200px` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
   lifecycle({
@@ -79,7 +79,8 @@ const MapWithASearchBox = compose(
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
     options={{
-      mapTypeControl: false
+      mapTypeControl: false,
+      streetViewControl: false
     }}
   >
     <SearchBox
@@ -106,8 +107,8 @@ const inputStyle = {
   border: `1px solid transparent`,
   width: `270px`,
   height: `29px`,
-  marginTop: `15px`,
-  marginLeft: `65px`,
+  marginTop: `11px`,
+  marginLeft: `20px`,
   padding: `0 12px`,
   borderRadius: `3px`,
   boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,

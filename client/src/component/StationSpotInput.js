@@ -33,6 +33,7 @@ export default class StationSpotInput extends React.Component {
     }
     else{
       this.props.AddStationSpotName(spotLanguage, spotName)
+      document.getElementById("spotName").value = ''
     }
   }
 
@@ -44,6 +45,12 @@ export default class StationSpotInput extends React.Component {
   handleDelSpot(e){
     let spot = e.target.dataset.spotid
     this.props.DelStationSpot(spot)
+  }
+
+  componentDidMount(){
+    document.getElementById("spotName").onkeyup = (e) => {
+      if(e.keyCode == 13) this.handleAddSpotName()
+    }  
   }
 
   componentDidUpdate(prevProps){
@@ -65,20 +72,6 @@ export default class StationSpotInput extends React.Component {
 		return(
 	    <FormGroup>
 	      <span>{this.props.title}</span>
-        <div className="mt-1" style={{ height: "100px", overflowY: "scroll"}}>
-          {
-            this.props.stationInfos.spot.map((info, index) => 
-              <div key={"spot" + index} className="border rounded px-2 py-1 mt-1 mr-1 d-flex justify-content-between">
-                <span>
-                  <i className={"fas fa-" + info.icon}></i>
-                  {info.name.ch + '  /  ' + info.name.en}
-                </span>
-                <i className="icon-trash my-auto" style={{cursor: "pointer"}} 
-                  data-spotid={info.spotId} onClick={this.handleDelSpot}></i>
-              </div>
-            )
-          }
-        </div>
 	      <div className="input-group mt-2" style={{height: "2rem"}}>
 	      	<div className="input-group-prepend">
 	      		<select style={ languageSeleteStyle } id="spotLanguage" 
@@ -95,7 +88,7 @@ export default class StationSpotInput extends React.Component {
           >
             <i id="icon" className={"fas fa-" + this.props.stationInfo.icon}></i>
           </button>
-	      	<Input type="text" id={"spotName"} name={this.props.name} className="pb-2 rounded" />
+	      	<Input type="text" id="spotName" name={this.props.name} className="pb-2 rounded" />
       		<div className="input-group-append">
 						<i className="icon-plus my-auto ml-1" style={{ cursor: "pointer"}} 
               onClick={this.handleAddSpotName}></i>
@@ -103,7 +96,7 @@ export default class StationSpotInput extends React.Component {
           <div className="w-100">
             {
               this.props.stationInfo.hasOwnProperty("ch") &&
-              <span className="badge badge-secondary">
+              <span className="badge badge-secondary mt-2 ml-2">
                 { this.props.stationInfo.ch }
                 <i className="icon-trash ml-1" style={{cursor: "pointer"}} 
                   data-language="ch" onClick={this.handleDelSpotName}></i>
@@ -111,7 +104,7 @@ export default class StationSpotInput extends React.Component {
             }
             {
               this.props.stationInfo.hasOwnProperty("en") &&
-              <span className="badge badge-secondary ml-1">
+              <span className="badge badge-secondary mt-2 ml-2">
                 {this.props.stationInfo.en}
                 <i className="icon-trash ml-1" style={{cursor: "pointer"}} 
                   data-language="en" onClick={this.handleDelSpotName}></i>
@@ -122,7 +115,22 @@ export default class StationSpotInput extends React.Component {
             <FontAwesomeList SetStationSpotIcon={this.props.SetStationSpotIcon} />
           </div>
 	      </div>
-	    </FormGroup>
+        <div className="mt-5" style={{ height: "200px", overflowY: "scroll"}}>
+          {
+            this.props.stationInfos.hasOwnProperty("spot") &&
+            this.props.stationInfos.spot.map((info, index) => 
+              <div key={"spot" + index} className="border rounded px-2 py-1 mt-1 mr-1 d-flex justify-content-between">
+                <span>
+                  <i className={"fas fa-" + info.icon}></i>
+                  {info.name.ch + '  /  ' + info.name.en}
+                </span>
+                <i className="icon-trash my-auto" style={{cursor: "pointer"}} 
+                  data-spotid={info.spotId} onClick={this.handleDelSpot}></i>
+              </div>
+            )
+          }
+        </div>	    
+      </FormGroup>
 		)
 	}
 }

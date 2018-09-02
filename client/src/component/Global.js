@@ -15,7 +15,7 @@ export const ModalListStyle = {
   border: "none",
   overflowY: "scroll",
   overflowX: "hidden",
-  height: "360px",
+  height: "300px",
 }
 
 export const ModalItemStyle = {

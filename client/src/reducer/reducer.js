@@ -156,6 +156,7 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
           SID: action.SID,
           name: action.name,  
           location: action.location,
+          info: action.infos
         } 
       ]
     case DEL_STATION:
@@ -203,6 +204,7 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
           SID: station.openDataSID,
           name: station.name,
           location: station.location,
+          info: {}
         }
       })
 
@@ -275,7 +277,7 @@ function NewStationInfos(state, action){
         ...state,
         spot: [
           {
-            spotId: state.spot.length,
+            spotId: state.hasOwnProperty("spot") == undefined ? 0 : state.spot.length,
             name: action.name,
             icon: action.icon
           },
@@ -290,6 +292,16 @@ function NewStationInfos(state, action){
           ...tmp
         ]
       }
+    case EDIT_STATION_MODE:
+      return {
+        ...action.infos
+      }
+    case INIT_STATE:
+      return {
+        ...initialState.stationInfos
+      }
+    case ADD_STATION:
+      return {}
     default:
       return state
   }
@@ -314,6 +326,10 @@ function NewStationInfo(state, action){
       }
     case ADD_STATION_SPOT:
       return {icon: "question"}
+    case INIT_STATE:
+      return {
+        ...initialState.stationInfo
+      }
     default:
       return state
   }
