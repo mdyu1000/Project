@@ -9,6 +9,7 @@ const port = process.env.PORT || 4000
 
 const TAIPEI_BUS = require('./TaipeiBus')
 const NEWTAIPEI_BUS = require('./NewTaipeiBus')
+const utils = require('./utils')
 
 var db
 var dbo
@@ -25,8 +26,10 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.post('/NewRoute/', (req, res, next) => {
-  console.log(req.body.route)
-  dbo.collection("route").insert(req.body.route, (err, res) => {
+
+  let route = utils.setDistanceAndExtremum(req.body.route)
+
+  dbo.collection("route").insert(route, (err, res) => {
     if(err) throw err
   })
 })
@@ -57,14 +60,21 @@ app.get('/BusInfo/', (req, res, next) => {
 app.put('/UpdateRoute/:RID', (req, res, next) => {
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
+  let route = utils.setDistanceAndExtremum(req.body.route)
+
   let newValue = { $set: {
-    routeName: req.body.route.routeName,
-    departureName: req.body.route.departureName,
-    destinationName: req.body.route.destinationName,
-    themeColor: req.body.route.themeColor,
-    stations: req.body.route.stations,
-    rules: req.body.route.rules
+    routeName: route.routeName,
+    departureName: route.departureName,
+    destinationName: route.destinationName,
+    themeColor: route.themeColor,
+    stations: route.stations,
+    rules: route.rules,
+    marquee: route.marquee,
+    distanceMax: route.distanceMax,
+    distanceMin: route.distanceMin
   }}
+
+
   dbo.collection("route").updateOne(query, newValue, (err, result) => {
     if (err) throw err;
     res.send("update successful")
