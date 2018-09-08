@@ -2,7 +2,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const ObjectId = require('mongodb').ObjectID
+const request = require('request')
 const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777"
+
+const HERE_API = {
+  id: "app_id=ZTcud6py5cGnODgrHuoK",
+  code: "app_code=AyFMJoG9Icohe9G6f4Scyg",
+  url: "https://weather.api.here.com/weather/1.0/report.json?",
+  product: "product=observation"
+}
+
+const WEATHER = "name=england"
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -111,6 +121,34 @@ app.get('/OneRouteXQ/:RID', (req, res, next) => {
   dbo.collection("route").find(query).toArray((err, result) => {
     if(err) throw err
     res.send(JSON.stringify(result[0]))
+  })
+})
+
+app.get('/weather/:location', (req, res, next) => {
+  const url = `${HERE_API.url}&${HERE_API.id}&${HERE_API.code}&${HERE_API.product}&name=${req.params.location}`
+  let data = {
+    success: false,
+    data: {}
+  }
+
+  request(url, (err, response, body) => {
+    
+    let result = JSON.parse(body)
+
+    if(result.Type == "Invalid Request"){
+      res.send(data)
+    }else{
+      data = {
+        success: true,
+        data: {
+          temperature: result.observations.location[0].observation[0].temperature,
+          description: result.observations.location[0].observation[0].description,
+          iconName: result.observations.location[0].observation[0].iconName,
+          iconLink: result.observations.location[0].observation[0].iconLink,
+        }
+      }
+      res.send(data)
+    }
   })
 })
 

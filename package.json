@@ -20,11 +20,11 @@
     "morgan": "^1.9.0",
     "node-fetch": "^2.2.0",
     "react-router": "^4.3.1",
-    "request": "^2.87.0",
+    "request": "^2.88.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
-    "nodemon": "^1.17.3"
+    "nodemon": "^1.18.4"
   }
 }
