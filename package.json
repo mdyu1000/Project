@@ -4,7 +4,8 @@
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "nodemon ./server/server.js"
   },
   "description": "Back",
   "repository": "https://github.com/mdyu1000/Project.git",
