@@ -7,8 +7,6 @@ const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777"
 
 const GOOGLE_API_KEY="key=AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY"
 
-
-
 const HERE_API = {
   id: "app_id=ZTcud6py5cGnODgrHuoK",
   code: "app_code=AyFMJoG9Icohe9G6f4Scyg",
@@ -20,8 +18,6 @@ const GOOGLE_GEOCODE_API = {
   url: "https://maps.googleapis.com/maps/api/geocode/json?",
   language: "language=en"
 }
-
-const WEATHER = "name=england"
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -113,6 +109,7 @@ app.get('/AllRouteXQ/', (req, res, next) => {
         name: result.routeName,
         departure: result.departureName,
         destination: result.destinationName,
+        color: result.themeColor,
       })
     })
 
@@ -161,8 +158,8 @@ function setBusFileToDB(result){
   透過 type administrative_area_level_1 或 administrative_area_level_2 判斷為直轄市或一般縣市
   切割字串後取得縣市名稱 再送入 Here Map Weather API 取得天氣
 */
-app.get('/weather', (req, res, next) => {
-  const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${req.headers['lng']},${req.headers['lat']}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
+app.get('/weather/:lat&:lng', (req, res, next) => {
+  const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${req.params.lng},${req.params.lat}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
   let data = {
     success: false,
     data: {}
