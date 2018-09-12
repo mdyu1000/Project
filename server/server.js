@@ -158,7 +158,7 @@ function setBusFileToDB(result){
   透過 type administrative_area_level_1 或 administrative_area_level_2 判斷為直轄市或一般縣市
   切割字串後取得縣市名稱 再送入 Here Map Weather API 取得天氣
 */
-app.get('/weather/:lat&:lng', (req, res, next) => {
+app.get('/weather/:lng&:lat', (req, res, next) => {
   const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${req.params.lng},${req.params.lat}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
   let data = {
     success: false,
