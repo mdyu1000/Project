@@ -72,6 +72,28 @@ export default class NewRoute extends React.Component {
     this.handleNewRoute = this.handleNewRoute.bind(this)
     this.handleUpdateRoute = this.handleUpdateRoute.bind(this)
     this.StoreRoute = this.StoreRoute.bind(this)
+    this.checkStationLanguage = this.checkStationLanguage.bind(this)
+    this.checkDepartureAndDestinationField = this.checkDepartureAndDestinationField.bind(this)
+  }
+
+  checkStationLanguage(stations){
+    // for(var i = 0; i <)
+  }
+
+  checkDepartureAndDestinationField(route){
+    /* 比較起點的欄位是否跟終點一致 */
+    for(var key in route.departure_name){
+      if(!route.destination_name.hasOwnProperty(key)){
+        return false
+      }
+    }
+
+    /* 比較終點的欄位是否跟起點一致 */
+    for(var key in route.destination_name){
+      if(!route.departure_name.hasOwnProperty(key)){
+        return false
+      }
+    }
   }
 
   StoreRoute(route) {
@@ -117,20 +139,14 @@ export default class NewRoute extends React.Component {
       let isFieldsEqual = true
 
       this.StoreRoute(route)
-      
-      /* 比較起點的欄位是否跟終點一致 */
-      for(var key in route.departure_name){
-        if(!route.destination_name.hasOwnProperty(key)){
-          isFieldsEqual = false
-        }
-      }
 
-      /* 比較終點的欄位是否跟起點一致 */
-      for(var key in route.destination_name){
-        if(!route.departure_name.hasOwnProperty(key)){
-          isFieldsEqual = false
-        }
-      }
+      isFieldsEqual = this.checkDepartureAndDestinationField(route)
+      console.log("isFieldsEqual", this.checkDepartureAndDestinationField(route))
+
+      // for(var i = 0; i < route.stations.length; i++){
+      //   let item = route.stations[i]
+      //   if(item.name.hasOwnProperty("ch") && item.name.hasOwnProperty("en"))
+      // }
 
       if(isFieldsEqual){
         this.props.onNewRoute(route, this.props.stations, this.props.rules)

@@ -199,7 +199,6 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
     case LOAD_ROUTE_INFO:
       let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
       let stations = []
-      // console.log(filterInfo)
       stations = filterInfo[0].station.map((station, index) => {
         return {
           SID: station.openDataSID,

@@ -9,3 +9,5 @@ server/taipeiBusStop.gz
 server/taipeiBusStop.json
 server/newTaipeiBusRoute.json
 server/newTaipeiBusStop.json
+taipeiBusRoute.gz
+taipeiBusRoute.json
