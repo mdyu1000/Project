@@ -68,7 +68,7 @@ export default class StationSpotInput extends React.Component {
       if(e.keyCode == 13) this.handleAddSpotName()
     }  
     document.addEventListener('click', e => {
-      if(e.target.getAttribute("id") != "iconToggle"){
+      if(e.target.getAttribute("id") != "iconToggle" && document.getElementById("iconList") != null){
         document.getElementById("iconList").classList.remove("show")    
       }
     })

@@ -33,6 +33,7 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, database){
   if(err) throw err;
   db = database
   dbo = db.db("kkk777")
+  console.log("Connect mLab successful")
 })
 
 app.use(bodyParser.json())
@@ -44,13 +45,15 @@ app.post('/NewRoute/', (req, res, next) => {
 
   let route = utils.setDistanceAndExtremum(req.body.route)
 
-  dbo.collection("route").insert(route, (err, res) => {
+  // dbo.collection("route").insert(route, (err, res) => {
+  dbo.collection("testRoute").insert(route, (err, res) => {
     if(err) throw err
   })
 })
 
 app.get('/AllRoute/', (req, res, next) => {
-  dbo.collection("route").find().toArray((err, results) => {
+  // dbo.collection("route").find().toArray((err, results) => {
+  dbo.collection("testRoute").find().toArray((err, results) => {
     if(err) throw err
     res.send(JSON.stringify(results));
   })
@@ -59,7 +62,8 @@ app.get('/AllRoute/', (req, res, next) => {
 app.get('/AllRoute/:RID', (req, res, next) => {
   let RouteID = parseInt(req.params.RID)  // 原參數為 string 型態 必須轉換為 int 才可使用
   let query = { RID: RouteID}
-  dbo.collection("route").find(query).toArray((err, result) => {
+  // dbo.collection("route").find(query).toArray((err, result) => {
+  dbo.collection("testRoute").find(query).toArray((err, result) => {
     if(err) throw err
     res.send(JSON.stringify(result))
   })
@@ -90,7 +94,8 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   }}
 
 
-  dbo.collection("route").updateOne(query, newValue, (err, result) => {
+  // dbo.collection("route").updateOne(query, newValue, (err, result) => {
+  dbo.collection("testRoute").updateOne(query, newValue, (err, result) => {
     if (err) throw err;
     res.send("update successful")
   })

@@ -8,7 +8,8 @@ const MapWithAMarker = withGoogleMap(props =>
     options={{ mapTypeControl: false }}
   >
     {
-      props.stations.map((station, index) => 
+      props.stations.go.length != 0 &&
+      props.stations.go.map((station, index) => 
         <Marker key={ "marker" + index } 
           position={{ lat: Number(station.location.lat), lng: Number(station.location.lng) }} 
           animation={ props.SIDOnGMap == station.SID ? google.maps.Animation.BOUNCE : null }
@@ -30,8 +31,8 @@ export default class GMap extends React.Component {
         <span>Google Map</span>
         <MapWithAMarker
           stations={this.props.stations}
-          lat={ this.props.stations.length == 0 ? 25.033262 : Number(this.props.stations[0].location.lat) }
-          lng={ this.props.stations.length == 0 ? 121.5632 : Number(this.props.stations[0].location.lng) }
+          lat={ this.props.stations.go.length == 0 ? 25.033262 : Number(this.props.stations.go[0].location.lat) }
+          lng={ this.props.stations.go.length == 0 ? 121.5632 : Number(this.props.stations.go[0].location.lng) }
           containerElement={<div className="mt-2" style={{ height: "300px" }} />}
           mapElement={<div style={{ height: `100%` }} />} 
           SIDOnGMap={this.props.SIDOnGMap}

@@ -45,7 +45,10 @@ const initialState = {
   departureLists: { ch: "復興肛" },
   destinationLists: { ch: "動物園" },
   colors: ['#FF6900', '#FCB900', '#7BDCB5', '#00D084', '#8ED1FC', '#0693E3', '#ABB8C3', '#EB144C', '#F78DA7', '#9900EF'],
-  stations: [],
+  stations: {
+    go: [],
+    back: [],
+  },
   stationName: {},
   stationLocation: { lat: "0", lng: "0" },
   stationInfos: stationInfos,
@@ -150,19 +153,25 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
       Object.entries(stationLocation).map(([key, value]) => {
         stationLocation[key] = 0
       })      
-      return [
-        ...state,    
-        {
-          SID: action.SID,
-          name: action.name,  
-          location: action.location,
-          info: action.infos
-        } 
-      ]
+      return {
+        go: [
+          ...state.go,
+          {
+            SID: action.SID,
+            name: action.name,  
+            location: action.location,
+            info: action.infos
+          } 
+        ],
+      }
     case DEL_STATION:
-      return state.filter((state) => action.SID != state.SID)
+      return {
+        go: state.go.filter(state => action.SID != state.SID),
+      }
     case SORT_STATION:
-      return action.station
+      return {
+        go: action.station,
+      }
     case EDIT_STATION:
       Object.entries(stationName).map(([key, value]) => {
         delete stationName[key]
@@ -170,18 +179,21 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
       Object.entries(stationLocation).map(([key, value]) => {
         stationLocation[key] = 0
       }) 
-      return state.map(item => {
-        if(action.SID != item.SID){
-          return item
-        }else{
-          return {
-            SID: action.SID,
-            name: action.name,
-            location: action.location,
-            info: action.infos
+      return {
+        go: state.go.map(item => {
+          if(action.SID != item.SID){
+            return item
+          }else{
+            return {
+              SID: action.SID,
+              name: action.name,
+              location: action.location,
+              info: action.infos
+            }
           }
-        }
-      })
+        }),
+      }
+
     case CLOSE_STATION_MODAL:
       Object.entries(stationName).map(([key, value]) => {
         delete stationName[key]
@@ -189,13 +201,13 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
       Object.entries(stationLocation).map(([key, value]) => {
         stationLocation[key] = 0
       })
-      return [
+      return {
         ...state
-      ]
+      }
     case RECEIVE_ONE_ROUTE:
-      return [
-        ...action.json.stations
-      ]
+      return {
+        go: [...action.json.stations]
+      }
     case LOAD_ROUTE_INFO:
       let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)
       let stations = []
@@ -210,14 +222,14 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
         }
       })
 
-      return [
-        ...stations
-      ]
+      return {
+        go: [...stations]
+      }
 
     case INIT_STATE:
-      return [
-        ...initialState.stations
-      ]
+      return {
+        go: [...initialState.stations]
+      }
     default:
       return state
   }

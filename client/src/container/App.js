@@ -17,7 +17,9 @@ class App extends Component {
   }
 
   componentWillMount(){
-    this.props.fetchBusInfo()
+    setTimeout(() => {
+      this.props.fetchBusInfo() 
+    }, 2000)
   }
 
   render() {

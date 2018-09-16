@@ -1,2 +1,2 @@
-export const SERVER = "https://busplay-server.herokuapp.com"
-// export const SERVER = ""
+// export const SERVER = "https://busplay-server.herokuapp.com"
+export const SERVER = ""

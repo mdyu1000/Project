@@ -107,11 +107,14 @@ export default class NewRoute extends React.Component {
     route["departureName"] = this.props.departureLists
     route["destinationName"] = this.props.destinationLists
     route["themeColor"] = this.props.theme_color
-    route["stations"] = []
+    route["stations"] = {}
+    route.stations["go"] = []
+    route.stations["back"] = []
     route["rules"] = []
     route["marquee"] = [marquee[Math.floor((Math.random() * 8))], marquee[Math.floor((Math.random() * 8))]]
-    this.props.stations.map(station => {
-      route["stations"].push(station)
+    this.props.stations.go.map(station => {
+      route.stations.go.push(station)
+      route.stations.back.unshift(station)
     })
     this.props.rules.map(rule => {
       route["rules"].push(rule)
@@ -138,7 +141,7 @@ export default class NewRoute extends React.Component {
 
       this.StoreRoute(route)
       isFieldsEqual = this.checkDepartureAndDestinationField(route)
-      invalidStation = this.checkStationLanguage(route.stations)
+      invalidStation = this.checkStationLanguage(route.stations.go)
 
       if(isFieldsEqual && invalidStation.length == 0){
         if(type === "update"){

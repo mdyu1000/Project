@@ -96,7 +96,7 @@ export default class StationModal extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			items: this.props.stations,
+			items: this.props.stations.go,
       isInTrashcan: false,
 		}
     this.handleAddStation = this.handleAddStation.bind(this)
@@ -108,9 +108,9 @@ export default class StationModal extends React.Component {
 	}
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.stations != this.state.items){
+    if(nextProps.stations.go != this.state.items){
       this.setState({
-        items: nextProps.stations
+        items: nextProps.stations.go
       })
     }
   }
