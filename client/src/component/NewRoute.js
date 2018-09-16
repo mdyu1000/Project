@@ -48,11 +48,11 @@ const CardFooter = props => {
       {
         ( props.match != null &&
           <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
-          className="btn btn-outline-success btn-block" onClick={props.onUpdateRoute}>Update</button> ) 
+          className="btn btn-outline-success btn-block" onClick={() => props.setRoute("update")}>Update</button> ) 
         || ( 
           props.match == null && 
           <button style={{ paddingTop: "6px", paddingBottom: "6px"}} type="button" 
-          className="btn btn-outline-success btn-block" onClick={props.onNewRoute}>Submit</button> ) 
+          className="btn btn-outline-success btn-block" onClick={() => props.setRoute("create")}>Submit</button> ) 
       }
     </div>
   )
@@ -69,31 +69,37 @@ export default class NewRoute extends React.Component {
         strict: false
       })
     }
-    this.handleNewRoute = this.handleNewRoute.bind(this)
-    this.handleUpdateRoute = this.handleUpdateRoute.bind(this)
+    this.setRoute = this.setRoute.bind(this)
     this.StoreRoute = this.StoreRoute.bind(this)
     this.checkStationLanguage = this.checkStationLanguage.bind(this)
     this.checkDepartureAndDestinationField = this.checkDepartureAndDestinationField.bind(this)
   }
 
   checkStationLanguage(stations){
-    // for(var i = 0; i <)
+    let invalidStationName = []
+    for(var i = 0; i < stations.length; i++){
+      let name = stations[i].name
+      if(!name.hasOwnProperty("ch") || !name.hasOwnProperty("en") || name.ch == null || name.en == null){
+        invalidStationName.push(name.ch)
+      }
+    }
+    return invalidStationName
   }
 
   checkDepartureAndDestinationField(route){
     /* 比較起點的欄位是否跟終點一致 */
-    for(var key in route.departure_name){
-      if(!route.destination_name.hasOwnProperty(key)){
+    for(var key in route.departureName){
+      if(!route.destinationName.hasOwnProperty(key)){
         return false
       }
     }
-
     /* 比較終點的欄位是否跟起點一致 */
-    for(var key in route.destination_name){
-      if(!route.departure_name.hasOwnProperty(key)){
+    for(var key in route.destinationName){
+      if(!route.departureName.hasOwnProperty(key)){
         return false
       }
     }
+    return true
   }
 
   StoreRoute(route) {
@@ -112,16 +118,7 @@ export default class NewRoute extends React.Component {
     })
   }
 
-  handleUpdateRoute() {
-    let route = {}
-    this.StoreRoute(route)
-    this.props.UpdateRoute(this.state.match.params.RID, route)
-    this.setState({
-      isRedirect: true
-    })
-  }
-
-  handleNewRoute(){
+  setRoute(type){
     if(this.props.nameLists.ch == null){
       alert("Chinese route name is necessary")
     }
@@ -136,27 +133,37 @@ export default class NewRoute extends React.Component {
     }
     else{
       let route = {}
-      let isFieldsEqual = true
+      let isFieldsEqual = false
+      let invalidStation = []
 
       this.StoreRoute(route)
-
       isFieldsEqual = this.checkDepartureAndDestinationField(route)
-      console.log("isFieldsEqual", this.checkDepartureAndDestinationField(route))
+      invalidStation = this.checkStationLanguage(route.stations)
 
-      // for(var i = 0; i < route.stations.length; i++){
-      //   let item = route.stations[i]
-      //   if(item.name.hasOwnProperty("ch") && item.name.hasOwnProperty("en"))
-      // }
+      if(isFieldsEqual && invalidStation.length == 0){
+        if(type === "update"){
+          this.props.UpdateRoute(this.state.match.params.RID, route)
+        }else if(type === "create"){
+          this.props.onNewRoute(route, this.props.stations, this.props.rules)
+        }
 
-      if(isFieldsEqual){
-        this.props.onNewRoute(route, this.props.stations, this.props.rules)
         this.setState({
           isRedirect: true
         })
-      }else if(!isFieldsEqual){
+
+      }
+      else if(!isFieldsEqual){
         alert("The departure and destination language fields must be equal")
+      }else if(invalidStation.length != 0){
+        let alertMsg = ""
+        for(var i = 0; i < invalidStation.length; i++){
+          alertMsg += invalidStation[i] + ' '
+        }
+        alertMsg += "language fields must be equal"
+        alert(alertMsg)
       }
     }
+
   }
 
   render() {
@@ -207,8 +214,8 @@ export default class NewRoute extends React.Component {
                 </Form>
               </div>
               <CardFooter match={this.state.match} 
-                onNewRoute={this.handleNewRoute}  
-                onUpdateRoute={this.handleUpdateRoute} />
+                setRoute={this.setRoute}  
+              />
             </div>
           </Col>
         </Row>

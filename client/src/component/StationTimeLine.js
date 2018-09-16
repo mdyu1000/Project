@@ -35,7 +35,7 @@ export default class StationTimeLine extends React.Component {
 	}
 
   handleGetSIDOnGMap(e){
-    let SID = e.target.getAttribute("SID")
+    let SID = e.target.dataset.sid
     this.props.GetSIDOnGMap(SID)
   }
 
@@ -45,11 +45,11 @@ export default class StationTimeLine extends React.Component {
         {
           this.props.stations.map((station, index) => 
             <li key={station.SID} 
-              SID={station.SID}
+              data-sid={station.SID}
               style={timeLineStyle(this.props.color)}
               onClick={this.handleGetSIDOnGMap}
             >
-              <div style={stationTextStyle} SID={station.SID}>{station.name.ch}</div>
+              <div style={stationTextStyle} data-sid={station.SID}>{station.name.ch}</div>
             </li>
           )
         }

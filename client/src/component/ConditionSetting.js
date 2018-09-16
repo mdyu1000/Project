@@ -56,7 +56,7 @@ const handleAddCondition1 = (SID, distance, onAdd) => {
 const StationOption = props => {
   return (  
     props.stations.map((station, index) =>
-      <option key={station + index} value={station.name.ch} SID={station.SID}>{station.name.ch}</option>
+      <option key={station + index} value={station.name.ch} data-sid={station.SID}>{station.name.ch}</option>
     )
   )
 }
@@ -77,7 +77,7 @@ export const Condition1 = (props) => {
         <button type="button" className="btn btn-light btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition1(
-            document.getElementById("C1_station").options[document.getElementById("C1_station").selectedIndex].getAttribute("SID"), 
+            document.getElementById("C1_station").options[document.getElementById("C1_station").selectedIndex].dataset.sid, 
             document.getElementById("C1_distance").value, 
             props.onAddCondition1
           )}>
@@ -111,8 +111,8 @@ export const Condition2 = (props) => {
         <button type="button" className="btn btn-light btn-sm py-1 waves-effect" 
           style={{ borderColor: "rgba(0,0,0,.03)"}}
           onClick={ () => handleAddCondition2(
-            document.getElementById("C2_station").options[document.getElementById("C2_station").selectedIndex].getAttribute("SID"),
-            document.getElementById("C2_type").options[document.getElementById("C2_type").selectedIndex].getAttribute("type"),
+            document.getElementById("C2_station").options[document.getElementById("C2_station").selectedIndex].dataset.sid,
+            document.getElementById("C2_type").options[document.getElementById("C2_type").selectedIndex].dataset.sid,
             document.getElementById("C2_value").value, 
             props.onAddCondition2
           )}>

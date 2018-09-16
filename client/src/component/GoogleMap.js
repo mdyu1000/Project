@@ -11,7 +11,7 @@ const MapWithAMarker = withGoogleMap(props =>
       props.stations.map((station, index) => 
         <Marker key={ "marker" + index } 
           position={{ lat: Number(station.location.lat), lng: Number(station.location.lng) }} 
-          animation={ props.SIDOnGMap == index + 1 ? google.maps.Animation.BOUNCE : null }
+          animation={ props.SIDOnGMap == station.SID ? google.maps.Animation.BOUNCE : null }
         />
 
       )

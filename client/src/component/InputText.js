@@ -14,20 +14,23 @@ const languageSeleteStyle = {
 const NameBadge = (props) => {
   let editModeBadge
   let badge = Object.entries(props.lists).map(([key, value]) => {
-    return(
-      <span key={value} className="badge mt-2 ml-2 rounded" style={ badgeStyle }>
-        {key.toString() + " | "}
-        {value.toString()}
-        <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
-          className="icon-trash my-auto ml-1" onClick={props.onDel}></i>
-      </span>
-    )
+    if(value != null){
+      return(
+        <span key={key + '-' + value} className="badge mt-2 ml-2 rounded" style={ badgeStyle }>
+          {key.toString() + " | "}
+          {value.toString()}
+          <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 
+            className="icon-trash my-auto ml-1" onClick={props.onDel}></i>
+        </span>
+      )
+    } 
   })
 
   if(props.editModeStation != undefined) {
     editModeBadge = Object.entries(props.editModeStation.name).map(([key, value]) => {
       return (
-        <span key={value} className="badge mt-2 ml-2" style={ badgeStyle }>
+        // <span key={value} className="badge mt-2 ml-2" style={ badgeStyle }>
+        <span className="badge mt-2 ml-2" style={ badgeStyle }>
           {key.toString() + " | "}
           {value.toString()}
           <i language={key} style={{ cursor: "pointer", color: "rgba(0, 0, 0, .2)"}} 

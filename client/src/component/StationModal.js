@@ -12,8 +12,8 @@ const LocationBadge = (props) => {
   return(
     props.location.lat != 0 && props.location.lng != 0 && 
     <div>
-      <span className="badge" style={badgeStyle}>lat : {props.location.lat}</span>
-      <span className="badge ml-3" style={badgeStyle}>lng : {props.location.lng}</span>
+      <span className="badge" style={badgeStyle}>lng : {props.location.lat}</span>
+      <span className="badge ml-3" style={badgeStyle}>lat : {props.location.lng}</span>
     </div>
   )
 }
@@ -36,7 +36,7 @@ const StateButton = (props) => {
         )
       }{
         (
-         (props.isEditMode || (props.location.lat == 0 && props.location.lng == 0)) &&
+         (props.isEditMode) &&
          <button id="addStationBtn" type="button" className="btn btn-success btn-sm" disabled>
            Add
          </button>
@@ -99,6 +99,10 @@ export default class StationModal extends React.Component {
 			items: this.props.stations,
       isInTrashcan: false,
 		}
+    this.handleAddStation = this.handleAddStation.bind(this)
+    this.handleEditStation = this.handleEditStation.bind(this)
+    this.handleDelStation = this.handleDelStation.bind(this)
+
     this.handleMouseUp = this.handleMouseUp.bind(this)
     this.editMode = this.editMode.bind(this)
 	}
@@ -111,27 +115,45 @@ export default class StationModal extends React.Component {
     }
   }
 
-  handleAddStation = () => {
+  handleAddStation(){
     let stationName = _.cloneDeep(this.props.stationName)
     let stationLocation = _.cloneDeep(this.props.stationLocation)
     let stationInfos = _.cloneDeep(this.props.stationInfos)
 
-    document.getElementById("googleMapSearchInput").value = ""
-    this.props.onAddStation(stationName, stationLocation, stationInfos)
+    console.log(stationLocation)
+
+    if(!stationName.hasOwnProperty("ch") || !stationName.hasOwnProperty("en") || stationName.en == null || stationName.ch == null){
+      alert("Station must have Chinese and English name")
+    }
+    else if(stationLocation.lat == 0 && stationLocation.lat == 0){
+      alert("Choose a location marker")
+    }
+    else{
+      document.getElementById("googleMapSearchInput").value = ""
+      this.props.onAddStation(stationName, stationLocation, stationInfos)
+    }
   }
 
-  handleEditStation = () => {
+  handleEditStation(){
     let stationName = _.cloneDeep(this.props.stationName)
     let stationLocation = _.cloneDeep(this.props.stationLocation) 
     let stationInfos = _.cloneDeep(this.props.stationInfos)
 
-    console.log(stationInfos)
+    console.log(stationName)
 
-    document.getElementById("googleMapSearchInput").value = ""
-    this.props.onEditStation(edit_SID, stationName, stationLocation, stationInfos)
+    if(!stationName.hasOwnProperty("ch") || !stationName.hasOwnProperty("en") || stationName.en == null || stationName.ch == null){
+      alert("Station must have Chinese and English name")
+    }
+    else if(stationLocation.lat == 0 && stationLocation.lat == 0){
+      alert("Choose a location marker")
+    }    
+    else{
+      document.getElementById("googleMapSearchInput").value = ""
+      this.props.onEditStation(edit_SID, stationName, stationLocation, stationInfos)
+    }
   }
 
-  handleDelStation = (SID) => {
+  handleDelStation(SID){
     this.props.onDelStation(SID)
   }
 
@@ -203,7 +225,7 @@ export default class StationModal extends React.Component {
                     <LocationBadge location={this.props.stationLocation} />
                   </div>									
                   <SortableList items={this.state.items} 
-                    distance="10" 
+                    distance={10}
                     onSortStart={this.handleSortStart}
                     onSortEnd={this.handleSortEnd}
                     onSortMove={this.handleSortMove}
