@@ -2,6 +2,7 @@ import React from 'react'
 import { FormGroup, Input } from 'reactstrap'
 import { badgeStyle } from './Global'
 import FontAwesomeList from './FontAwesomeList'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const languageSeleteStyle = {
@@ -10,6 +11,21 @@ const languageSeleteStyle = {
   color: "white",
   paddingLeft: ".5rem",
   paddingRight: ".5rem",
+}
+
+const DemoIcon = props => {
+  if(props.icon == "mrt"){
+    return(
+      <img 
+        src="https://upload.wikimedia.org/wikipedia/commons/c/c3/The_seal_of_Department_of_Rapid_Transit_Systems%2C_Taipei_City_Government_20140108.svg" 
+        style={{height: "25px", width: "25px"}} 
+      />
+    )
+  }else{
+    return(
+      <FontAwesomeIcon icon={props.icon} />             
+    )
+  }  
 }
 
 export default class StationSpotInput extends React.Component {
@@ -86,7 +102,7 @@ export default class StationSpotInput extends React.Component {
             data-toggle="collapse"
             data-target="#iconList"
           >
-            <i id="icon" className={"fas fa-" + this.props.stationInfo.icon}></i>
+          <DemoIcon icon={this.props.stationInfo.icon} />
           </button>
 	      	<Input type="text" id="spotName" name={this.props.name} className="pb-2 rounded" />
       		<div className="input-group-append">
@@ -121,7 +137,7 @@ export default class StationSpotInput extends React.Component {
             this.props.stationInfos.spot.map((info, index) => 
               <div key={"spot" + index} className="border rounded px-2 py-1 mt-1 mr-1 d-flex justify-content-between">
                 <span>
-                  <i className={"fas fa-" + info.icon}></i>
+                  <DemoIcon icon={info.icon}/>
                   {info.name.ch + '  /  ' + info.name.en}
                 </span>
                 <i className="icon-trash my-auto" style={{cursor: "pointer"}} 
