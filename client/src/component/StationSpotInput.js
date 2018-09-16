@@ -67,6 +67,11 @@ export default class StationSpotInput extends React.Component {
     document.getElementById("spotName").onkeyup = (e) => {
       if(e.keyCode == 13) this.handleAddSpotName()
     }  
+    document.addEventListener('click', e => {
+      if(e.target.getAttribute("id") != "iconToggle"){
+        document.getElementById("iconList").classList.remove("show")    
+      }
+    })
   }
 
   componentDidUpdate(prevProps){
@@ -97,12 +102,12 @@ export default class StationSpotInput extends React.Component {
 	      			<option value="en" className="m-3">English</option>
             </select>
 	      	</div>
-          <button type="button" className="btn input-group-prepend my-auto border-0 mx-1" 
+          <button id="iconToggle" type="button" className="btn input-group-prepend my-auto border-0 mx-1" 
             style={{cursor: "pointer", background: "none"}}
             data-toggle="collapse"
             data-target="#iconList"
           >
-          <DemoIcon icon={this.props.stationInfo.icon} />
+            <DemoIcon icon={this.props.stationInfo.icon} />
           </button>
 	      	<Input type="text" id="spotName" name={this.props.name} className="pb-2 rounded" />
       		<div className="input-group-append">
