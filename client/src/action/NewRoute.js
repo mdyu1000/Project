@@ -16,7 +16,6 @@ export const RECEIVE_BUS_INFO = "RECEIVE_BUS_INFO"
 export const LOAD_ROUTE_INFO = "LOAD_ROUTE_INFO"
 
 export const INIT_STATE = "INIT_STATE"
-var nextRID = 0
 
 export function AddName(language, routeName){
   return {
@@ -88,7 +87,6 @@ export const FetchAllRoute = () => dispatch => {
   return fetch(`${SERVER}/AllRoute`)
   .then(response => response.json())
   .then(json => {
-    nextRID = json.length
     dispatch(ReceiveAllRoute(json))
   })
 }
@@ -123,9 +121,6 @@ const ReceiveOneRoute = (json) => {
 }
 
 export const AddRoute = (route, station, rule) => dispatch => {
-  route["RID"] = nextRID 
-  nextRID += 1
-
   fetch("/NewRoute/", {
     method: 'POST',
     body: JSON.stringify({

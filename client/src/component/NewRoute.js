@@ -102,7 +102,16 @@ export default class NewRoute extends React.Component {
     return true
   }
 
-  StoreRoute(route) {
+  StoreRoute(route, type) {
+    if(type == "create"){
+      if(this.props.allRoute.length == 0){
+        route["RID"] = 1
+      }
+      else{
+        let maxRID = Math.max.apply(Math, this.props.allRoute.map(item => item.RID))
+        route["RID"] = maxRID + 1
+      }
+    }
     route["routeName"] = this.props.nameLists
     route["departureName"] = this.props.departureLists
     route["destinationName"] = this.props.destinationLists
@@ -139,7 +148,7 @@ export default class NewRoute extends React.Component {
       let isFieldsEqual = false
       let invalidStation = []
 
-      this.StoreRoute(route)
+      this.StoreRoute(route, type)
       isFieldsEqual = this.checkDepartureAndDestinationField(route)
       invalidStation = this.checkStationLanguage(route.stations.go)
 
@@ -157,7 +166,9 @@ export default class NewRoute extends React.Component {
       }
       else if(!isFieldsEqual){
         alert("The departure and destination language fields must be equal")
-      }else if(invalidStation.length != 0){
+      }
+      /* 列出缺少語言欄位站點 */
+      else if(invalidStation.length != 0){
         let alertMsg = ""
         for(var i = 0; i < invalidStation.length; i++){
           alertMsg += invalidStation[i] + ' '

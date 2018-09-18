@@ -31,6 +31,7 @@ class NewRouteContainer extends React.Component {
   render(){
     return (
       <NewRoute
+        allRoute={this.props.allRoute}
         nameLists={this.props.nameLists}
         departureLists={this.props.departureLists}
         destinationLists={this.props.destinationLists}
@@ -104,6 +105,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
+    allRoute: state.allRoute,
     nameLists: state.nameLists,
     departureLists: state.departureLists,
     destinationLists: state.destinationLists,

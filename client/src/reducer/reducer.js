@@ -206,7 +206,7 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
       }
     case RECEIVE_ONE_ROUTE:
       return {
-        go: [...action.json.stations]
+        go: [...action.json.stations.go]
       }
     case LOAD_ROUTE_INFO:
       let filterInfo = busInfo.filter(info => info.openDataRID == action.RID)

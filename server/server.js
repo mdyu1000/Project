@@ -44,8 +44,13 @@ app.use(bodyParser.urlencoded({
 app.post('/NewRoute/', (req, res, next) => {
 
   let route = utils.setDistanceAndExtremum(req.body.route)
+  let simulator = utils.setSimulatorForDemo(req.body.route)
 
   dbo.collection("route").insert(route, (err, res) => {
+    if(err) throw err
+  })
+
+  dbo.collection("simulator").insert(simulator, (err, res) => {
     if(err) throw err
   })
 })
@@ -54,7 +59,9 @@ app.get('/AllRoute/', (req, res, next) => {
   
   dbo.collection("route").find().toArray((err, results) => {
     if(err) throw err
-    res.send(JSON.stringify(results));
+
+    let sort = results.sort((a, b) => a.RID > b.RID ? 1 : -1)
+    res.send(JSON.stringify(sort));
   })
 })
 
@@ -78,6 +85,7 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
   let route = utils.setDistanceAndExtremum(req.body.route)
+  let simulator = utils.setSimulatorForDemo(req.body.route)
 
   let newValue = { $set: {
     routeName: route.routeName,
@@ -91,10 +99,22 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
     distanceMin: route.distanceMin
   }}
 
+  let newSimulator = { $set: {
+    RID: RouteID,
+    stations: simulator.stations,
+    length: simulator.length
+  }}
 
   dbo.collection("route").updateOne(query, newValue, (err, result) => {
     if (err) throw err;
-    res.send("update successful")
+    // res.send("Update collection route successful")
+  })
+
+  dbo.collection("simulator").findOneAndUpdate(query, newSimulator, {
+    upsert: true
+  }, (err, result) => {
+    if (err) throw err;
+    // res.send("Update collection simulator successful")
   })
 })
 
@@ -131,9 +151,6 @@ app.get('/OneRouteXQ/:RID', (req, res, next) => {
     res.send(JSON.stringify(result[0]))
   })
 })
-
-
-
 
 
 function setBusFileToDB(result){
@@ -226,6 +243,18 @@ app.get('/weather/:lng&:lat', (req, res, next) => {
   })
 })
 
+app.get("/simulator/:RID", (req, res, next) => {
+  let query = {
+    "RID": Number(req.params.RID)
+  }
+
+  dbo.collection("simulator").find(query).toArray((err, result) => {
+    if(err) throw err
+    res.send(JSON.stringify(result[0]))
+  })
+
+})
+
 function storeBusFromOpenData() {
   TAIPEI_BUS.getTaipeiBusFromOpenData(result => {
     setBusFileToDB(result)
@@ -239,7 +268,6 @@ function storeBusFromOpenData() {
 // setTimeout(() => {
 //   storeBusFromOpenData()
 // },3000)
-
 
 app.listen(port, () => {
   console.log(`${port} is listening...`);
