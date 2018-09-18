@@ -260,6 +260,7 @@ app.get("/simulator/:RID", (req, res, next) => {
       if(result == ''){
         res.send(data)
       }else{
+        data.success = true
         data.data = result
         res.send(data)
       }
