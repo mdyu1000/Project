@@ -248,11 +248,23 @@ app.get("/simulator/:RID", (req, res, next) => {
     "RID": Number(req.params.RID)
   }
 
-  dbo.collection("simulator").find(query).toArray((err, result) => {
-    if(err) throw err
-    res.send(JSON.stringify(result[0]))
-  })
+  let data = {
+    success: false,
+    data: []
+  }
 
+  dbo.collection("simulator").find(query).toArray((err, result) => {
+    if(err) {
+      res.send(data)
+    }else{
+      if(result == ''){
+        res.send(data)
+      }else{
+        data.data = result
+        res.send(data)
+      }
+    }
+  })
 })
 
 function storeBusFromOpenData() {
