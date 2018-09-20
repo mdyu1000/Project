@@ -5,7 +5,14 @@ const ObjectId = require('mongodb').ObjectID
 const request = require('request')
 const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777"
 
+
 const GOOGLE_API_KEY="key=AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY"
+
+const GOOGLE_DIRECTION_API = {
+  url: "https://maps.googleapis.com/maps/api/directions/json?",
+  language: "en",
+  key: "AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY"
+}
 
 const HERE_API = {
   id: "app_id=ZTcud6py5cGnODgrHuoK",
@@ -44,13 +51,8 @@ app.use(bodyParser.urlencoded({
 app.post('/NewRoute/', (req, res, next) => {
 
   let route = utils.setDistanceAndExtremum(req.body.route)
-  let simulator = utils.setSimulatorForDemo(req.body.route)
 
   dbo.collection("route").insert(route, (err, res) => {
-    if(err) throw err
-  })
-
-  dbo.collection("simulator").insert(simulator, (err, res) => {
     if(err) throw err
   })
 })
@@ -85,7 +87,6 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   let RouteID = parseInt(req.params.RID)
   let query = { RID: RouteID }
   let route = utils.setDistanceAndExtremum(req.body.route)
-  let simulator = utils.setSimulatorForDemo(req.body.route)
 
   let newValue = { $set: {
     routeName: route.routeName,
@@ -99,23 +100,88 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
     distanceMin: route.distanceMin
   }}
 
-  let newSimulator = { $set: {
-    RID: RouteID,
-    stations: simulator.stations,
-    length: simulator.length
-  }}
-
   dbo.collection("route").updateOne(query, newValue, (err, result) => {
     if (err) throw err;
-    // res.send("Update collection route successful")
+    console.log("update route list successful")
   })
 
-  dbo.collection("simulator").findOneAndUpdate(query, newSimulator, {
-    upsert: true
-  }, (err, result) => {
-    if (err) throw err;
-    // res.send("Update collection simulator successful")
-  })
+  next()
+})
+
+app.post('/POST/simulator', (req, res, next) => {
+  let route = req.body.route
+  let simulator = {
+    RID: route.RID,
+    stations: {
+      go: [],
+      back: []
+    },
+    length: 0,
+    status: "defective"
+  }
+  let failCount = 0
+  let query = {
+    RID: route.RID
+  }
+
+  /* Loop 每兩點的 waypoints */
+  for(let i = 0; i < route.stations.go.length - 1; i++){
+    setTimeout(() => {
+      console.log("i = " + i )
+      let item = route.stations.go[i]
+      let nextItem = route.stations.go[i + 1]
+      let url = `${GOOGLE_DIRECTION_API.url}origin=${item.location.lat},${item.location.lng}&destination=${nextItem.location.lat},${nextItem.location.lng}&language=${GOOGLE_DIRECTION_API.language}&key=${GOOGLE_DIRECTION_API.key}`
+
+      request(url, (err, res, body) => {
+        let resObj = JSON.parse(body)
+
+        console.log("resObj.status = " + resObj.status)
+
+        if(resObj.status == "OK"){
+          /* 將所有 waypoints 放入陣列 */
+          for(var j = 0; j < resObj.routes[0].legs[0].steps.length; j++){
+            let step = resObj.routes[0].legs[0].steps[j]
+            simulator.stations.go.push({
+              lat: step.start_location.lat,
+              lng: step.start_location.lng
+            })
+
+            simulator.stations.back.unshift({
+              lat: step.start_location.lat,
+              lng: step.start_location.lng
+            })
+          }
+        }else{
+          failCount += 1
+        }
+
+        /* 全部結束 */
+        if(i == route.stations.go.length - 2) {
+          simulator.length = simulator.stations.go.length
+
+          /* 若是有 地點 漏掉 則為 defective */
+          if(failCount == 0) simulator.status = "perfect"
+
+          let set = {
+            $set: simulator
+          }
+
+          console.log(simulator)
+
+          dbo.collection("simulator").findOneAndUpdate(query, set, {
+            upsert: true
+          }, (err, doc) => {
+            if (err) throw(err)
+          })
+
+          console.log("done")
+        }
+      })
+
+    }, 1500 * i)
+  }
+
+
 })
 
 /* 前端 Route Table 需要的資料 */

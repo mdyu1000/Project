@@ -111,6 +111,8 @@ export default class NewRoute extends React.Component {
         let maxRID = Math.max.apply(Math, this.props.allRoute.map(item => item.RID))
         route["RID"] = maxRID + 1
       }
+    }else if(type == "update"){
+      route["RID"] = this.state.match.params.RID
     }
     route["routeName"] = this.props.nameLists
     route["departureName"] = this.props.departureLists
@@ -158,6 +160,8 @@ export default class NewRoute extends React.Component {
         }else if(type === "create"){
           this.props.onNewRoute(route, this.props.stations, this.props.rules)
         }
+
+        this.props.SetSimulator(route)
 
         this.setState({
           isRedirect: true

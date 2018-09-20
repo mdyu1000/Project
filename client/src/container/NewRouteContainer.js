@@ -14,7 +14,8 @@ import {
   AddRoute,
   UpdateRoute,
   loadRouteInfo,
-  initState
+  initState,
+  SetSimulator,
 } from '../action/NewRoute'
 
 class NewRouteContainer extends React.Component {
@@ -55,6 +56,7 @@ class NewRouteContainer extends React.Component {
         onNewRoute={this.props.onNewRoute}
         UpdateRoute={this.props.UpdateRoute}
         loadRouteInfo={this.props.loadRouteInfo}
+        SetSimulator={this.props.SetSimulator}
       />
     )
   }
@@ -99,7 +101,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     initState: () => {
       dispatch(initState())
-    }
+    },
+    SetSimulator: (route) => {
+      dispatch(SetSimulator(route))
+    },
   }
 }
 

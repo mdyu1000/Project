@@ -136,16 +136,29 @@ export const AddRoute = (route, station, rule) => dispatch => {
 }
 
 export const UpdateRoute = (RID, route) => dispatch => {
-  return  fetch(`${SERVER}/UpdateRoute/${RID}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-              "route": route,
-            }),
-            headers: {"Content-Type": "application/json"}
-          })
-          .catch(function(err){
-            console.log(err)
-          })
+  fetch(`${SERVER}/UpdateRoute/${RID}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      "route": route,
+    }),
+    headers: {"Content-Type": "application/json"}
+  })
+  .catch(function(err){
+    console.log(err)
+  })
+}
+
+export const SetSimulator = route => dispatch => {
+  fetch(`${SERVER}/POST/simulator`, {
+    method: 'POST',
+    body: JSON.stringify({
+      "route": route
+    }),
+    headers: {"Content-Type": "application/json"}
+  })
+  .catch(err => {
+    console.log(err)
+  })
 }
 
 /* Fetch 雙北公車檔案 */

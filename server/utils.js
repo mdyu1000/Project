@@ -53,34 +53,4 @@ module.exports = {
 	  route["distanceMin"] = distanceMin
 	  return route
 	},
-
-	setSimulatorForDemo: route => {
-		let simulator = {
-			RID: route.RID,
-			stations: {
-				go: [],
-				back: []
-			},
-			length: 0
-		}
-
-		for(var i = 0; i < route.stations.go.length; i++){
-			let item = route.stations.go[i]
-			let itemBack = route.stations.go[route.stations.go.length - 1 - i]
-
-			simulator.stations.go.push({
-				lat: item.location.lat,
-				lng: item.location.lng
-			})
-
-			simulator.stations.back.push({
-				lat: itemBack.location.lat,
-				lng: itemBack.location.lng
-			})
-		}
-
-		simulator.length = simulator.stations.go.length
-
-		return simulator
-	}
 }
