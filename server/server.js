@@ -104,8 +104,6 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
     if (err) throw err;
     console.log("update route list successful")
   })
-
-  next()
 })
 
 app.post('/POST/simulator', (req, res, next) => {
@@ -194,6 +192,7 @@ app.get('/AllRouteXQ/', (req, res, next) => {
     results.map(result => {
       routes.push({
         id: result._id,
+        RID: result.RID,
         name: result.routeName,
         departure: result.departureName,
         destination: result.destinationName,
@@ -201,7 +200,8 @@ app.get('/AllRouteXQ/', (req, res, next) => {
       })
     })
 
-    res.send(routes)
+    let sort = routes.sort((a, b) => a.RID > b.RID ? 1 : -1)
+    res.send(JSON.stringify(sort));
   }) 
 })
 
@@ -309,7 +309,7 @@ app.get('/weather/:lng&:lat', (req, res, next) => {
   })
 })
 
-app.get("/simulator/:RID", (req, res, next) => {
+app.get("/GET/simulator/:RID", (req, res, next) => {
   let query = {
     "RID": Number(req.params.RID)
   }
