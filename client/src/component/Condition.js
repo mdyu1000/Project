@@ -54,7 +54,7 @@ const ConditionGroup = (props) => {
 
 const RuleItem = (props) => {
   if(props.rule.condition == 1){
-    const stationName = props.stations.filter(station => station.SID == props.rule.SID)[0].name.ch
+    const stationName = props.stations.go.filter(station => station.SID == props.rule.SID)[0].name.ch
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.distance }</b> 公尺，進行廣播 </span>
