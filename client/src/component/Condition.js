@@ -62,7 +62,7 @@ const RuleItem = (props) => {
       </li> 
     )
   }else if(props.rule.condition == 2){
-    const stationName = props.stations.filter(station => station.SID == props.rule.SID)[0].name.ch
+    const stationName = props.stations.go.filter(station => station.SID == props.rule.SID)[0].name.ch
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.value }</b> { props.rule.type==0 ? "公尺" : "秒" }，進行廣播 </span>
