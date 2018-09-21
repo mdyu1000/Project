@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, ButtonGroup, FormGroup } from 'reactstrap';
-import { Condition1, Condition2, Condition3, Condition4} from './ConditionSetting';
+import { Condition1, Condition2, Condition3} from './ConditionSetting';
 import '../CSS/conditionGroup.css';
 
 const ruleGroupStyle = {
@@ -28,7 +28,7 @@ const buttonStyle = (color) => {
 }
 
 const ConditionGroup = (props) => {
-	const arr = ["Condition 1", "Condition 2", "Condition 3", "Condition 4"];
+	const arr = ["Condition 1", "Condition 3", "Condition 4"];
 	const btnLists = arr.map((btnList, i) => 
 		<div className="w-100 mt-2" key={"Rule" + i}>
 		  <button type="button" className="btn ml-0" style={buttonStyle(props.color)}
@@ -39,9 +39,8 @@ const ConditionGroup = (props) => {
 		  </button>
 		  { 
         ( i==0 && <Condition1 onAddCondition1={props.onAddCondition1} stations={props.stations} /> ) || 
-        ( i==1 && <Condition2 onAddCondition2={props.onAddCondition2} stations={props.stations} /> ) || 
-	  		( i==2 && <Condition3 onAddCondition3={props.onAddCondition3} /> ) || 
-        ( i==3 && <Condition4 onAddCondition4={props.onAddCondition4} /> ) 
+	  		( i==1 && <Condition2 onAddCondition2={props.onAddCondition2} /> ) || 
+        ( i==2 && <Condition3 onAddCondition3={props.onAddCondition3} /> ) 
       }
 	 	</div>
 	)
@@ -61,22 +60,16 @@ const RuleItem = (props) => {
         <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li> 
     )
-  }else if(props.rule.condition == 2){
-    const stationName = props.stations.go.filter(station => station.SID == props.rule.SID)[0].name.ch
-    return(
-      <li className="mt-2" style={ruleStyle}>
-        <span>抵達 <b>{ stationName }</b> 站前 <b>{ props.rule.value }</b> { props.rule.type==0 ? "公尺" : "秒" }，進行廣播 </span>
-        <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
-      </li>
-    )
-  }else if(props.rule.condition == 3){
+  }
+  else if(props.rule.condition == 2){
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>和下一站距離 <b>{ props.rule.distance }</b> 公尺，進行廣播</span>
         <i style={{ cursor: "pointer"}} className="icon-trash my-auto" onClick={()=>props.onDelCondition(props.rule.RID)}></i>
       </li>        
     )
-  }else {
+  }
+  else if(props.rule.condition == 3) {
     return(
       <li className="mt-2" style={ruleStyle}>
         <span>每隔 <b>{ props.rule.interval }</b> 秒，進行廣播</span>
@@ -117,7 +110,6 @@ export default class Condition extends React.Component {
               onAddCondition1 = {this.props.onAddCondition1}
               onAddCondition2 = {this.props.onAddCondition2}
               onAddCondition3 = {this.props.onAddCondition3}
-              onAddCondition4 = {this.props.onAddCondition4}
               stations = {this.props.stations}
             />
 	        </FormGroup>

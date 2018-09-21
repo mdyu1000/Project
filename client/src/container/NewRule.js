@@ -4,7 +4,6 @@ import {
   AddConditionOne,
   AddConditionTwo,
   AddConditionThree,
-  AddConditionFour,
   DelCondition,
 } from '../action/condition'
 
@@ -13,14 +12,11 @@ const mapDispatchToProps = (dispatch) => {
     onAddCondition1: (SID, distance) => {
       dispatch(AddConditionOne(SID, distance))
     },
-    onAddCondition2: (SID, type, value) => {
-      dispatch(AddConditionTwo(SID, type, value))
+    onAddCondition2: (distance) => {
+      dispatch(AddConditionTwo(distance))
     },
-    onAddCondition3: (distance) => {
-      dispatch(AddConditionThree(distance))
-    },
-    onAddCondition4: (interval) => {
-      dispatch(AddConditionFour(interval))
+    onAddCondition3: (interval) => {
+      dispatch(AddConditionThree(interval))
     },
     onDelCondition: (RID) => {
       dispatch(DelCondition(RID))

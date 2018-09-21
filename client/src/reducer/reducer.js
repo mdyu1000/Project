@@ -34,8 +34,7 @@ import {
 import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
-  ADD_CONDITION_THREE,
-  ADD_CONDITION_FOUR, 
+  ADD_CONDITION_THREE, 
   DEL_CONDITION } from '../action/condition'
 import { stationInfos } from '../component/Global'
 import _ from 'lodash';
@@ -398,32 +397,22 @@ function NewRule(state, action){
           distance: action.distance,
         } 
       ]
+
     case ADD_CONDITION_TWO:
       return [
         ...state,
         {
           RID: state.length,
           condition: 2,
-          SID: action.SID,
-          type: action.typeID,
-          value: action.value          
+          distance: action.distance
         }
       ]
     case ADD_CONDITION_THREE:
       return [
-        ...state,
-        {
-          RID: state.length,
-          condition: 3,
-          distance: action.distance
-        }
-      ]
-    case ADD_CONDITION_FOUR:
-      return [
         ...state,    
         {
           RID: state.length,
-          condition: 4,
+          condition: 3,
           interval: action.interval
         }
       ]
