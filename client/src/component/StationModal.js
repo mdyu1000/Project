@@ -66,8 +66,12 @@ const SortableItem = SortableElement((props) => {
   return (
     <li id={"station" + props.SID} style={ModalItemStyle} className="mt-1">
     	{props.value}
-    	<i id={"edit" + props.SID} style={{ cursor: "pointer"}} className="icon-note my-auto" 
-        onClick={props.handleEditMode}></i>
+      <span>
+        <i id={"edit" + props.SID} style={{ cursor: "pointer"}} className="icon-note my-auto mr-4" 
+          onClick={props.handleEditMode}></i>
+        <i id={"del" + props.SID} style={{cursor: "pointer"}} className="icon-trash my-auto"
+          onClick={props.onDelStation}></i>
+      </span>
   	</li>
   )
 });
@@ -97,13 +101,11 @@ export default class StationModal extends React.Component {
 		super(props);
 		this.state = {
 			items: this.props.stations.go,
-      isInTrashcan: false,
 		}
     this.handleAddStation = this.handleAddStation.bind(this)
     this.handleEditStation = this.handleEditStation.bind(this)
     this.handleDelStation = this.handleDelStation.bind(this)
 
-    this.handleMouseUp = this.handleMouseUp.bind(this)
     this.editMode = this.editMode.bind(this)
 	}
 
@@ -119,8 +121,6 @@ export default class StationModal extends React.Component {
     let stationName = _.cloneDeep(this.props.stationName)
     let stationLocation = _.cloneDeep(this.props.stationLocation)
     let stationInfos = _.cloneDeep(this.props.stationInfos)
-
-    console.log(stationLocation)
 
     if(!stationName.hasOwnProperty("ch") || !stationName.hasOwnProperty("en") || stationName.en == null || stationName.ch == null){
       alert("Station must have Chinese and English name")
@@ -139,8 +139,6 @@ export default class StationModal extends React.Component {
     let stationLocation = _.cloneDeep(this.props.stationLocation) 
     let stationInfos = _.cloneDeep(this.props.stationInfos)
 
-    console.log(stationName)
-
     if(!stationName.hasOwnProperty("ch") || !stationName.hasOwnProperty("en") || stationName.en == null || stationName.ch == null){
       alert("Station must have Chinese and English name")
     }
@@ -153,28 +151,13 @@ export default class StationModal extends React.Component {
     }
   }
 
-  handleDelStation(SID){
+  handleDelStation(e){
+    let SID = e.target.getAttribute("id").split("del")[1]
     this.props.onDelStation(SID)
   }
 
   handleSortStart = ({node, index, collection}, event) => {
     itemSelected = node
-  }
-
-  handleSortMove = (event) => {
-    if( event.clientX < document.getElementById("trashcan").getBoundingClientRect().right &&
-        event.clientX > document.getElementById("trashcan").getBoundingClientRect().left &&
-        event.clientY < document.getElementById("trashcan").getBoundingClientRect().bottom &&
-        event.clientY > document.getElementById("trashcan").getBoundingClientRect().top){
-          // border: dashed 1px gray;
-      this.setState({
-        isInTrashcan: true
-      })
-    }else{
-      this.setState({
-        isInTrashcan: false
-      })
-    }
   }
 
   handleSortEnd = ({oldIndex, newIndex, collection}, e) => {
@@ -185,22 +168,6 @@ export default class StationModal extends React.Component {
       this.props.onSortStation(this.state.items)  
     }
   };
-
-  handleMouseUp(ev) {
-    if(itemSelected != ""){
-      let item = itemSelected.getAttribute("id")
-      let SID = item.split("station")[1]
-      if(this.state.isInTrashcan && item != undefined){
-        this.props.rules.map(rule => {
-          if(rule.SID != null && rule.SID == SID)
-            this.props.onDelCondition(rule.RID)
-        })
-
-
-        this.props.onDelStation(SID)
-      }
-    }
-  }
 
   editMode(e) {
     let SID = e.target.getAttribute("id").split("edit")[1]
@@ -250,19 +217,10 @@ export default class StationModal extends React.Component {
                       DelStationSpotName={this.props.DelStationSpotName}
                       DelStationSpot={this.props.DelStationSpot}
                     />
-
             		</div>
             	</div>
               <div className="row">
-                <div className="col-6">
-                  <div id="trashcan" className="text-center w-100 py-2" 
-                    onMouseUp={this.handleMouseUp}
-                    style={trashcanStyle(this.state.isInTrashcan)}
-                  >
-                    <i className="icon-trash fa-2x" aria-hidden="true"></i>
-                  </div>                
-                </div>
-                <div className="col-6 my-auto">
+                <div className="col-6 offset-6 my-auto ">
                   <StateButton onAddStation={this.handleAddStation} 
                     onEditStation={this.handleEditStation}
                     location={this.props.stationLocation}

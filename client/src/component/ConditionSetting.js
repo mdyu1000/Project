@@ -98,8 +98,6 @@ export const Condition2 = (props) => {
 }
 
 export const Condition3 = (props) => {
-  console.log("condition3")
-  console.log(props)
   return (
     <Card id="condition3" className="collapse mx-1" data-parent="#ConditionGroup">
       <CardBody style={CardBodyStyle}>
