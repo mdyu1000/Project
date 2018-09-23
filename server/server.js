@@ -244,7 +244,9 @@ function setBusFileToDB(result){
   切割字串後取得縣市名稱 再送入 Here Map Weather API 取得天氣
 */
 app.get('/weather/:lng&:lat', (req, res, next) => {
-  const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${req.params.lng},${req.params.lat}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
+  lng = Number(Number(req.params.lng).toFixed(4))
+  lat = Number(Number(req.params.lat).toFixed(4))
+  const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${lng},${lat}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
   let data = {
     success: false,
     data: {}
@@ -283,26 +285,33 @@ app.get('/weather/:lng&:lat', (req, res, next) => {
         })
       }else{
         const HERE_WEATHER_API_URL = `${HERE_API.url}&${HERE_API.id}&${HERE_API.code}&${HERE_API.product}&name=${location}`
+  console.log(HERE_WEATHER_API_URL)
         request(HERE_WEATHER_API_URL, (err, response, body) => {
           
           let result = JSON.parse(body)
 
-          if(result.Type == "Invalid Request"){
-            res.send(data)
-          }else{
-            data = {
-              success: true,
-              data: {
-                country: result.observations.location[0].observation[0].country,
-                city: result.observations.location[0].observation[0].city,
-                temperature: result.observations.location[0].observation[0].temperature,
-                description: result.observations.location[0].observation[0].description,
-                iconName: result.observations.location[0].observation[0].iconName,
-                iconLink: result.observations.location[0].observation[0].iconLink,
+          try{
+            if(result.Type == "Invalid Request"){
+              res.send(data)
+            }else{
+              data = {
+                success: true,
+                data: {
+                  country: result.observations.location[0].observation[0].country,
+                  city: result.observations.location[0].observation[0].city,
+                  temperature: result.observations.location[0].observation[0].temperature,
+                  description: result.observations.location[0].observation[0].description,
+                  iconName: result.observations.location[0].observation[0].iconName,
+                  iconLink: result.observations.location[0].observation[0].iconLink,
+                }
               }
+              res.send(data)
             }
+          }catch(err){
+            data.data["message"] = "Here map weather API Crash"
             res.send(data)
           }
+
         })       
       }
     }
