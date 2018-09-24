@@ -8,9 +8,9 @@ const url = "mongodb://xqxqxq:yee666@ds255347.mlab.com:55347/kkk777"
 
 const GOOGLE_API_KEY="key=AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY"
 
-const GOOGLE_DIRECTION_API = {
-  url: "https://maps.googleapis.com/maps/api/directions/json?",
-  language: "en",
+const GOOGLE_ROAD_API = {
+  url: "https://roads.googleapis.com/v1/snapToRoads?",
+  interpolate: "interpolate=true",
   key: "AIzaSyDzkV6yiLEXZ_cvst1kBhflXFbATfi8jEY"
 }
 
@@ -115,7 +115,6 @@ app.post('/simulator', (req, res, next) => {
       back: []
     },
     length: 0,
-    status: "defective"
   }
   let failCount = 0
   let query = {
@@ -128,37 +127,33 @@ app.post('/simulator', (req, res, next) => {
       console.log("i = " + i )
       let item = route.stations.go[i]
       let nextItem = route.stations.go[i + 1]
-      let url = `${GOOGLE_DIRECTION_API.url}origin=${item.location.lat},${item.location.lng}&destination=${nextItem.location.lat},${nextItem.location.lng}&language=${GOOGLE_DIRECTION_API.language}&key=${GOOGLE_DIRECTION_API.key}`
+      let url = `${GOOGLE_ROAD_API.url}path=${item.location.lat},${item.location.lng}|${nextItem.location.lat},${nextItem.location.lng}&${GOOGLE_ROAD_API.interpolate}&key=${GOOGLE_ROAD_API.key}`
 
       request(url, (err, res, body) => {
         let resObj = JSON.parse(body)
 
-        console.log("resObj.status = " + resObj.status)
+          try{
+            /* 將所有 waypoints 放入陣列 */
+            for(var j = 0; j < resObj.snappedPoints.length; j++){
+              let step = resObj.snappedPoints[j]
+              simulator.stations.go.push({
+                lat: step.location.latitude,
+                lng: step.location.longitude
+              })
 
-        if(resObj.status == "OK"){
-          /* 將所有 waypoints 放入陣列 */
-          for(var j = 0; j < resObj.routes[0].legs[0].steps.length; j++){
-            let step = resObj.routes[0].legs[0].steps[j]
-            simulator.stations.go.push({
-              lat: step.start_location.lat,
-              lng: step.start_location.lng
-            })
-
-            simulator.stations.back.unshift({
-              lat: step.start_location.lat,
-              lng: step.start_location.lng
-            })
+              simulator.stations.back.unshift({
+                lat: step.location.latitude,
+                lng: step.location.longitude
+              })
+            } 
+          }catch(err){
+            console.log("Road API Error")
           }
-        }else{
-          failCount += 1
-        }
+
 
         /* 全部結束 */
         if(i == route.stations.go.length - 2) {
           simulator.length = simulator.stations.go.length
-
-          /* 若是有 地點 漏掉 則為 defective */
-          if(failCount == 0) simulator.status = "perfect"
 
           let set = {
             $set: simulator
@@ -336,7 +331,7 @@ app.get("/simulator/:RID", (req, res, next) => {
         res.send(data)
       }else{
         data.success = true
-        data.data = result
+        data.data = result[0]
         res.send(data)
       }
     }
