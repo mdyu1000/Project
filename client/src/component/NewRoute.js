@@ -112,7 +112,7 @@ export default class NewRoute extends React.Component {
         route["RID"] = maxRID + 1
       }
     }else if(type == "update"){
-      route["RID"] = this.state.match.params.RID
+      route["RID"] = Number(this.state.match.params.RID)
     }
     route["routeName"] = this.props.nameLists
     route["departureName"] = this.props.departureLists

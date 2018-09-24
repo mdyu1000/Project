@@ -106,10 +106,10 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
   })
 })
 
-app.post('/POST/simulator', (req, res, next) => {
+app.post('/simulator', (req, res, next) => {
   let route = req.body.route
   let simulator = {
-    RID: route.RID,
+    RID: Number(route.RID),
     stations: {
       go: [],
       back: []
@@ -318,7 +318,7 @@ app.get('/weather/:lng&:lat', (req, res, next) => {
   })
 })
 
-app.get("/GET/simulator/:RID", (req, res, next) => {
+app.get("/simulator/:RID", (req, res, next) => {
   let query = {
     "RID": Number(req.params.RID)
   }

@@ -149,7 +149,7 @@ export const UpdateRoute = (RID, route) => dispatch => {
 }
 
 export const SetSimulator = route => dispatch => {
-  fetch(`${SERVER}/POST/simulator`, {
+  fetch(`${SERVER}/simulator`, {
     method: 'POST',
     body: JSON.stringify({
       "route": route
