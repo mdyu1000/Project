@@ -30,6 +30,7 @@ export default class Station extends React.Component {
           stationLocation={this.props.stationLocation}
           stationInfos={this.props.stationInfos}
           stationInfo={this.props.stationInfo}
+          stationBroadcastImg={this.props.stationBroadcastImg}
           isEditMode={this.props.isEditMode}
           rules={this.props.rules}
 
@@ -48,7 +49,6 @@ export default class Station extends React.Component {
           AddStationSpot={this.props.AddStationSpot}
           DelStationSpotName={this.props.DelStationSpotName}
           DelStationSpot={this.props.DelStationSpot}
-          UploadStationBroadcaseImg={this.props.UploadStationBroadcaseImg}
         />
       </div>
     );

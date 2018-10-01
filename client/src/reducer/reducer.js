@@ -30,7 +30,8 @@ import {
   ADD_STATION_SPOT_NAME,
   DEL_STATION_SPOT_NAME,
   ADD_STATION_SPOT,
-  DEL_STATION_SPOT, } from '../action/station'
+  DEL_STATION_SPOT,
+  RECEIVE_BROADCAST_IMG } from '../action/station'
 import {
   ADD_CONDITION_ONE,
   ADD_CONDITION_TWO,
@@ -53,6 +54,10 @@ const initialState = {
   stationInfos: stationInfos,
   stationInfo: {icon: "question"},
   // stationInfo: { en: "Mr. Brown Cafe", ch: "伯朗咖啡科大店", icon: "question"},
+  stationBroadcastImg: {
+    url: "",
+    isChcked: false
+  },
   rules: [],
   demoColor: "#FF6900",
   isEditMode: false,
@@ -493,6 +498,15 @@ function GetBusInfo(state, action){
   }
 }
 
+function NewStationBroadcastImg(state, action){
+  switch(action.type){
+    case RECEIVE_BROADCAST_IMG:
+      return action.data
+    default:
+      return state
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
     nameLists: NewRouteName(state.nameLists, action, state.busInfo),
@@ -504,6 +518,7 @@ export default function BusPlayApp(state = initialState, action){
     stationLocation: NewStationLocation(state.stationLocation, action),
     stationInfos: NewStationInfos(state.stationInfos, action),
     stationInfo: NewStationInfo(state.stationInfo, action),
+    stationBroadcastImg: NewStationBroadcastImg(state.stationBroadcastImg, action),
     rules: NewRule(state.rules, action),
     demoColor: ChangeDemoColor(state.demoColor, action),
     isEditMode: editMode(state.isEditMode, action),

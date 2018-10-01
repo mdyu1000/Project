@@ -74,8 +74,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(DelStationSpot(spotId))
     },
     UploadStationBroadcaseImg: url => {
-      // dispatch(UploadStationBroadcaseImg(url))
-      UploadStationBroadcaseImg(url)
+      dispatch(UploadStationBroadcaseImg(url))
+      // UploadStationBroadcaseImg(url)
     }
   }
 }
@@ -87,6 +87,7 @@ const mapStateToProps = (state) => {
     stationLocation: state.stationLocation,
     stationInfos: state.stationInfos,
     stationInfo: state.stationInfo,
+    stationBroadcastImg: state.stationBroadcastImg,
     color: state.demoColor,
     isEditMode: state.isEditMode,
     rules: state.rules,

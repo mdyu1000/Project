@@ -7,7 +7,6 @@ import GMapSearch from "./GoogleMapSearch";
 import { ModalItemStyle, ModalListStyle, badgeStyle } from './Global';
 import _ from 'lodash';
 import StationSpotInput from './StationSpotInput'
-import StationUploadImg from './StationUploadImg'
 
 const LocationBadge = (props) => {
   return(
@@ -216,9 +215,6 @@ export default class StationModal extends React.Component {
                       AddStationSpot={this.props.AddStationSpot}
                       DelStationSpotName={this.props.DelStationSpotName}
                       DelStationSpot={this.props.DelStationSpot}
-                    />
-                    <StationUploadImg 
-                      UploadStationBroadcaseImg={this.props.UploadStationBroadcaseImg}
                     />
             		</div>
             	</div>
