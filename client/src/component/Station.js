@@ -48,6 +48,7 @@ export default class Station extends React.Component {
           AddStationSpot={this.props.AddStationSpot}
           DelStationSpotName={this.props.DelStationSpotName}
           DelStationSpot={this.props.DelStationSpot}
+          UploadStationBroadcaseImg={this.props.UploadStationBroadcaseImg}
         />
       </div>
     );

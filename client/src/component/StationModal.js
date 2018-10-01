@@ -217,7 +217,9 @@ export default class StationModal extends React.Component {
                       DelStationSpotName={this.props.DelStationSpotName}
                       DelStationSpot={this.props.DelStationSpot}
                     />
-                    <StationUploadImg />
+                    <StationUploadImg 
+                      UploadStationBroadcaseImg={this.props.UploadStationBroadcaseImg}
+                    />
             		</div>
             	</div>
               <div className="row">

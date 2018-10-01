@@ -14,8 +14,9 @@ export default class StationUploadImg extends React.Component {
 			let file = this.fileInput.current.files[0]
 			let reader = new FileReader();
 			reader.readAsDataURL(file)
-			reader.onload = function(){
+			reader.onload = () =>{
 				let imgBase64 = reader.result
+				this.props.UploadStationBroadcaseImg(imgBase64)
 			}
 		} catch(error){
 			alert("upload a image")

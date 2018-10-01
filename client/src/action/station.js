@@ -1,3 +1,5 @@
+import {IMGUR_CLINET_ID, IMGUR_ALBUM} from "../constant"
+
 export const ADD_STATION = "ADD_STATION"
 export const DEL_STATION = "DEL_STATION"
 export const SORT_STATION = "SORT_STATION"
@@ -16,6 +18,7 @@ export const ADD_STATION_SPOT = "ADD_STATION_SPOT"
 export const DEL_STATION_SPOT = "DEL_STATION_SPOT"
 
 export const UPLOAD_STAION_BROADCAST_IMG = "UPLOAD_STAION_BROADCAST_IMG"
+
 
 let nextSID = 4
 export function AddStation(name, location, infos){
@@ -136,8 +139,24 @@ export function DelStationSpot(spotId){
 }
 
 export function UploadStationBroadcaseImg(url){
-  return {
-    type: UPLOAD_STAION_BROADCAST_IMG,
-    url
-  }
+  return fetch("https://api.imgur.com/3/image", {
+    headers: {
+      Authorization: IMGUR_CLINET_ID
+    },
+    body: JSON.stringify({
+      album: IMGUR_ALBUM,
+      image: url,
+    }),
+    method: "POST",
+  })
+  .then(response => response.json())
+  .then(responseJson => {
+    console.log(url)
+    console.log(responseJson)
+    console.log(IMGUR_CLINET_ID)
+    console.log(IMGUR_ALBUM)
+    return (
+      responseJson
+    )
+  })
 }

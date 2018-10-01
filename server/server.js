@@ -178,16 +178,6 @@ app.post('/simulator', (req, res, next) => {
 })
 
 /* 前端 Route Table 需要的資料 */
-app.get('/display/', (req, res, next) => {
-  res.send(`<h6 style="margin:0;padding:0">API 說明</h6>
-            <ul style="margin:0;padding:0">
-              <li><code>/display/routelist</code> 路線列表</li>
-              <li><code>/display/route/:RID</code> 路線資料</li>
-              <li><code>/display/weather?lng=Number&lat=Number</code> 天氣</li>
-              <li><code>/display/simulator/:RID</code> 行車模擬器</li>
-            </ul>`)
-})
-
 app.get('/display/routelist/', (req, res, next) => {
   let routes = []
 
@@ -251,7 +241,7 @@ function setBusFileToDB(result){
 app.get('/display/weather/', (req, res, next) => {
   const lng = Number(Number(req.query.lng).toFixed(4))
   const lat = Number(Number(req.query.lat).toFixed(4))
-  const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${lng},${lat}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
+  const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${lat},${lng}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
   let data = {
     success: false,
     data: {}
