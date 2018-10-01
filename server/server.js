@@ -204,7 +204,7 @@ app.get('/AllRouteXQ/', (req, res, next) => {
 app.get('/OneRouteXQ/:RID', (req, res, next) => {
 
   let query = {
-    "_id": ObjectId(req.params.RID)
+    "RID": Number(req.params.RID)
   }
   
   dbo.collection("route").find(query).toArray((err, result) => {

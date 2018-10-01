@@ -15,6 +15,8 @@ export const DEL_STATION_SPOT_NAME = "DEL_STATION_SPOT_NAME"
 export const ADD_STATION_SPOT = "ADD_STATION_SPOT"
 export const DEL_STATION_SPOT = "DEL_STATION_SPOT"
 
+export const UPLOAD_STAION_BROADCAST_IMG = "UPLOAD_STAION_BROADCAST_IMG"
+
 let nextSID = 4
 export function AddStation(name, location, infos){
   return {
@@ -130,5 +132,12 @@ export function DelStationSpot(spotId){
   return {
     type: DEL_STATION_SPOT,
     spotId
+  }
+}
+
+export function UploadStationBroadcaseImg(url){
+  return {
+    type: UPLOAD_STAION_BROADCAST_IMG,
+    url
   }
 }

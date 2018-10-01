@@ -136,7 +136,7 @@ export default class StationSpotInput extends React.Component {
             <FontAwesomeList SetStationSpotIcon={this.props.SetStationSpotIcon} />
           </div>
 	      </div>
-        <div className="mt-5" style={{ height: "200px", overflowY: "scroll"}}>
+        <div className="mt-5" style={{ height: "160px", overflowY: "scroll"}}>
           {
             this.props.stationInfos.hasOwnProperty("spot") &&
             this.props.stationInfos.spot.map((info, index) => 

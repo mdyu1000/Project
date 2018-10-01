@@ -7,6 +7,7 @@ import GMapSearch from "./GoogleMapSearch";
 import { ModalItemStyle, ModalListStyle, badgeStyle } from './Global';
 import _ from 'lodash';
 import StationSpotInput from './StationSpotInput'
+import StationUploadImg from './StationUploadImg'
 
 const LocationBadge = (props) => {
   return(
@@ -24,20 +25,20 @@ const StateButton = (props) => {
       {
         (
           props.isEditMode && 
-          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm mr-3" 
+          <button id="modifyStationBtn" type="button" className="btn btn-warning btn-sm mr-3" 
             onClick={props.onEditStation}>
-            Modify
+            Update
           </button>
         ) || (
           !props.isEditMode && 
-          <button id="modifyStationBtn" type="button" className="btn btn-secondary btn-sm mr-3" disabled >
-            Modify
+          <button id="modifyStationBtn" type="button" className="btn btn-warning btn-sm mr-3 d-none" >
+            Update
           </button>
         )
       }{
         (
          (props.isEditMode) &&
-         <button id="addStationBtn" type="button" className="btn btn-success btn-sm" disabled>
+         <button id="addStationBtn" type="button" className="btn btn-success btn-sm d-none">
            Add
          </button>
         ) || (
@@ -186,7 +187,6 @@ export default class StationModal extends React.Component {
             	<div className="row">
             		<div className="col-6">
                   <div className="mb-3">
-                    <span>Google Map</span>
                     <GMapSearch onAddLocation={this.props.onAddStationLocation} 
                       isEditMode={this.props.isEditMode} location={this.props.stationLocation}/>
                     <LocationBadge location={this.props.stationLocation} />
@@ -217,6 +217,7 @@ export default class StationModal extends React.Component {
                       DelStationSpotName={this.props.DelStationSpotName}
                       DelStationSpot={this.props.DelStationSpot}
                     />
+                    <StationUploadImg />
             		</div>
             	</div>
               <div className="row">
