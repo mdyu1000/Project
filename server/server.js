@@ -58,7 +58,7 @@ app.post('/NewRoute/', (req, res, next) => {
 })
 
 app.get('/AllRoute/', (req, res, next) => {
-  
+
   dbo.collection("route").find().toArray((err, results) => {
     if(err) throw err
 
@@ -145,7 +145,7 @@ app.post('/simulator', (req, res, next) => {
                 lat: step.location.latitude,
                 lng: step.location.longitude
               })
-            } 
+            }
           }catch(err){
             console.log("Road API Error")
           }
@@ -178,7 +178,17 @@ app.post('/simulator', (req, res, next) => {
 })
 
 /* 前端 Route Table 需要的資料 */
-app.get('/AllRouteXQ/', (req, res, next) => {
+app.get('/display/', (req, res, next) => {
+  res.send(`<h6 style="margin:0;padding:0">API 說明</h6>
+            <ul style="margin:0;padding:0">
+              <li><code>/display/routelist</code> 路線列表</li>
+              <li><code>/display/route/:RID</code> 路線資料</li>
+              <li><code>/display/weather?lng=Number&lat=Number</code> 天氣</li>
+              <li><code>/display/simulator/:RID</code> 行車模擬器</li>
+            </ul>`)
+})
+
+app.get('/display/routelist/', (req, res, next) => {
   let routes = []
 
   dbo.collection("route").find().toArray((err, results) => {
@@ -197,16 +207,16 @@ app.get('/AllRouteXQ/', (req, res, next) => {
 
     let sort = routes.sort((a, b) => a.RID > b.RID ? 1 : -1)
     res.send(JSON.stringify(sort));
-  }) 
+  })
 })
 
 /* 前端 播放路線 需要的資料 */
-app.get('/OneRouteXQ/:RID', (req, res, next) => {
+app.get('/display/route/:RID', (req, res, next) => {
 
   let query = {
     "RID": Number(req.params.RID)
   }
-  
+
   dbo.collection("route").find(query).toArray((err, result) => {
     if(err) throw err
     res.send(JSON.stringify(result[0]))
@@ -238,9 +248,9 @@ function setBusFileToDB(result){
   透過 type administrative_area_level_1 或 administrative_area_level_2 判斷為直轄市或一般縣市
   切割字串後取得縣市名稱 再送入 Here Map Weather API 取得天氣
 */
-app.get('/weather/:lng&:lat', (req, res, next) => {
-  lng = Number(Number(req.params.lng).toFixed(4))
-  lat = Number(Number(req.params.lat).toFixed(4))
+app.get('/display/weather/', (req, res, next) => {
+  const lng = Number(Number(req.query.lng).toFixed(4))
+  const lat = Number(Number(req.query.lat).toFixed(4))
   const geocodeURL = `${GOOGLE_GEOCODE_API.url}&latlng=${lng},${lat}&${GOOGLE_GEOCODE_API.language}&${GOOGLE_API_KEY}`
   let data = {
     success: false,
@@ -282,7 +292,7 @@ app.get('/weather/:lng&:lat', (req, res, next) => {
         const HERE_WEATHER_API_URL = `${HERE_API.url}&${HERE_API.id}&${HERE_API.code}&${HERE_API.product}&name=${location}`
   console.log(HERE_WEATHER_API_URL)
         request(HERE_WEATHER_API_URL, (err, response, body) => {
-          
+
           let result = JSON.parse(body)
 
           try{
@@ -307,13 +317,13 @@ app.get('/weather/:lng&:lat', (req, res, next) => {
             res.send(data)
           }
 
-        })       
+        })
       }
     }
   })
 })
 
-app.get("/simulator/:RID", (req, res, next) => {
+app.get("/display/simulator/:RID", (req, res, next) => {
   let query = {
     "RID": Number(req.params.RID)
   }
