@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, ButtonGroup, FormGroup } from 'reactstrap';
 import { Condition1, Condition2, Condition3} from './ConditionSetting';
+import ConditionModal from './ConditionModal';
 import '../CSS/conditionGroup.css';
 
 const ruleGroupStyle = {
@@ -28,20 +29,15 @@ const buttonStyle = (color) => {
 }
 
 const ConditionGroup = (props) => {
-	const arr = ["Condition 1", "Condition 3", "Condition 4"];
+	const arr = ["Condition 1", "Condition 2", "Condition 3"];
 	const btnLists = arr.map((btnList, i) => 
 		<div className="w-100 mt-2" key={"Rule" + i}>
 		  <button type="button" className="btn ml-0" style={buttonStyle(props.color)}
-		 		data-toggle="collapse" data-target={"#condition" + (i + 1)}>
+		 		data-toggle="modal" data-target="#conditionModal" onClick={() => props.onSetConditionIndex(i + 1)}>
 		  	<span style={{ color: props.color}}>
 		  		{"Rule " + (i + 1)}
 	  		</span>
 		  </button>
-		  { 
-        ( i==0 && <Condition1 onAddCondition1={props.onAddCondition1} stations={props.stations} /> ) || 
-	  		( i==1 && <Condition2 onAddCondition2={props.onAddCondition2} /> ) || 
-        ( i==2 && <Condition3 onAddCondition3={props.onAddCondition3} /> ) 
-      }
 	 	</div>
 	)
 	return(
@@ -96,9 +92,17 @@ export default class Condition extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			index: 0,
+			conditionIndex: -1,
 		}
+    this.handleSetConditionIndex = this.handleSetConditionIndex.bind(this)
 	}
+
+  handleSetConditionIndex(index){
+    console.log(`index = ${index}`)
+    this.setState({
+      conditionIndex: index
+    })
+  }
 
 	render(){
 		return(
@@ -106,11 +110,10 @@ export default class Condition extends React.Component {
 				<Col sm="5">
 	        <FormGroup>
 						<span>Condition</span><br/>
-						<ConditionGroup color = {this.props.color} 
-              onAddCondition1 = {this.props.onAddCondition1}
-              onAddCondition2 = {this.props.onAddCondition2}
-              onAddCondition3 = {this.props.onAddCondition3}
+						<ConditionGroup 
+              color = {this.props.color} 
               stations = {this.props.stations}
+              onSetConditionIndex = {this.handleSetConditionIndex}
             />
 	        </FormGroup>
 				</Col>
@@ -121,6 +124,10 @@ export default class Condition extends React.Component {
             onDelCondition = {this.props.onDelCondition}
           />
 				</Col>
+        <ConditionModal 
+          conditionIndex = {this.state.conditionIndex}
+          stations = {this.props.stations} 
+        />
      	</Row>
 		)
 	}

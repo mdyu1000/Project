@@ -1,5 +1,6 @@
 import { Card, CardBody, CardFooter } from 'reactstrap';
 import React from 'react';
+import InputText from './InputText'
 import '../CSS/conditionGroup.css';
 
 const CardBodyStyle = {
@@ -50,7 +51,54 @@ const StationOption = props => {
   )
 }
 
-export const Condition1 = (props) => {
+export const Condition1 = props => {
+  return (
+    <div className="modal fade" id="condition1" tabIndex="-1" role="dialog" >
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Condition1</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <div>
+              <InputText title="Title" name="title" />
+            </div>
+            <div>
+              <div>Content</div>
+              <div>
+                <textarea id="broadcast-content-ch" className="w-100 rounded mt-2" placeholder="請輸入中文介紹" />
+                <textarea id="broadcast-content-en" className="w-100 rounded mt-2" placeholder="Please enter the introduction in English" />
+              </div>
+            </div>
+            <div className="mt-2">
+              <div>Image</div>
+              <input id="broadcast-img" className="mt-1" type="file" />
+            </div>
+            <div className="mt-3">
+              <div>Condition</div>
+              <span className="card-text">抵達 
+                <select id="C1_station" className="mx-1 browser-default d-inline">
+                  <option disabled value='' selected className="d-none"></option>
+                  <StationOption stations={props.stations} />
+                </select>站前 
+                <input id="C1_distance" type="number" style={inputNumberStyle} max="6000" min="0" size="35"/>公尺，進行廣播
+              </span>
+            </div>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" className="btn btn-primary">New</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export const Condition11 = (props) => {
   return(
     <Card id="condition1" className="collapse mx-1" data-parent="#ConditionGroup">
       <CardBody style={CardBodyStyle}>
