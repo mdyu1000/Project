@@ -33,10 +33,9 @@ import {
   DEL_STATION_SPOT,
   RECEIVE_BROADCAST_IMG } from '../action/station'
 import {
-  ADD_CONDITION_ONE,
-  ADD_CONDITION_TWO,
-  ADD_CONDITION_THREE, 
-  DEL_CONDITION } from '../action/condition'
+  DEL_CONDITION,
+  ADD_CONDITION_TITLE,
+  DEL_CONDITION_TITLE, } from '../action/condition'
 import { stationInfos } from '../component/Global'
 import _ from 'lodash';
 
@@ -54,11 +53,12 @@ const initialState = {
   stationInfos: stationInfos,
   stationInfo: {icon: "question"},
   // stationInfo: { en: "Mr. Brown Cafe", ch: "伯朗咖啡科大店", icon: "question"},
-  stationBroadcastImg: {
-    url: "",
-    isChcked: false
-  },
   rules: [],
+  rule: {
+    title: {},
+    content: {},
+    image: ""
+  },
   demoColor: "#FF6900",
   isEditMode: false,
   allRoute: [],
@@ -392,35 +392,23 @@ function NewRouteName(state, action, busInfo){
 
 function NewRule(state, action){
   switch(action.type){
-    case ADD_CONDITION_ONE:
-      return [
-        ...state,     
-        {
-          RID: state.length,
-          condition: 1,
-          SID: action.SID,
-          distance: action.distance,
-        } 
-      ]
-
-    case ADD_CONDITION_TWO:
-      return [
+    case ADD_CONDITION_TITLE:
+      state.title[action.language] = action.title
+      return {
         ...state,
-        {
-          RID: state.length,
-          condition: 2,
-          distance: action.distance
-        }
-      ]
-    case ADD_CONDITION_THREE:
-      return [
-        ...state,    
-        {
-          RID: state.length,
-          condition: 3,
-          interval: action.interval
-        }
-      ]
+      }
+    case DEL_CONDITION_TITLE:
+      delete state.title[action.language]
+      return {
+        ...state
+      }
+    default:
+      return state
+  }
+}
+
+function NewRules(state, action){
+  switch(action.type){
     case DEL_CONDITION:
       return state.filter((state) => action.RID != state.RID)
     case RECEIVE_ONE_ROUTE:
@@ -518,8 +506,8 @@ export default function BusPlayApp(state = initialState, action){
     stationLocation: NewStationLocation(state.stationLocation, action),
     stationInfos: NewStationInfos(state.stationInfos, action),
     stationInfo: NewStationInfo(state.stationInfo, action),
-    stationBroadcastImg: NewStationBroadcastImg(state.stationBroadcastImg, action),
-    rules: NewRule(state.rules, action),
+    rule: NewRule(state.rule, action),
+    rules: NewRules(state.rules, action),
     demoColor: ChangeDemoColor(state.demoColor, action),
     isEditMode: editMode(state.isEditMode, action),
     allRoute: NewRoute(state.allRoute, action),

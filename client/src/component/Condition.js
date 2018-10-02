@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col, ButtonGroup, FormGroup } from 'reactstrap';
-import { Condition1, Condition2, Condition3} from './ConditionSetting';
 import ConditionModal from './ConditionModal';
 import '../CSS/conditionGroup.css';
 
@@ -98,7 +97,6 @@ export default class Condition extends React.Component {
 	}
 
   handleSetConditionIndex(index){
-    console.log(`index = ${index}`)
     this.setState({
       conditionIndex: index
     })
@@ -125,8 +123,12 @@ export default class Condition extends React.Component {
           />
 				</Col>
         <ConditionModal 
-          conditionIndex = {this.state.conditionIndex}
-          stations = {this.props.stations} 
+          conditionIndex={this.state.conditionIndex}
+          stations={this.props.stations} 
+          rule={this.props.rule}
+
+          onAddConditionTitle={this.props.onAddConditionTitle}
+          onDelConditionTitle={this.props.onDelConditionTitle}
         />
      	</Row>
 		)

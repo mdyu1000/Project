@@ -62,6 +62,11 @@ const Condition3 = props => {
 export default class ConditionModal extends React.Component {
 	constructor(props){
 		super(props)
+		this.handleNewCondition = this.handleNewCondition.bind(this)
+	}
+
+	handleNewCondition(){
+
 	}
 
 	render(){
@@ -70,14 +75,18 @@ export default class ConditionModal extends React.Component {
 	      <div className="modal-dialog" role="document">
 	        <div className="modal-content">
 	          <div className="modal-header">
-	            <h5 className="modal-title">Condition1</h5>
+	            <h5 className="modal-title">Condition {this.props.conditionIndex}</h5>
 	            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
 	              <span aria-hidden="true">&times;</span>
 	            </button>
 	          </div>
 	          <div className="modal-body">
 	            <div>
-	              <InputText title="Title" name="title" />
+	              <InputText title="Condition" name="condition" 
+	              	onAdd={this.props.onAddConditionTitle}
+	              	onDel={this.props.onDelConditionTitle}
+	              	lists={this.props.rule.title}
+	              />
 	            </div>
 	            <div>
 	              <div>Content</div>
@@ -105,7 +114,9 @@ export default class ConditionModal extends React.Component {
 	          </div>
 	          <div className="modal-footer">
 	            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-	            <button type="button" className="btn btn-primary">New</button>
+	            <button type="button" className="btn btn-primary" onClick={this.handleNewCondition}>
+	            	New
+            	</button>
 	          </div>
 	        </div>
 	      </div>
