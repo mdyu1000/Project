@@ -129,6 +129,10 @@ export default class Condition extends React.Component {
 
           onAddConditionTitle={this.props.onAddConditionTitle}
           onDelConditionTitle={this.props.onDelConditionTitle}
+          UploadStationBroadcaseImg={this.props.UploadStationBroadcaseImg}
+          addCondition1={this.props.addCondition1}
+          addCondition2={this.props.addCondition2}
+          addCondition3={this.props.addCondition3}
         />
      	</Row>
 		)

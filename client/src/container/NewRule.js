@@ -3,7 +3,11 @@ import Condition from '../component/Condition'
 import {
   DelCondition,
   AddConditionTitle,
-  DelConditionTitle
+  DelConditionTitle,
+  UploadStationBroadcaseImg,
+  addCondition1,
+  addCondition2,
+  addCondition3,
 } from '../action/condition'
 
 const mapDispatchToProps = (dispatch) => {
@@ -16,7 +20,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     onDelConditionTitle: language => {
       dispatch(DelConditionTitle(language))
-    }
+    },
+    UploadStationBroadcaseImg: file => {
+      dispatch(UploadStationBroadcaseImg(file))
+    },
+    addCondition1: (SID, distance, content) => {
+      dispatch(addCondition1(SID, distance, content))
+    },
+    addCondition2: (distance, content) => {
+      dispatch(addCondition2(distance, content))
+    },
+    addCondition3: (interval, content) => {
+      dispatch(addCondition3(interval, content))
+    },
   }
 }
 

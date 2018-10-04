@@ -30,12 +30,15 @@ import {
   ADD_STATION_SPOT_NAME,
   DEL_STATION_SPOT_NAME,
   ADD_STATION_SPOT,
-  DEL_STATION_SPOT,
-  RECEIVE_BROADCAST_IMG } from '../action/station'
+  DEL_STATION_SPOT, } from '../action/station'
 import {
   DEL_CONDITION,
   ADD_CONDITION_TITLE,
-  DEL_CONDITION_TITLE, } from '../action/condition'
+  DEL_CONDITION_TITLE,
+  RECEIVE_BROADCAST_IMG,
+  ADD_CONDITION_1,
+  ADD_CONDITION_2,
+  ADD_CONDITION_3,  } from '../action/condition'
 import { stationInfos } from '../component/Global'
 import _ from 'lodash';
 
@@ -66,6 +69,8 @@ const initialState = {
   SIDOnGMap: -1, 
   busInfo: []
 }
+
+var maxRulesID = 0
 
 function NewDepartureName(state, action, busInfo){
   switch(action.type){
@@ -402,6 +407,22 @@ function NewRule(state, action){
       return {
         ...state
       }
+    case RECEIVE_BROADCAST_IMG:
+      return {
+        ...state,
+        image: {
+          url: action.data.url,
+          isChecked: action.data.isChecked
+        }
+      }
+    case ADD_CONDITION_1:
+    case ADD_CONDITION_2:
+    case ADD_CONDITION_3:
+      return {
+        ...state,
+        title: {},
+        image: {}
+      } 
     default:
       return state
   }
@@ -419,8 +440,50 @@ function NewRules(state, action){
       return [
         ...initialState.rules
       ]
+    case ADD_CONDITION_1: 
+      maxRulesID = GetMaxRulesId(state)
+      return [
+        ...state,
+        {
+          condition: 1,
+          SID: action.SID,
+          distance: action.distance,
+          content: action.content,
+          RID: maxRulesID
+        }
+      ]
+    case ADD_CONDITION_2:
+      maxRulesID = GetMaxRulesId(state)
+      return [
+        ...state,
+        {
+          condition: 2,
+          distance: action.distance,
+          content: action.content,
+          RID: maxRulesID
+        }
+      ]
+    case ADD_CONDITION_3:
+      maxRulesID = GetMaxRulesId(state)
+      return [
+        ...state,
+        {
+          condition: 3,
+          interval: action.interval,
+          content: action.content,
+          RID: maxRulesID
+        }
+      ]
     default:
       return state
+  }
+}
+
+function GetMaxRulesId(rules){
+  if(rules.length == 0){
+    return 1
+  }else {
+    return Math.max.apply(Math, rules.map(item => item.RID)) + 1
   }
 }
 
@@ -481,15 +544,6 @@ function GetBusInfo(state, action){
   switch(action.type){
     case RECEIVE_BUS_INFO:
       return action.json
-    default:
-      return state
-  }
-}
-
-function NewStationBroadcastImg(state, action){
-  switch(action.type){
-    case RECEIVE_BROADCAST_IMG:
-      return action.data
     default:
       return state
   }

@@ -62,11 +62,94 @@ const Condition3 = props => {
 export default class ConditionModal extends React.Component {
 	constructor(props){
 		super(props)
+		this.state = {
+			content: {},
+		}
+		this.fileInput = React.createRef();
 		this.handleNewCondition = this.handleNewCondition.bind(this)
+		this.handleUploadImg = this.handleUploadImg.bind(this)
+		this.checkTitleAndContent = this.checkTitleAndContent.bind(this)
+		this.setContent = this.setContent.bind(this)
+		this.clearModal = this.clearModal.bind(this)
+	}
+
+	handleUploadImg(){
+		let file = this.fileInput.current.files[0]
+		this.props.UploadStationBroadcaseImg(file)
+	}
+
+	checkTitleAndContent(title, contentCh, contentEn){
+		if(Object.keys(title).length == 0 && contentCh.value == '' && contentEn.value == ''){
+			return true
+		}else{
+			if(!title.hasOwnProperty("ch") || !title.hasOwnProperty("en")) return false
+			else if(contentCh.value == '' || contentEn.value == '') return false
+			else return true
+		}
+	}
+
+	setContent(title, contentCh, contentEn){
+		return ({
+			title: title == '' ? {} : {
+				ch: title.ch,
+				en: title.en,
+			},
+			content: (contentCh == '' && contentEn == '') ? {} : {
+				ch: contentCh.value,
+				en: contentEn.value,
+			},
+			image: this.props.rule.image
+		})
 	}
 
 	handleNewCondition(){
+		let title = this.props.rule.title
+		let contentCh = document.getElementById("broadcast-content-ch")
+		let contentEn = document.getElementById("broadcast-content-en")
 
+		/* Check Title and Content */
+		if(!this.checkTitleAndContent(title, contentCh, contentEn)) {
+			alert("Title and content must have both Chinese and English fields")
+		}
+
+		else if(this.props.conditionIndex == 1){
+			let e = document.getElementById("C1_station")
+			let station = e.options[e.selectedIndex].value
+			let distance = Number(document.getElementById("C1_distance").value)
+			if(station == '' || distance == '') {
+				alert("Condition format error")
+			}else {
+				let SID = this.props.stations.go.filter(item => item.name.ch == station)[0].SID
+				this.props.addCondition1(SID, distance, this.setContent(title, contentCh, contentEn))
+				this.clearModal()
+			}
+		}
+
+		else if(this.props.conditionIndex == 2){
+			let distance = Number(document.getElementById("C2_distance").value)
+			if(distance == '') {
+				alert("Condition format error")
+			}else{
+				this.props.addCondition2(distance, this.setContent(title, contentCh, contentEn))
+				this.clearModal()
+			}
+		}
+
+		else if(this.props.conditionIndex == 3){
+			let interval = Number(document.getElementById("C3_interval").value)
+			if(interval == '') {
+				alert("Condition format error")
+			}else{
+				this.props.addCondition3(interval, this.setContent(title, contentCh, contentEn))
+				this.clearModal()
+			}
+		}
+	}
+
+	clearModal(){
+		document.getElementById("broadcast-content-ch").value = ''
+		document.getElementById("broadcast-content-en").value = ''
+		document.getElementById("broadcast-img").value = ''
 	}
 
 	render(){
@@ -82,7 +165,7 @@ export default class ConditionModal extends React.Component {
 	          </div>
 	          <div className="modal-body">
 	            <div>
-	              <InputText title="Condition" name="condition" 
+	              <InputText title="Title" name="condition" 
 	              	onAdd={this.props.onAddConditionTitle}
 	              	onDel={this.props.onDelConditionTitle}
 	              	lists={this.props.rule.title}
@@ -97,7 +180,10 @@ export default class ConditionModal extends React.Component {
 	            </div>
 	            <div className="mt-2">
 	              <div>Image</div>
-	              <input id="broadcast-img" className="mt-1" type="file" />
+	              <input id="broadcast-img" className="mt-1" type="file" 
+	              	ref={this.fileInput} accept="image/*"  
+	              	onChange={this.handleUploadImg}
+              	/>
 	            </div>
 	            {
 	            	this.props.conditionIndex == 1 &&

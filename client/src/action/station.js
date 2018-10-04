@@ -17,10 +17,6 @@ export const DEL_STATION_SPOT_NAME = "DEL_STATION_SPOT_NAME"
 export const ADD_STATION_SPOT = "ADD_STATION_SPOT"
 export const DEL_STATION_SPOT = "DEL_STATION_SPOT"
 
-export const UPLOAD_STAION_BROADCAST_IMG = "UPLOAD_STAION_BROADCAST_IMG"
-export const RECEIVE_BROADCAST_IMG = "RECEIVE_BROADCAST_IMG"
-
-
 let nextSID = 4
 export function AddStation(name, location, infos){
   return {
@@ -136,48 +132,5 @@ export function DelStationSpot(spotId){
   return {
     type: DEL_STATION_SPOT,
     spotId
-  }
-}
-
-export const UploadStationBroadcaseImg = file => dispatch =>{
-  const formData = new FormData();
-
-  formData.append('image', file);
-  // formData.append('album', 'WEMMHhh');  
-  // formData.append('type', 'base64')
-
-  return fetch("https://api.imgur.com/3/image", {
-    method: "POST",
-    headers: {
-      // Authorization: IMGUR_CLINET_ID
-      // Authorization: "Client-ID eccbabf1499df8f860b2c27bf0b11271eaf85b01"
-      Authorization: "Client-ID 90ef1830bd083ba"
-    },
-    body: formData
-  })
-  .then(response => response.json())
-  .then(responseJson => {
-    console.log(responseJson)
-    dispatch(receiveBroadcastImg(responseJson))
-  })
-}
-
-function receiveBroadcastImg(response){
-  if(response.success){
-    return {
-      type: RECEIVE_BROADCAST_IMG,
-      data: {
-        url: response.data.link,
-        isChecked: true
-      }
-    }
-  }else{
-    return {
-      type: RECEIVE_BROADCAST_IMG,
-      data: {
-        url: "",
-        isChecked: false
-      }
-    }
   }
 }

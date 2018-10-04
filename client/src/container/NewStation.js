@@ -16,7 +16,6 @@ import {
   DelStationSpotName,
   AddStationSpot,
   DelStationSpot,
-  UploadStationBroadcaseImg,
 } from '../action/station'
 
 import {
@@ -73,10 +72,6 @@ const mapDispatchToProps = (dispatch) => {
     DelStationSpot: spotId => {
       dispatch(DelStationSpot(spotId))
     },
-    UploadStationBroadcaseImg: url => {
-      dispatch(UploadStationBroadcaseImg(url))
-      // UploadStationBroadcaseImg(url)
-    }
   }
 }
 
