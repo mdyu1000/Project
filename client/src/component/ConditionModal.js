@@ -98,7 +98,7 @@ export default class ConditionModal extends React.Component {
 				ch: contentCh.value,
 				en: contentEn.value,
 			},
-			image: this.props.rule.image
+			img: this.props.rule.img
 		})
 	}
 

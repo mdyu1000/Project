@@ -60,7 +60,7 @@ const initialState = {
   rule: {
     title: {},
     content: {},
-    image: ""
+    img: ""
   },
   demoColor: "#FF6900",
   isEditMode: false,
@@ -410,10 +410,7 @@ function NewRule(state, action){
     case RECEIVE_BROADCAST_IMG:
       return {
         ...state,
-        image: {
-          url: action.data.url,
-          isChecked: action.data.isChecked
-        }
+        img: action.data.isChecked ? action.data.url : null
       }
     case ADD_CONDITION_1:
     case ADD_CONDITION_2:
