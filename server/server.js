@@ -107,8 +107,8 @@ app.put('/UpdateRoute/:RID', (req, res, next) => {
 })
 
 app.post('/simulator', (req, res, next) => {
-  let route = req.body.route
-  let simulator = {
+  const route = req.body.route
+  const simulator = {
     RID: Number(route.RID),
     stations: {
       go: [],
@@ -116,66 +116,72 @@ app.post('/simulator', (req, res, next) => {
     },
     length: 0,
   }
-  let failCount = 0
-  let query = {
-    RID: route.RID
-  }
+  const query = { RID: route.RID };  // 這裡的分號是必須的 告訴編譯器不跟下面的括弧搞混
 
-  /* Loop 每兩點的 waypoints */
-  for(let i = 0; i < route.stations.go.length - 1; i++){
-    setTimeout(() => {
+  // 立刻執行非同步函式
+  (async () => {
+    for(let i = 0; i < route.stations.go.length - 1; i++) {
       console.log("i = " + i )
-      let item = route.stations.go[i]
-      let nextItem = route.stations.go[i + 1]
-      let url = `${GOOGLE_ROAD_API.url}path=${item.location.lat},${item.location.lng}|${nextItem.location.lat},${nextItem.location.lng}&${GOOGLE_ROAD_API.interpolate}&key=${GOOGLE_ROAD_API.key}`
+      const item = route.stations.go[i]
+      const nextItem = route.stations.go[i + 1]
+      const url = `${GOOGLE_ROAD_API.url}path=${item.location.lat},${item.location.lng}|${nextItem.location.lat},${nextItem.location.lng}&${GOOGLE_ROAD_API.interpolate}&key=${GOOGLE_ROAD_API.key}`
 
-      request(url, (err, res, body) => {
-        let resObj = JSON.parse(body)
+      try {
+        const result = await getWayPoints(url)
 
-          try{
-            /* 將所有 waypoints 放入陣列 */
-            for(var j = 0; j < resObj.snappedPoints.length; j++){
-              let step = resObj.snappedPoints[j]
-              simulator.stations.go.push({
-                lat: step.location.latitude,
-                lng: step.location.longitude
-              })
+        if (result.snappedPoints.length <= 3 ) {    // 若獲取到的 step 太少，則手動切隔成多份
+          const startLocation = item.location
+          const endLocation = nextItem.location
+          const section = 15  // 欲切割的份數
+          const petLat = (- startLocation.lat + endLocation.lat) / section
+          const petLng = (- startLocation.lng + endLocation.lng) / section
 
-              simulator.stations.back.unshift({
-                lat: step.location.latitude,
-                lng: step.location.longitude
-              })
+          for (let i = 0; i < section; i++) {
+            const point = {
+              lat: startLocation.lat + i * petLat,
+              lng: startLocation.lng + i * petLng
             }
-          }catch(err){
-            console.log("Road API Error")
+            simulator.stations.go.push(point)
+            simulator.stations.back.unshift(point)
           }
-
-
-        /* 全部結束 */
-        if(i == route.stations.go.length - 2) {
-          simulator.length = simulator.stations.go.length
-
-          let set = {
-            $set: simulator
-          }
-
-          console.log(simulator)
-
-          dbo.collection("simulator").findOneAndUpdate(query, set, {
-            upsert: true
-          }, (err, doc) => {
-            if (err) throw(err)
+        } else {  // 將所有 waypoints 放入陣列
+          result.snappedPoints.forEach((step) => {
+            const point = { lat: step.location.latitude, lng: step.location.longitude }
+            simulator.stations.go.push(point)
+            simulator.stations.back.unshift(point)
           })
-
-          console.log("done")
         }
-      })
+      } catch (err) {
+        console.log("Road API Error")
+      }
+    }
 
-    }, 1500 * i)
-  }
+    /* 全部結束 */
+    simulator.length = simulator.stations.go.length
 
+    const set = { $set: simulator }
 
+    dbo.collection("simulator").findOneAndUpdate(query, set, {
+      upsert: true
+    }, (err, doc) => {
+      if (err) throw(err)
+      else console.log(`Adding DB done`)
+    })
+
+    console.log(JSON.stringify(simulator, 0, 2))  // 印出simulator結果
+    res.send(JSON.stringify(simulator))
+  })()
 })
+
+const getWayPoints = (url) => {
+  return new Promise((resolve, reject) => {
+    request(url, (err, res, body) => {
+      const result = JSON.parse(body)
+      if (!err) resolve(result)
+      else reject(err)
+    })
+  })
+}
 
 /* 前端 Route Table 需要的資料 */
 app.get('/display/routelist/', (req, res, next) => {
