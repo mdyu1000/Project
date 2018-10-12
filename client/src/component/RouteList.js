@@ -1,6 +1,7 @@
 import React from 'react';
 import { containerStyle } from './Global';
 import { Redirect } from 'react-router-dom';
+import '../CSS/loading.css'
 
 const titleStyle = {
   marginTop: "2rem",
@@ -82,12 +83,17 @@ export default class RouteList extends React.Component {
         <Title />
         {
           (
-            this.props.allRoute.length != 0 &&
-            <RouteTable routes={this.props.allRoute} onClick={this.GetRID}/>
+            this.props.allRoute == null &&
+            <div className="offset-6">
+              <div className="loader"></div>
+            </div>
           ) || (
             this.props.allRoute.length == 0 &&
             <span className="d-block text-center font-italic font-weight-bold"> Route list is empty...</span>
-          )
+          ) || (
+            this.props.allRoute.length != 0 &&
+            <RouteTable routes={this.props.allRoute} onClick={this.GetRID}/>
+          ) 
         }
       </div>
     );

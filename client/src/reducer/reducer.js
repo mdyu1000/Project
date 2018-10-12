@@ -64,7 +64,7 @@ const initialState = {
   },
   demoColor: "#FF6900",
   isEditMode: false,
-  allRoute: [],
+  allRoute: null,
   edit_RID: 0,
   SIDOnGMap: -1, 
   busInfo: []
