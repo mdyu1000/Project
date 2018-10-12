@@ -90,13 +90,13 @@ export default class ConditionModal extends React.Component {
 
 	setContent(title, contentCh, contentEn){
 		return ({
-			title: title == '' ? {} : {
-				ch: title.ch,
-				en: title.en,
+			title: {
+				ch: title.ch == '' ? null : title.ch,
+				en: title.en == '' ? null : title.en,
 			},
-			content: (contentCh == '' && contentEn == '') ? {} : {
-				ch: contentCh.value,
-				en: contentEn.value,
+			content: {
+				ch: contentCh.value == '' ? null : contentCh.value,
+				en: contentEn.value == '' ? null : contentEn.value,
 			},
 			img: this.props.rule.img
 		})

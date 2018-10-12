@@ -17,11 +17,9 @@ export const DEL_STATION_SPOT_NAME = "DEL_STATION_SPOT_NAME"
 export const ADD_STATION_SPOT = "ADD_STATION_SPOT"
 export const DEL_STATION_SPOT = "DEL_STATION_SPOT"
 
-let nextSID = 4
 export function AddStation(name, location, infos){
   return {
     type: ADD_STATION,
-    SID: ++nextSID, 
     name,
     location,
     infos

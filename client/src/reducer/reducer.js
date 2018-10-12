@@ -166,7 +166,7 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
         go: [
           ...state.go,
           {
-            SID: action.SID,
+            SID: isNaN(Math.max.apply(Math, state.go.map(item => item.SID))) ? 1 : Math.max.apply(Math, state.go.map(item => item.SID)) + 1,
             name: action.name,  
             location: action.location,
             info: action.infos
@@ -194,7 +194,7 @@ function NewStation(state, action, stationName, stationLocation, busInfo){
             return item
           }else{
             return {
-              SID: action.SID,
+              SID: Number(action.SID),
               name: action.name,
               location: action.location,
               info: action.infos
@@ -438,7 +438,7 @@ function NewRules(state, action){
         ...initialState.rules
       ]
     case ADD_CONDITION_1: 
-      maxRulesID = GetMaxRulesId(state)
+      maxRulesID = GetMaxId(state)
       return [
         ...state,
         {
@@ -450,7 +450,7 @@ function NewRules(state, action){
         }
       ]
     case ADD_CONDITION_2:
-      maxRulesID = GetMaxRulesId(state)
+      maxRulesID = GetMaxId(state)
       return [
         ...state,
         {
@@ -461,7 +461,7 @@ function NewRules(state, action){
         }
       ]
     case ADD_CONDITION_3:
-      maxRulesID = GetMaxRulesId(state)
+      maxRulesID = GetMaxId(state)
       return [
         ...state,
         {
@@ -476,11 +476,11 @@ function NewRules(state, action){
   }
 }
 
-function GetMaxRulesId(rules){
-  if(rules.length == 0){
+function GetMaxId(array){
+  if(array.length == 0){
     return 1
   }else {
-    return Math.max.apply(Math, rules.map(item => item.RID)) + 1
+    return Math.max.apply(Math, array.map(item => item.RID)) + 1
   }
 }
 
