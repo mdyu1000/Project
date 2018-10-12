@@ -68,6 +68,17 @@ const MapWithASearchBox = compose(
             markers: nextMarkers,
           });
         },
+        onClickMap: e => {
+          
+          this.props.onClickMap(e.latLng)
+
+          this.setState({
+            center: e.latLng,
+            markers: [{
+              position: e.latLng
+            }]
+          })
+        }
       })
     },
   }),
@@ -78,6 +89,7 @@ const MapWithASearchBox = compose(
     defaultZoom={15}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
+    onClick={props.onClickMap}
     options={{
       mapTypeControl: false,
       streetViewControl: false
@@ -121,13 +133,23 @@ const inputStyle = {
 export default class GMapSearch extends React.Component {
   constructor(props){
     super(props);
+    this.handleClickMap = this.handleClickMap.bind(this)
+  }
+
+  handleClickMap(location){
+    this.props.onAddLocation(location.lat(), location.lng())
   }
 
   render() {
     return(
       <div>
-        <MapWithASearchBox onAddLocation={this.props.onAddLocation} location={this.props.location}
-          isEditMode = {this.props.isEditMode}/>
+        <MapWithASearchBox 
+          location={this.props.location}
+          isEditMode = {this.props.isEditMode}
+
+          onAddLocation={this.props.onAddLocation}
+          onClickMap={this.handleClickMap}
+        />
       </div>
     )
   }
