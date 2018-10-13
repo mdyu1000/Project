@@ -4,6 +4,7 @@ import {
   Form, FormText } from 'reactstrap'
 import NewStation from '../container/NewStation'
 import NewRule from '../container/NewRule'
+import NewMarquee from '../container/NewMarquee'
 import ColorPicker from './ColorPicker'
 import InputText from './InputText'
 import GMap from './GoogleMap'
@@ -229,6 +230,7 @@ export default class NewRoute extends React.Component {
                     </div>
                   </Row>
                   <NewRule  />
+                  <NewMarquee />
                 </Form>
               </div>
               <CardFooter match={this.state.match} 

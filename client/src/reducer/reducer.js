@@ -14,7 +14,8 @@ import {
   RECEIVE_ONE_ROUTE,
   RECEIVE_BUS_INFO,
   LOAD_ROUTE_INFO,
-  INIT_STATE } from '../action/NewRoute'
+  INIT_STATE 
+} from '../action/NewRoute'
 import {
   ADD_STATION,
   DEL_STATION,
@@ -30,7 +31,8 @@ import {
   ADD_STATION_SPOT_NAME,
   DEL_STATION_SPOT_NAME,
   ADD_STATION_SPOT,
-  DEL_STATION_SPOT, } from '../action/station'
+  DEL_STATION_SPOT, 
+} from '../action/station'
 import {
   DEL_CONDITION,
   ADD_CONDITION_TITLE,
@@ -38,7 +40,12 @@ import {
   RECEIVE_BROADCAST_IMG,
   ADD_CONDITION_1,
   ADD_CONDITION_2,
-  ADD_CONDITION_3,  } from '../action/condition'
+  ADD_CONDITION_3,  
+} from '../action/condition'
+import {
+  ADD_MARQUEE,
+  DEL_MARQUEE
+} from '../action/marquee'
 import { stationInfos } from '../component/Global'
 import _ from 'lodash';
 
@@ -67,7 +74,8 @@ const initialState = {
   allRoute: null,
   edit_RID: 0,
   SIDOnGMap: -1, 
-  busInfo: []
+  busInfo: [],
+  marquee: []
 }
 
 var maxRulesID = 0
@@ -546,6 +554,28 @@ function GetBusInfo(state, action){
   }
 }
 
+function NewMarquee(state, action){
+  switch(action.type){
+    case ADD_MARQUEE:
+      return [
+        ...state,
+        {
+          ID: Number.isInteger(Math.max.apply(Math, state.map(item => item.ID))) ? Math.max.apply(Math, state.map(item => item.ID)) + 1 : 1,
+          content: ""
+        }
+      ]
+    case DEL_MARQUEE:
+      let filterMarquee = state.filter(info => state.ID != action.ID)
+      return [
+        ...filterMarquee[0]
+      ]
+    case INIT_STATE:
+      return []
+    default:
+      return state
+  }
+}
+
 export default function BusPlayApp(state = initialState, action){
   return {
     nameLists: NewRouteName(state.nameLists, action, state.busInfo),
@@ -564,7 +594,8 @@ export default function BusPlayApp(state = initialState, action){
     allRoute: NewRoute(state.allRoute, action),
     edit_RID: GetEditRID(state.edit_RID, action),
     SIDOnGMap: GetSIDOnGMAP(state.SIDOnGMap, action),
-    busInfo: GetBusInfo(state.busInfo, action)
+    busInfo: GetBusInfo(state.busInfo, action),
+    marquee: NewMarquee(state.marquee, action)
   }
 }
 
