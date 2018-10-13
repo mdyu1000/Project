@@ -44,7 +44,8 @@ import {
 } from '../action/condition'
 import {
   ADD_MARQUEE,
-  DEL_MARQUEE
+  DEL_MARQUEE,
+  SET_MARQUEE
 } from '../action/marquee'
 import { stationInfos } from '../component/Global'
 import _ from 'lodash';
@@ -565,9 +566,19 @@ function NewMarquee(state, action){
         }
       ]
     case DEL_MARQUEE:
-      let filterMarquee = state.filter(info => state.ID != action.ID)
+      let filterMarquee = state.filter(info => info.ID != action.ID)
       return [
-        ...filterMarquee[0]
+        ...filterMarquee
+      ]
+    case SET_MARQUEE:
+      let filterMarquee2 = state.filter(item => item.ID == action.ID)
+      filterMarquee2[0].content = action.content //copy by value, not reference
+      return [
+        ...state
+      ]
+    case RECEIVE_ONE_ROUTE:
+      return [
+        ...action.json.marquee
       ]
     case INIT_STATE:
       return []

@@ -43,6 +43,7 @@ class NewRouteContainer extends React.Component {
         SIDOnGMap={this.props.SIDOnGMap}
         isEditMode={this.props.isEditMode}
         busInfo={this.props.busInfo}
+        marquee={this.props.marquee}
 
         onAddName={this.props.onAddName}
         onAddColor={this.props.onAddColor}
@@ -120,7 +121,8 @@ const mapStateToProps = (state) => {
     rules: state.rules,
     SIDOnGMap: state.SIDOnGMap,
     isEditMode: state.isEditMode,
-    busInfo: state.busInfo
+    busInfo: state.busInfo,
+    marquee: state.marquee,
   }
 }
 

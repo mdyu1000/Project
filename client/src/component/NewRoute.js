@@ -123,7 +123,9 @@ export default class NewRoute extends React.Component {
     route.stations["go"] = []
     route.stations["back"] = []
     route["rules"] = []
-    route["marquee"] = [marquee[Math.floor((Math.random() * 8))], marquee[Math.floor((Math.random() * 8))]]
+
+    /* 隨機的 marquee */
+    route["marquee"] = this.props.marquee
     this.props.stations.go.map(station => {
       route.stations.go.push(station)
       route.stations.back.unshift(station)
@@ -152,6 +154,7 @@ export default class NewRoute extends React.Component {
       let invalidStation = []
 
       this.StoreRoute(route, type)
+      console.log(route)
       isFieldsEqual = this.checkDepartureAndDestinationField(route)
       invalidStation = this.checkStationLanguage(route.stations.go)
 
