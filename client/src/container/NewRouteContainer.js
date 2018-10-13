@@ -16,11 +16,20 @@ import {
   loadRouteInfo,
   initState,
   SetSimulator,
+  FetchOneRoute,
 } from '../action/NewRoute'
 
 class NewRouteContainer extends React.Component {
   constructor(props){
     super(props)
+  }
+
+  componentWillMount(){
+    let RID = this.props.match.params.RID
+    
+    if(RID != undefined) {
+      this.props.FetchOneRoute(RID)
+    }
   }
 
   componentDidMount(){
@@ -106,6 +115,9 @@ const mapDispatchToProps = (dispatch) => {
     SetSimulator: (route) => {
       dispatch(SetSimulator(route))
     },
+    FetchOneRoute: RID => {
+      dispatch(FetchOneRoute(RID))
+    }
   }
 }
 
