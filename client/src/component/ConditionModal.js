@@ -91,8 +91,8 @@ export default class ConditionModal extends React.Component {
 	setContent(title, contentCh, contentEn){
 		return ({
 			title: {
-				ch: title.ch == '' ? null : title.ch,
-				en: title.en == '' ? null : title.en,
+				ch: !title.hasOwnProperty("ch") ? null : title.ch,
+				en: !title.hasOwnProperty("ch") ? null : title.en,
 			},
 			content: {
 				ch: contentCh.value == '' ? null : contentCh.value,
